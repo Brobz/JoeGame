@@ -16,6 +16,13 @@ Magnet::Magnet(){}
 Magnet::Magnet(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _maxHp, float _pullingForce) : Entity(_mass, _type, _size, _position, texture, _maxHp){
     
     pullingForce = _pullingForce;
+    
+    /*
+    sprite.setColor(Color::Color(255, 255, 200));
+    if(pullingForce < -200)
+        sprite.setColor(Color::Color(150, 150, 150));
+    */
+
 }
 
 void Magnet::excertForce(Object *other){
@@ -34,7 +41,7 @@ void Magnet::excertForce(Object *other){
     
 }
 
-void Magnet::update(vector<Object> &objectCol, vector<Bullet>  &bulletCol, vector<Player> &playerCol, vector<Enemy> &enemyCol){
+void Magnet::update(vector<Object> &objectCol, vector<Bullet>  &bulletCol, Player* playerCol, vector<Enemy> &enemyCol){
     for(int i = 0; i < objectCol.size(); i++){
         excertForce(&objectCol.at(i));
     }
@@ -43,9 +50,7 @@ void Magnet::update(vector<Object> &objectCol, vector<Bullet>  &bulletCol, vecto
         excertForce(&bulletCol.at(i));
     }
     
-    for(int i = 0; i < playerCol.size(); i++){
-        excertForce(&playerCol.at(i));
-    }
+    excertForce(playerCol);
     
     for(int i = 0; i < enemyCol.size(); i++){
         excertForce(&enemyCol.at(i));
