@@ -231,6 +231,10 @@ int main(int, char const**)
         for(int i = 0; i < allBullets.size(); i++){
             allBullets.at(i).draw(&window);
         }
+        
+        guiobj.draw(&window);
+        guitext.draw(&window);
+        guibutton.draw(&window);
         // Update the window
         window.display();
     }
