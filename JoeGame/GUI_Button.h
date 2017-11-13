@@ -13,6 +13,7 @@
 #include "GUI_Text.h"
 
 class GUI_Button : public GUI_Object{
+
 protected:
     GUI_Text text;
     Sprite hoverSprite;
@@ -20,7 +21,5 @@ public:
     GUI_Button();
     GUI_Button(Vector2f _size, Vector2f _position, Texture* texture, GUI_Text _text, Texture* _hoverSprite);
 };
-
-fdsfdsa//
 
 #endif /* GUI_Button_h */
