@@ -57,7 +57,7 @@ int main(int, char const**)
     if (!repellerTexture.loadFromFile(resourcePath() + "repeller.png")) {
         return EXIT_FAILURE;
     }
-    if (!guiTexture.loadFromFile(resourcePath() + "gui.png")) {
+    if (!guiTexture.loadFromFile(resourcePath() + "provisionalGUI.png")) {
         return EXIT_FAILURE;
     }
     if (!buttonTexture.loadFromFile(resourcePath() + "2.png")) {
@@ -88,11 +88,11 @@ int main(int, char const**)
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(64, 800), Vector2f(500, 0), &blockTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(64, 800), Vector2f(50, 0), &blockTexture));
     
-    //allEnemies.push_back(Enemy(0.1, type, Vector2f(32,64), Vector2f(200,225), &playerTexture, 100, &weapon));
+    allEnemies.push_back(Enemy(0.1, type, Vector2f(32,64), Vector2f(200,225), &playerTexture, 100, &weapon));
     
-    //allMagnets.push_back((Magnet(1, type_NG, Vector2f(64, 64), Vector2f(250, 250), &repellerTexture, 50, 800)));
+    allMagnets.push_back((Magnet(1, type_NG, Vector2f(64, 64), Vector2f(250, 250), &repellerTexture, 50, 800)));
     
-    //allMagnets.push_back((Magnet(1, type_NG, Vector2f(32, 32), Vector2f(350, 355), &attractorTexture, 50, -800)));
+    allMagnets.push_back((Magnet(1, type_NG, Vector2f(32, 32), Vector2f(350, 355), &attractorTexture, 50, -800)));
     
     GUI_Object guiobj = GUI_Object(Vector2f(16,16), Vector2f(200,200), &guiTexture);
     
@@ -248,9 +248,6 @@ int main(int, char const**)
             allBullets.at(i).draw(&window);
         }
         
-        guiobj.draw(&window);
-        guitext.draw(&window);
-        guibutton.draw(&window);
         // Update the window
         window.display();
     }
