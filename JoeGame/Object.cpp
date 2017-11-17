@@ -169,6 +169,12 @@ Sprite* Object::getSprite(){
     return &sprite;
 }
 
+void Object::setSprite(Sprite _sprite){
+    sprite = _sprite;
+    sprite.setScale(size.x / 16.0, size.y / 16.0);
+    sprite.setPosition(position);
+}
+
 Vector2f Object::getPosition(){
     return position;
 }

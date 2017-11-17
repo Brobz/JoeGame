@@ -18,17 +18,18 @@ class Bullet;
 class Player : public Entity{
 protected:
     float jumpForce, moveForce;
+    bool facingRight;
     Weapon weapon;
     RectangleShape rayCast;
     Magnet lootMagnet;
-    int gold, gems;
+    int gold, attracctorGems, repellerGems, spriteOffset, currentAnimFrame, animationSpeed, spriteSheetSize;
     //Inventory inventory (tbi)
     
     
 public:
     Player();
-    Player(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _maxHp, float _jumpForce, float _moveForce, Weapon* _weapon, Magnet* lootMagnet);
-    void update(vector<Object> &objectCol, vector<Magnet> &magnetCol, vector<Loot> &lootCol);
+    Player(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _maxHp, float _jumpForce, float _moveForce, Weapon* _weapon, Magnet* lootMagnet, int _spriteSheetSize, int _animationSpeed);
+    void update(vector<Object> &objectCol, vector<Magnet> &magnetCol, vector<Loot> &lootCol, Time time);
     void draw(RenderWindow* window);
     void pointWeapon(RenderWindow* window);
     void fireWeapon(vector<Bullet> &bullets);
@@ -36,6 +37,8 @@ public:
     float getMoveForce();
     Weapon* getWeapon();
     void getLoot(int lootType, int lootAmount);
+    void setFacingRight(bool _bool);
+    bool getFacingRight();
     
 };
 

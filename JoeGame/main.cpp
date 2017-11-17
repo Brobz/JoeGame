@@ -32,9 +32,9 @@ int main(int, char const**)
     
     // Load a sprite to display
 
-    sf::Texture playerTexture, blockTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture;
+    sf::Texture playerTexture, blockTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture;
     
-    if (!playerTexture.loadFromFile(resourcePath() + "pacman.png")) {
+    if (!playerTexture.loadFromFile(resourcePath() + "joeFinal.png")) {
         return EXIT_FAILURE;
     }
     
@@ -57,7 +57,12 @@ int main(int, char const**)
     if (!repellerTexture.loadFromFile(resourcePath() + "repeller.png")) {
         return EXIT_FAILURE;
     }
-    if (!guiTexture.loadFromFile(resourcePath() + "provisionalGUI.png")) {
+
+    if (!goldTexture.loadFromFile(resourcePath() + "gold.png")) {
+        return EXIT_FAILURE;
+    }
+    
+    if (!guiTexture.loadFromFile(resourcePath() + "gui.png")) {
         return EXIT_FAILURE;
     }
     if (!buttonTexture.loadFromFile(resourcePath() + "2.png")) {
@@ -77,19 +82,20 @@ int main(int, char const**)
     vector<Loot> allLoots;
     
     
-    
     vector<int> type = {1, 1, 1, 1};
     vector<int> type_NG = {0, 1, 1, 1};
     vector<int> type_NM = {1, 0, 1, 1};
     vector<int> type_NG_NM = {0, 0, 1, 1};
     
-    allLoots.push_back(Loot(0.01, type, Vector2f(12, 12), Vector2f(350, 350), &gunTexture, 0, 3));
+    allLoots.push_back(Loot(0.05, type, Vector2f(20, 20), Vector2f(350, 350), &goldTexture, 0, 3));
     
     Weapon weapon = Weapon(1, type_NG_NM, Vector2f(32,24), Vector2f(200,450), &gunTexture, 20, 3, &bulletTexture, true, type_NG, 0.15, 2, Vector2f(16, 16));
     
-    Magnet lootMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(), &attractorTexture, 50, -50);
+    Magnet lootMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(), &attractorTexture, 50, -30);
     
-    player = new Player(0.75, type, Vector2f(50, 50), Vector2f(150, 500), &playerTexture, 100, 10, 5, &weapon, &lootMagnet);
+    player = new Player(0.75, type, Vector2f(50, 50), Vector2f(150, 500), &playerTexture, 100, 10, 5, &weapon, &lootMagnet, 9, 60);
+    
+    player->setSprite(*new Sprite(playerTexture,IntRect(0,0,16,16)));
 
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(1000, 64), Vector2f(-100, 555), &blockTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(1000, 64), Vector2f(-100, 150), &blockTexture));
@@ -111,6 +117,7 @@ int main(int, char const**)
     GUI_Text guitext = GUI_Text(Vector2f(0,0), "hola", 30, &font, Color::Red);
     GUI_Button guibutton = GUI_Button(Vector2f(16,16), Vector2f(100,100), &buttonTexture, guitext, &guiTexture);
     
+    sf::Clock clock;
     // Start the game loop
     while (window.isOpen())
     {
@@ -175,17 +182,45 @@ int main(int, char const**)
             }
         }
         
+        // Input arrays
         if(MOUSE_INPUTS[0])
             player->fireWeapon(allBullets);
         
-        if(KEY_INPUTS[3])
+        if(KEY_INPUTS[3]){
             player->setSelfVelocity(Vector2f(player->getMoveForce(), player->getSelfVelocity().y));
+            if (!player->getFacingRight())
+                player->setFacingRight(true);
+            /*/
+            // Update sprite
+            int spriteOffSet = ((int)clock.getElapsedTime().asMilliseconds()/30) % 9;
+            player->setSprite(*new Sprite(*player->getSprite()->getTexture(),IntRect(16*spriteOffSet,0,16,16)));
+             /*/
+        }
         
-        if(KEY_INPUTS[1])
+        if(KEY_INPUTS[1]){
+            if (player->getFacingRight())
+                player->setFacingRight(false);
+            
+            /*/
+            // Update sprite
+            int spriteOffSet = ((int)clock.getElapsedTime().asMilliseconds()/30) % 9;
+            player->setSprite(*new Sprite(*player->getSprite()->getTexture(),IntRect(16*spriteOffSet,16,16,16)));
+            /*/
+            
            player->setSelfVelocity(Vector2f(-player->getMoveForce(), player->getSelfVelocity().y));
+            
+        }
         
-        if(!KEY_INPUTS[1] && !KEY_INPUTS[3])
+        if(!KEY_INPUTS[1] && !KEY_INPUTS[3]){
             player->setSelfVelocity(Vector2f(0, player->getSelfVelocity().y));
+            /*/
+            // Update sprite
+            if(player->getFacingRight())
+                player->setSprite(*new Sprite(*player->getSprite()->getTexture(),IntRect(0,0,16,16)));
+            else
+                player->setSprite(*new Sprite(*player->getSprite()->getTexture(),IntRect(16,16,16,16)));
+             /*/
+        }
         
         // Update Magnet physics
         for(int i = 0; i < allMagnets.size(); i++){
@@ -206,8 +241,7 @@ int main(int, char const**)
         }
         
         // Update Player physics
-
-        player->update(allObjects, allMagnets, allLoots);
+        player->update(allObjects, allMagnets, allLoots, clock.getElapsedTime());
         
         
         // Update Loot Physics
