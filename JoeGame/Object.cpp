@@ -138,6 +138,9 @@ void Object::addForce(Vector2f force){
 }
 
 void Object::addForce(Vector2f force, int index){
+    cout << "indice: " << index << endl;
+    cout << "size: " << type.size() << endl;
+    
     acceleration.x += (force.x / mass) * type.at(index);
     acceleration.y += (force.y / mass) * type.at(index);
 }
@@ -211,6 +214,10 @@ float Object::getAtan(Vector2f coordinates, bool radians){
         angle = angle*180/M_PI;
     
     return angle;
+}
+
+vector<int> Object::getType(){
+    return type;
 }
 
 

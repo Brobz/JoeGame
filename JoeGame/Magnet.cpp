@@ -58,7 +58,7 @@ void Magnet::update(vector<Object> &objectCol, vector<Bullet>  &bulletCol, Playe
     }
     
     if(hp <= 0)
-        die();
+        Destroy();
 }
 
 void Magnet::update(vector<Loot> &lootCol){
@@ -67,5 +67,5 @@ void Magnet::update(vector<Loot> &lootCol){
     }
     
     if(hp <= 0)
-        die();
+        Destroy();
 }

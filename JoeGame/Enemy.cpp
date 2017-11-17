@@ -8,9 +8,11 @@
 
 #include <stdio.h>
 #include "Enemy.h"
+#include "Loot.h"
 
 Enemy::Enemy(){};
 
 Enemy::Enemy(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _maxHp, Weapon* _weapon) : Entity(_mass, _type, _size, _position, texture, _maxHp){
     weapon = *_weapon;
 };
+

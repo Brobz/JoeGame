@@ -63,6 +63,7 @@ int main(int, char const**)
     if (!buttonTexture.loadFromFile(resourcePath() + "2.png")) {
         return EXIT_FAILURE;
     }
+
     
     
     int MOUSE_INPUTS[3] = {0, 0, 0}; // LEFT, MIDDLE, RIGHT
@@ -205,6 +206,7 @@ int main(int, char const**)
         }
         
         // Update Player physics
+
         player->update(allObjects, allMagnets, allLoots);
         
         
@@ -220,6 +222,8 @@ int main(int, char const**)
         // Update Enemy physics
         for(int i = 0; i < allEnemies.size(); i++){
             if (allEnemies.at(i).isItDestroyed()){
+                Loot newLoot = Loot(0.1, type, Vector2f(12, 12), allEnemies.at(i).getPosition(), &gunTexture, 0, 3);
+                allLoots.push_back(newLoot);
                 allEnemies.erase(allEnemies.begin() + i);
                 continue;
             }
@@ -264,7 +268,6 @@ int main(int, char const**)
             allBullets.at(i).draw(&window);
         }
         
-
         // Draw Loot
         for(int i = 0; i < allLoots.size(); i++){
             allLoots.at(i).draw(&window);

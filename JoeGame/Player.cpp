@@ -70,7 +70,7 @@ void Player::update(vector<Object> &objectCol, vector<Magnet> &magnetCol, vector
         isGrounded = false;
     
     if(hp <= 0)
-        die();
+        Destroy();
     
     // Update Weapon
     weapon.setPosition(getPosition());

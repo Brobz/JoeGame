@@ -11,6 +11,7 @@
 
 #include "Entity.h"
 #include "Weapon.h"
+#include "Loot.h"
 
 class Enemy : public Entity {
 protected:
@@ -19,6 +20,5 @@ public:
     Enemy();
     Enemy(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _maxHp, Weapon* _weapon);
     void pathFinding();
-    
 };
 #endif /* Enemy_h */

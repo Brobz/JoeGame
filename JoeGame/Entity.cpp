@@ -19,10 +19,6 @@ Entity::Entity(double _mass, vector<int> &_type, Vector2f _size, Vector2f _posit
     
 }
 
-void Entity::die(){
-    Destroy();
-}
-
 void Entity::update(vector<Object> &colliders){
     // Add gravity force
     addForce(Vector2f(0, GRAVITY * mass), 0);
@@ -61,7 +57,7 @@ void Entity::update(vector<Object> &colliders){
         isGrounded = false;
     
     if(hp <= 0)
-        die();
+        Destroy();
 }
 
 bool Entity::collidesWith(Object &other, int axis){
