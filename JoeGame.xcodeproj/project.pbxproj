@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0A0CB6D71FBABC610061FF0F /* Loot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A0CB6D61FBABC610061FF0F /* Loot.cpp */; };
 		0A0CB6D91FBB4A800061FF0F /* joe.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0CB6D81FBB4A800061FF0F /* joe.png */; };
+		0A3DF43D1FC3865F00A302A5 /* Spawner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DF43C1FC3865F00A302A5 /* Spawner.cpp */; };
 		0A5D0E011FB6172800E863A0 /* bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A5D0E001FB6172800E863A0 /* bullet.png */; };
 		0A5D0E041FB6266D00E863A0 /* Magnet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D0E031FB6266D00E863A0 /* Magnet.cpp */; };
 		0AD1BCCA1FAEF75300FAD766 /* pacman.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD1BCC91FAEF75300FAD766 /* pacman.png */; };
@@ -39,6 +40,8 @@
 		0A0CB6D51FBABBF30061FF0F /* Loot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Loot.h; sourceTree = "<group>"; };
 		0A0CB6D61FBABC610061FF0F /* Loot.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Loot.cpp; sourceTree = "<group>"; };
 		0A0CB6D81FBB4A800061FF0F /* joe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = joe.png; sourceTree = "<group>"; };
+		0A3DF43B1FC3864C00A302A5 /* Spawner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Spawner.h; sourceTree = "<group>"; };
+		0A3DF43C1FC3865F00A302A5 /* Spawner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Spawner.cpp; sourceTree = "<group>"; };
 		0A5D0E001FB6172800E863A0 /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet.png; sourceTree = "<group>"; };
 		0A5D0E021FB620D900E863A0 /* Magnet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Magnet.h; sourceTree = "<group>"; };
 		0A5D0E031FB6266D00E863A0 /* Magnet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Magnet.cpp; sourceTree = "<group>"; };
@@ -127,6 +130,8 @@
 				0A5D0E031FB6266D00E863A0 /* Magnet.cpp */,
 				0A0CB6D51FBABBF30061FF0F /* Loot.h */,
 				0A0CB6D61FBABC610061FF0F /* Loot.cpp */,
+				0A3DF43B1FC3864C00A302A5 /* Spawner.h */,
+				0A3DF43C1FC3865F00A302A5 /* Spawner.cpp */,
 				0AE1C46E1FB7F44300A8632B /* GUI_Button.h */,
 				0AE1C46D1FB7F44300A8632B /* GUI_Button.cpp */,
 				0AE1C46B1FB7F44300A8632B /* GUI_Object.h */,
@@ -264,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A3DF43D1FC3865F00A302A5 /* Spawner.cpp in Sources */,
 				0AE1C4721FB7F44400A8632B /* GUI_Button.cpp in Sources */,
 				DB1F92BF1FAE95C1002BA52D /* Entity.cpp in Sources */,
 				DB6B98A31FB3C814000EA66A /* Player.cpp in Sources */,

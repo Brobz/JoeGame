@@ -9,6 +9,7 @@
 #include "Bullet.h"
 #include "Enemy.h"
 #include "Magnet.h"
+#include "Spawner.h"
 #include "GUI_Object.h"
 #include "GUI_Text.h"
 #include "GUI_Button.h"
@@ -78,6 +79,7 @@ int main(int, char const**)
     vector<Enemy> allEnemies;
     vector<Bullet> allBullets;
     vector<Magnet> allMagnets;
+    vector<Spawner> allSpawners;
     vector<Loot> allLoots;
     
     
@@ -86,11 +88,15 @@ int main(int, char const**)
     vector<int> type_NM = {1, 0, 1, 1};
     vector<int> type_NG_NM = {0, 0, 1, 1};
     
+    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(300, 300), Vector2f(200, 300), &blockTexture, 30));
+    
+    allSpawners.at(0).activate();
+    
     allLoots.push_back(Loot(0.05, type, Vector2f(20, 20), Vector2f(350, 350), &goldTexture, 0, 3));
     
-    Weapon weapon = Weapon(1, type_NG_NM, Vector2f(32,24), Vector2f(200,450), &gunTexture, 20, 3, &bulletTexture, true, type_NG, 0.15, 2, Vector2f(16, 16));
+    Weapon weapon = Weapon(1, type_NG_NM, Vector2f(32,24), Vector2f(200,450), &gunTexture, 20, 3, &bulletTexture, true, type_NG, 0.15, 10, Vector2f(16, 16));
     
-    Magnet lootMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(), &attractorTexture, 50, -30);
+    Magnet lootMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(), &attractorTexture, 50, -30, 0, 60);
     
     player = new Player(0.75, type, Vector2f(50, 50), Vector2f(150, 500), &playerTexture, 100, 10, 5, &weapon, &lootMagnet, 9, 60);
     
@@ -167,13 +173,13 @@ int main(int, char const**)
             if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::N) {
                 Vector2f mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
                 mousePos -= Vector2f(16,16);
-                allMagnets.push_back((Magnet(1, type_NG, Vector2f(32, 32), mousePos, &attractorTexture, 50, -800)));
+                allMagnets.push_back((Magnet(1, type_NG, Vector2f(32, 32), mousePos, &attractorTexture, 50, -800, 0, 60)));
             }
             
             if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::M) {
                 Vector2f mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
                 mousePos -= Vector2f(16,16);
-                allMagnets.push_back((Magnet(1, type_NG, Vector2f(32, 32), mousePos, &repellerTexture, 50, 800)));
+                allMagnets.push_back((Magnet(1, type_NG, Vector2f(32, 32), mousePos, &repellerTexture, 50, 800, 0, 60)));
             }
             
             if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::B) {
@@ -189,22 +195,11 @@ int main(int, char const**)
             player->setSelfVelocity(Vector2f(player->getMoveForce(), player->getSelfVelocity().y));
             if (!player->getFacingRight())
                 player->setFacingRight(true);
-            /*/
-            // Update sprite
-            int spriteOffSet = ((int)clock.getElapsedTime().asMilliseconds()/30) % 9;
-            player->setSprite(*new Sprite(*player->getSprite()->getTexture(),IntRect(16*spriteOffSet,0,16,16)));
-             /*/
         }
         
         if(KEY_INPUTS[1]){
             if (player->getFacingRight())
                 player->setFacingRight(false);
-            
-            /*/
-            // Update sprite
-            int spriteOffSet = ((int)clock.getElapsedTime().asMilliseconds()/30) % 9;
-            player->setSprite(*new Sprite(*player->getSprite()->getTexture(),IntRect(16*spriteOffSet,16,16,16)));
-            /*/
             
            player->setSelfVelocity(Vector2f(-player->getMoveForce(), player->getSelfVelocity().y));
             
@@ -212,13 +207,15 @@ int main(int, char const**)
         
         if(!KEY_INPUTS[1] && !KEY_INPUTS[3]){
             player->setSelfVelocity(Vector2f(0, player->getSelfVelocity().y));
-            /*/
-            // Update sprite
-            if(player->getFacingRight())
-                player->setSprite(*new Sprite(*player->getSprite()->getTexture(),IntRect(0,0,16,16)));
-            else
-                player->setSprite(*new Sprite(*player->getSprite()->getTexture(),IntRect(16,16,16,16)));
-             /*/
+        }
+        
+        // Update Spawner physics
+        for(int i = 0; i < allSpawners.size(); i++){
+            allSpawners.at(i).update();
+            if(allSpawners.at(i).canItSpawn()){
+                allEnemies.push_back(Enemy(0.75, type, Vector2f(32,64), allSpawners.at(i).getPosition(), &playerTexture, 100, &weapon, 9, 60));
+                allSpawners.at(i).spawned();
+            }
         }
         
         // Update Magnet physics
@@ -255,14 +252,15 @@ int main(int, char const**)
         // Update Enemy physics
         for(int i = 0; i < allEnemies.size(); i++){
             if (allEnemies.at(i).isItDestroyed()){
+                allLoots.push_back(Loot(0.05, type, Vector2f(20, 20), allEnemies.at(i).getPosition(), &goldTexture, 0, 3));
                 allEnemies.erase(allEnemies.begin() + i);
                 continue;
             }
-            /*/
+            
             if(allEnemies.at(i).isItGrounded()){
-                allEnemies.at(i).addForce(Vector2f(0, -1.5));
+                allEnemies.at(i).setSelfVelocity(Vector2f(2, 0));
             }
-            /*/
+            
             allEnemies.at(i).update(allObjects);
         }
         

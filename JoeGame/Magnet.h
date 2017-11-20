@@ -21,7 +21,7 @@ protected:
     double pullingForce;
 public:
     Magnet();
-    Magnet(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _maxHp, float _pullingForce);
+    Magnet(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _maxHp, float _pullingForce, int _spriteSheetSize, int _animationSpeed);
     void excertForce(Object* other);
     void update(vector<Loot> &lootCol);
     void update(vector<Object> &objectCol, vector<Bullet>  &bulletCol, Player* playerCol, vector<Enemy> &enemyCol);
