@@ -120,14 +120,6 @@ Weapon* Player::getWeapon(){
     return &weapon;
 }
 
-void Player::setFacingRight(bool _bool){
-    facingRight = _bool;
-}
-
-bool Player::getFacingRight(){
-    return facingRight;
-}
-
 void Player::getLoot(int lootType, int lootAmount){
     if(!lootType)
         gold += lootAmount;

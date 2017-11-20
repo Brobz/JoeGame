@@ -28,6 +28,8 @@ public:
     void setSelfVelocity(Vector2f _selfVelocity);
     void underlap(Rect<float> &otherBounds, int axis);
     bool collidesWith(Object &other, int axis);
+    void setFacingRight(bool _bool);
+    bool getFacingRight();
     Vector2f getSelfVelocity();
 };
 
