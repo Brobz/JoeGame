@@ -11,11 +11,16 @@
 
 Entity::Entity(){};
 
-Entity::Entity(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _maxHp) : Object(_mass, _type, _size, _position, texture){
+Entity::Entity(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _maxHp, int _spriteSheetSize, int _animationSpeed) : Object(_mass, _type, _size, _position, texture){
     
     maxHp = _maxHp;
     hp = maxHp;
     isGrounded = false;
+    spriteSheetSize = _spriteSheetSize;
+    animationSpeed = _animationSpeed;
+    selfVelocity = Vector2f();
+    currentAnimFrame = 0;
+    spriteOffset = 0;
     
 }
 
@@ -103,6 +108,40 @@ void Entity::underlap(Rect<float> &otherBounds, int axis){
     }
     
     sprite.setPosition(position);
+}
+
+void Entity::draw(RenderWindow* window){
+    if(selfVelocity.x > 0){
+        currentAnimFrame++;
+        if(currentAnimFrame >= 60 / animationSpeed){
+            spriteOffset++;
+            currentAnimFrame = 0;
+            if(spriteOffset >= spriteSheetSize)
+                spriteOffset = 0;
+        }
+        sprite.setTextureRect(IntRect(16 * spriteOffset, 0, 16, 16));
+    }
+    
+    else if(selfVelocity.x < 0){
+        currentAnimFrame++;
+        if(currentAnimFrame >= 60 / animationSpeed){
+            spriteOffset++;
+            currentAnimFrame = 0;
+            if(spriteOffset >= spriteSheetSize)
+                spriteOffset = 0;
+        }
+        sprite.setTextureRect(IntRect(16 * spriteOffset, 16, 16, 16));
+    }
+    else{
+        currentAnimFrame = 0;
+        spriteOffset = 0;
+        if(facingRight || spriteSheetSize == 0)
+            sprite.setTextureRect(IntRect(0, 0, 16, 16));
+        else
+            sprite.setTextureRect(IntRect(0, 16, 16, 16));
+    }
+    
+    Object::draw(window);
 }
 
 bool Entity::isItGrounded(){

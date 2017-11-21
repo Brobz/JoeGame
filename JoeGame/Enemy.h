@@ -18,7 +18,7 @@ protected:
     Weapon weapon;
 public:
     Enemy();
-    Enemy(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _maxHp, Weapon* _weapon);
-    void pathFinding();
+    Enemy(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _maxHp, Weapon* _weapon, int _spriteSheetSize, int _animationSpeed);
+    void chasePlayer(Vector2f playerpos, double speed);
 };
 #endif /* Enemy_h */

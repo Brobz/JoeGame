@@ -14,7 +14,7 @@
 
 Magnet::Magnet(){}
 
-Magnet::Magnet(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _maxHp, float _pullingForce) : Entity(_mass, _type, _size, _position, texture, _maxHp){
+Magnet::Magnet(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _maxHp, float _pullingForce, int _spriteSheetSize, int _animationSpeed) : Entity(_mass, _type, _size, _position, texture, _maxHp, _spriteSheetSize, _animationSpeed){
     
     pullingForce = _pullingForce;
     

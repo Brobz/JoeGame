@@ -22,7 +22,7 @@ protected:
     Weapon weapon;
     RectangleShape rayCast;
     Magnet lootMagnet;
-    int gold, attracctorGems, repellerGems, spriteOffset, currentAnimFrame, animationSpeed, spriteSheetSize;
+    int gold, attracctorGems, repellerGems;
     //Inventory inventory (tbi)
     
     
