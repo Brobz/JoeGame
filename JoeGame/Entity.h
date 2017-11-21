@@ -32,6 +32,8 @@ public:
     void setFacingRight(bool _bool);
     bool getFacingRight();
     Vector2f getSelfVelocity();
+    int getHP();
+    int getMaxHP();
 };
 
 #endif /* Entity_h */

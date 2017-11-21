@@ -140,6 +140,19 @@ int main(int, char const**)
     GUI_Text guitext = GUI_Text(Vector2f(0,0), "hola", 30, &font, Color::Red);
     GUI_Button guibutton = GUI_Button(Vector2f(16,16), Vector2f(100,100), &buttonTexture, guitext, &guiTexture);
     
+    sf::RectangleShape lifeBar;
+    sf::RectangleShape lifeBarBG;
+    
+    lifeBar.setSize(sf::Vector2f(150, 20));
+    lifeBar.setPosition(sf::Vector2f(20, 20));
+    lifeBar.setFillColor(Color(97, 216, 54));
+    
+    lifeBarBG.setSize(sf::Vector2f(150, 20));
+    lifeBarBG.setPosition(sf::Vector2f(20, 20));
+    lifeBarBG.setFillColor(Color(238, 17,0));
+    lifeBarBG.setOutlineThickness(3);
+    lifeBarBG.setOutlineColor(Color(0,0,0));
+    
     sf::Clock clock;
     // Start the game loop
     while (window.isOpen())
@@ -289,6 +302,9 @@ int main(int, char const**)
             }
         }
         
+        //Update HP Bar
+        lifeBar.setSize(sf::Vector2f((float)player->getHP()/player->getMaxHP()*150, 20));
+        
         // Clear screen
         window.draw(bgSprite);
         
@@ -322,6 +338,9 @@ int main(int, char const**)
         for(int i = 0; i < allLoots.size(); i++){
             allLoots.at(i).draw(&window);
         }
+        
+        window.draw(lifeBarBG);
+        window.draw(lifeBar);
         
         // Update the window
         window.display();

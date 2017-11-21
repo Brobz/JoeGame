@@ -167,3 +167,11 @@ void Entity::setFacingRight(bool _bool){
 bool Entity::getFacingRight(){
     return facingRight;
 }
+
+int Entity::getHP(){
+    return hp;
+}
+
+int Entity::getMaxHP(){
+    return maxHp;
+}
