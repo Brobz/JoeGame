@@ -16,6 +16,7 @@ Entity::Entity(double _mass, vector<int> &_type, Vector2f _size, Vector2f _posit
     maxHp = _maxHp;
     hp = maxHp;
     isGrounded = false;
+    facingRight = true;
     spriteSheetSize = _spriteSheetSize;
     animationSpeed = _animationSpeed;
     selfVelocity = Vector2f();
@@ -157,5 +158,13 @@ void Entity::setSelfVelocity(Vector2f _selfVelocity){
 }
 Vector2f Entity::getSelfVelocity(){
     return selfVelocity;
+}
+
+void Entity::setFacingRight(bool _bool){
+    facingRight = _bool;
+}
+
+bool Entity::getFacingRight(){
+    return facingRight;
 }
 

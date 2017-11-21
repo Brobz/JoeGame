@@ -195,16 +195,13 @@ int main(int, char const**)
             player->fireWeapon(allBullets);
         
         if(KEY_INPUTS[3]){
+            player->setFacingRight(true);
             player->setSelfVelocity(Vector2f(player->getMoveForce(), player->getSelfVelocity().y));
-            if (!player->getFacingRight())
-                player->setFacingRight(true);
-        }
+        } 
         
         if(KEY_INPUTS[1]){
-            if (player->getFacingRight())
-                player->setFacingRight(false);
-            
-           player->setSelfVelocity(Vector2f(-player->getMoveForce(), player->getSelfVelocity().y));
+            player->setFacingRight(false);
+            player->setSelfVelocity(Vector2f(-player->getMoveForce(), player->getSelfVelocity().y));
             
         }
         
