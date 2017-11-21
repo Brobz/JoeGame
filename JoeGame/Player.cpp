@@ -114,6 +114,10 @@ void Player::fireWeapon(vector<Bullet> &bullets){
     weapon.fire(bullets);
 }
 
+int Player::getGold(){
+    return gold;
+}
+
 Weapon* Player::getWeapon(){
     return &weapon;
 }

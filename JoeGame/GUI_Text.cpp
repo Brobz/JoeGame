@@ -25,3 +25,7 @@ GUI_Text::GUI_Text(Vector2f _position, string _text, int _fontsize, Font* _font,
 void GUI_Text::draw(RenderWindow* window){
     (*window).draw(text);
 }
+
+void GUI_Text::setText(String s){
+    text.setString(s);
+}

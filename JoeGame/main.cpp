@@ -140,8 +140,9 @@ int main(int, char const**)
     GUI_Text guitext = GUI_Text(Vector2f(0,0), "hola", 30, &font, Color::Red);
     GUI_Button guibutton = GUI_Button(Vector2f(16,16), Vector2f(100,100), &buttonTexture, guitext, &guiTexture);
     
-    sf::RectangleShape lifeBar;
-    sf::RectangleShape lifeBarBG;
+    //GUI
+    sf::RectangleShape lifeBar, lifeBarBG, goldBar;
+    sf::Sprite goldIcon;
     
     lifeBar.setSize(sf::Vector2f(150, 20));
     lifeBar.setPosition(sf::Vector2f(20, 20));
@@ -152,6 +153,17 @@ int main(int, char const**)
     lifeBarBG.setFillColor(Color(238, 17,0));
     lifeBarBG.setOutlineThickness(3);
     lifeBarBG.setOutlineColor(Color(0,0,0));
+    
+    goldBar.setSize(sf::Vector2f(75, 20));
+    goldBar.setPosition(sf::Vector2f(window.getSize().x-20-goldBar.getSize().x, 20));
+    goldBar.setFillColor(Color(246,200,0));
+    goldBar.setOutlineThickness(3);
+    goldBar.setOutlineColor(Color(0,0,0));
+    
+    goldIcon.setTexture(goldTexture);
+    goldIcon.setPosition(window.getSize().x-16-goldBar.getSize().x, 22);
+    
+    GUI_Text goldLabel = GUI_Text(Vector2f(window.getSize().x-goldBar.getSize().x + 4,18), std::to_string(player->getGold()), 18, &font, Color::Black);
     
     sf::Clock clock;
     // Start the game loop
@@ -304,6 +316,7 @@ int main(int, char const**)
         
         //Update HP Bar
         lifeBar.setSize(sf::Vector2f((float)player->getHP()/player->getMaxHP()*150, 20));
+        goldLabel.setText(std::to_string(player->getGold()));
         
         // Clear screen
         window.draw(bgSprite);
@@ -341,6 +354,9 @@ int main(int, char const**)
         
         window.draw(lifeBarBG);
         window.draw(lifeBar);
+        window.draw(goldBar);
+        window.draw(goldIcon);
+        goldLabel.draw(&window);
         
         // Update the window
         window.display();

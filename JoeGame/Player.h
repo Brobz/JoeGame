@@ -37,6 +37,7 @@ public:
     float getMoveForce();
     Weapon* getWeapon();
     void getLoot(int lootType, int lootAmount);
+    int getGold();
     void die();
     
 };

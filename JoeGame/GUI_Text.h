@@ -23,6 +23,7 @@ public:
     GUI_Text();
     GUI_Text(Vector2f _position, string _text, int _fontsize, Font* _font, Color _color);
     void draw(RenderWindow* window);
+    void setText(String s);
 };
 
 #endif /* GUI_Text_h */
