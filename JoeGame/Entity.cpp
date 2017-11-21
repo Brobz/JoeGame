@@ -167,4 +167,3 @@ void Entity::setFacingRight(bool _bool){
 bool Entity::getFacingRight(){
     return facingRight;
 }
-

@@ -22,6 +22,8 @@ Weapon::Weapon(vector<int> &_type, Vector2f _size, Texture* texture, double _fir
     bulletDamage = _bulletDamage;
     bulletSize = _bulletSize;
     canFire = true;
+    if(!isPlayer)
+        canFire = false;
 }
 
 void Weapon::fire(vector<Bullet> &bullets){

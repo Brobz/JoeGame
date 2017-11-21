@@ -16,7 +16,7 @@ protected:
     bool facingRight;
     int spriteOffset, currentAnimFrame, animationSpeed, spriteSheetSize;
     int hp, maxHp;
-    Vector2f selfVelocity;
+    Vector2f selfVelocity, weaponOffset;;
 public:
     Entity();
 

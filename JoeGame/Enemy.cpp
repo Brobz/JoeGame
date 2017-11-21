@@ -15,8 +15,12 @@
 
 Enemy::Enemy(){};
 
-Enemy::Enemy(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _maxHp, Weapon* _weapon, int _spriteSheetSize, int _animationSpeed) : Entity(_mass, _type, _size, _position, texture, _maxHp, _spriteSheetSize, _animationSpeed){
+Enemy::Enemy(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _maxHp, Weapon* _weapon, int _spriteSheetSize, int _animationSpeed, bool _shooter) : Entity(_mass, _type, _size, _position, texture, _maxHp, _spriteSheetSize, _animationSpeed){
     weapon = *_weapon;
+    shooter = _shooter;
+    weaponOffset = Vector2f(25, 32);
+    weapon.getSprite()->setOrigin(2, 2);
+    weapon.setPosition(position + weaponOffset);
 };
 
 void Enemy::chasePlayer(Vector2f playerpos, Vector2f speed){
@@ -79,4 +83,45 @@ void Enemy::update(vector<Object> &objectCol, vector<Magnet> &magnetCol, Player*
     if(hp <= 0)
         Destroy();
     
+    // Update Weapon
+    if(shooter){
+        pointWeapon(playerCol);
+        weapon.setPosition(position + weaponOffset);
+        weapon.update();
+    }
+}
+
+void Enemy::pointWeapon(Player* player){
+    Vector2f playerPos = player->getPosition();
+    
+    float angle = Object::getAtan(Vector2f(playerPos.x - weapon.getPosition().x, playerPos.y - weapon.getPosition().y), false);
+    
+    /*/
+    rayCast = RectangleShape(Vector2f(1, 1000));
+    rayCast.setFillColor(sf::Color::Red);
+    rayCast.setPosition(weapon.getPosition());
+    rayCast.rotate(angle);
+     /*/
+    
+    weapon.getSprite()->setRotation(angle + 90);
+    
+};
+
+void Enemy::draw(RenderWindow* window){
+    Entity::draw(window);
+    if(shooter){
+        weapon.draw(window);
+    }
+}
+
+void Enemy::fireWeapon(vector<Bullet> &bullets){
+    weapon.fire(bullets);
+}
+
+Weapon* Enemy::getWeapon(){
+    return &weapon;
+}
+
+bool Enemy::isShooter(){
+    return shooter;
 }

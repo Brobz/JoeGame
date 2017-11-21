@@ -108,17 +108,17 @@ int main(int, char const**)
     // wait its motion blur
     bgSprite.setColor(Color(255, 255, 255, 205));
     
-    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 90));
+    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 240));
     
     allSpawners.at(0).activate();
-    
-    Weapon weapon = Weapon(type_NG_NM, Vector2f(45,45), &gunTexture, 5, 1.5, &bulletTexture, true, type_NG, 0.15, 10, Vector2f(8, 8));
+
+    Weapon playerWeapon = Weapon(type_NG_NM, Vector2f(45,45), &gunTexture, 5, 1.5, &bulletTexture, true, type_NG, 0.15, 20, Vector2f(8, 8));
     
     playerWeapons.push_back(Weapon(type_NG_NM, Vector2f(45,45), &gunTexture, 5, 1.5, &bulletTexture, true, type_NG, 0.15, 10, Vector2f(8, 8)));
     
     Magnet lootMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(), &attractorTexture, 50, -30, 0, 60);
     
-    player = new Player(0.75, type, Vector2f(50, 50), Vector2f(150, 500), &playerTexture, 100, 10, 5, &weapon, &lootMagnet, 9, 60);
+    player = new Player(0.75, type, Vector2f(50, 50), Vector2f(150, 500), &playerTexture, 100, 10, 5, &playerWeapon, &lootMagnet, 9, 60);
     
     player->setSprite(*new Sprite(playerTexture,IntRect(0,0,16,16)));
 
@@ -240,7 +240,8 @@ int main(int, char const**)
         }
         
         // Update Player physics
-        player->update(allObjects, allMagnets, allLoots);
+        if(!player->isItDestroyed())
+            player->update(allObjects, allMagnets, allLoots);
         
         
         // Update Loot Physics
@@ -261,11 +262,11 @@ int main(int, char const**)
                 continue;
             }
             
-            /*/if(allEnemies.at(i).isItGrounded()){
-                allEnemies.at(i).setSelfVelocity(Vector2f(2, 0));
-            }/*/
+            if(allEnemies.at(i).isShooter()){
+                allEnemies.at(i).fireWeapon(allBullets);
+            }
             
-            allEnemies.at(i).chasePlayer(player->getPosition(), Vector2f(3, 10));
+            allEnemies.at(i).chasePlayer(player->getPosition(), Vector2f(1, 8));
             allEnemies.at(i).update(allObjects, allMagnets, player);
             
         }
@@ -279,7 +280,7 @@ int main(int, char const**)
         for(int i = 0; i < allSpawners.size(); i++){
             allSpawners.at(i).update();
             if(allSpawners.at(i).canItSpawn()){
-                allEnemies.push_back(Enemy(0.75, type, Vector2f(50,50), allSpawners.at(i).getPosition(), &enemyTexture, 50, &weapon, 9, 60));
+                allEnemies.push_back(Enemy(0.75, type, Vector2f(50,50), allSpawners.at(i).getPosition(), &enemyTexture, 50, new  Weapon(type_NG_NM, Vector2f(45,45), &gunTexture, 0.5, 0.5, &bulletTexture, false, type_NG, 0.15, 20, Vector2f(8, 8)), 9, 60, true));
                 allSpawners.at(i).spawned();
             }
         }
@@ -302,8 +303,9 @@ int main(int, char const**)
             allObjects.at(i).draw(&window);
         }
         
-        // Draw Players
-        player->draw(&window);
+        // Draw Player
+        if(!player->isItDestroyed())
+            player->draw(&window);
         
         
         // Draw Enemies
@@ -317,7 +319,6 @@ int main(int, char const**)
             allLoots.at(i).draw(&window);
         }
         
-        allSpawners.at(0).draw(&window);
         // Update the window
         window.display();
     }

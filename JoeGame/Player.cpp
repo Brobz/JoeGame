@@ -25,6 +25,7 @@ Player::Player(double _mass, vector<int> &_type, Vector2f _size, Vector2f _posit
     repellerGems = 0;
     weaponOffset = Vector2f(25, 32);
     weapon.getSprite()->setOrigin(2, 2);
+    weapon.setPosition(position + weaponOffset);
 }
 
 void Player::update(vector<Object> &objectCol, vector<Magnet> &magnetCol, vector<Loot> &lootCol){
@@ -73,7 +74,7 @@ void Player::update(vector<Object> &objectCol, vector<Magnet> &magnetCol, vector
         isGrounded = false;
     
     if(hp <= 0)
-        Destroy();
+        die();
     
     // Update Weapon
     weapon.setPosition(position + weaponOffset);
@@ -98,11 +99,6 @@ void Player::pointWeapon(RenderWindow* window){
     
     float angle = Object::getAtan(Vector2f(mousePos.x - weapon.getPosition().x, mousePos.y - weapon.getPosition().y), false);
     
-    rayCast = RectangleShape(Vector2f(1, 1000));
-    rayCast.setFillColor(sf::Color::Red);
-    rayCast.setPosition(weapon.getPosition());
-    rayCast.rotate(angle);
-    
     weapon.getSprite()->setRotation(angle + 90);
     
 };
@@ -120,6 +116,12 @@ void Player::fireWeapon(vector<Bullet> &bullets){
 
 Weapon* Player::getWeapon(){
     return &weapon;
+}
+
+void Player::die(){
+    position = Vector2f(-200, -200);
+    sprite.setPosition(position);
+    Destroy();
 }
 
 void Player::getLoot(int lootType, int lootAmount){
