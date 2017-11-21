@@ -14,7 +14,7 @@
 		0A3DF4421FC39A2100A302A5 /* ground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DF43F1FC39A2100A302A5 /* ground.png */; };
 		0A3DF4431FC39A2100A302A5 /* wall.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DF4401FC39A2100A302A5 /* wall.png */; };
 		0A3DF4451FC39D4700A302A5 /* resource.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DF4441FC39D4700A302A5 /* resource.png */; };
-		0A3DF4471FC3A3A100A302A5 /* arm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DF4461FC3A3A100A302A5 /* arm.png */; };
+		0A3DF44B1FC3A9D500A302A5 /* arm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DF44A1FC3A9D500A302A5 /* arm.png */; };
 		0A5D0E011FB6172800E863A0 /* bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A5D0E001FB6172800E863A0 /* bullet.png */; };
 		0A5D0E041FB6266D00E863A0 /* Magnet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D0E031FB6266D00E863A0 /* Magnet.cpp */; };
 		0AD1BCCA1FAEF75300FAD766 /* pacman.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD1BCC91FAEF75300FAD766 /* pacman.png */; };
@@ -51,7 +51,7 @@
 		0A3DF43F1FC39A2100A302A5 /* ground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ground.png; sourceTree = "<group>"; };
 		0A3DF4401FC39A2100A302A5 /* wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wall.png; sourceTree = "<group>"; };
 		0A3DF4441FC39D4700A302A5 /* resource.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resource.png; sourceTree = "<group>"; };
-		0A3DF4461FC3A3A100A302A5 /* arm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arm.png; sourceTree = "<group>"; };
+		0A3DF44A1FC3A9D500A302A5 /* arm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arm.png; sourceTree = "<group>"; };
 		0A5D0E001FB6172800E863A0 /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet.png; sourceTree = "<group>"; };
 		0A5D0E021FB620D900E863A0 /* Magnet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Magnet.h; sourceTree = "<group>"; };
 		0A5D0E031FB6266D00E863A0 /* Magnet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Magnet.cpp; sourceTree = "<group>"; };
@@ -166,10 +166,10 @@
 			isa = PBXGroup;
 			children = (
 				0A0CB6D81FBB4A800061FF0F /* joe.png */,
+				0A3DF44A1FC3A9D500A302A5 /* arm.png */,
 				0A5D0E001FB6172800E863A0 /* bullet.png */,
 				DB357B321FBB4F57003A9305 /* gold.png */,
 				0A3DF43E1FC39A2000A302A5 /* bullet.png */,
-				0A3DF4461FC3A3A100A302A5 /* arm.png */,
 				0A3DF43F1FC39A2100A302A5 /* ground.png */,
 				0A3DF4401FC39A2100A302A5 /* wall.png */,
 				0AD1BCC91FAEF75300FAD766 /* pacman.png */,
@@ -257,7 +257,7 @@
 				0A3DF4421FC39A2100A302A5 /* ground.png in Resources */,
 				0AE1C4761FB7F4AB00A8632B /* 2.png in Resources */,
 				0A3DF4431FC39A2100A302A5 /* wall.png in Resources */,
-				0A3DF4471FC3A3A100A302A5 /* arm.png in Resources */,
+				0A3DF44B1FC3A9D500A302A5 /* arm.png in Resources */,
 				DBDEF9CC1FBD09820065C30F /* joeFinal.png in Resources */,
 				DB1F92BC1FAE4EC7002BA52D /* block.png in Resources */,
 				DB6B98A51FB3E943000EA66A /* gun.png in Resources */,

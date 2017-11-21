@@ -23,6 +23,8 @@ Player::Player(double _mass, vector<int> &_type, Vector2f _size, Vector2f _posit
     gold = 0;
     attracctorGems = 0;
     repellerGems = 0;
+    weaponOffset = Vector2f(25, 32);
+    weapon.getSprite()->setOrigin(2, 2);
 }
 
 void Player::update(vector<Object> &objectCol, vector<Magnet> &magnetCol, vector<Loot> &lootCol, Time time){
@@ -74,7 +76,7 @@ void Player::update(vector<Object> &objectCol, vector<Magnet> &magnetCol, vector
         Destroy();
     
     // Update Weapon
-    weapon.setPosition(getPosition());
+    weapon.setPosition(position + weaponOffset);
     weapon.update();
     //pointWeapon();
     
@@ -88,7 +90,7 @@ void Player::draw(RenderWindow* window){
     Entity::draw(window);
     weapon.draw(window);
     pointWeapon(window);
-    (*window).draw(rayCast);
+    //((*window).draw(rayCast);
 }
 
 void Player::pointWeapon(RenderWindow* window){
