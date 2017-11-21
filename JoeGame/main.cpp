@@ -33,7 +33,12 @@ int main(int, char const**)
     
     // Load a sprite to display
 
-    sf::Texture playerTexture, enemyTexture, wallTexture, floorTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture;
+    sf::Texture playerTexture, enemyTexture, wallTexture, floorTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture, bgTexture;
+    
+    
+    if (!bgTexture.loadFromFile(resourcePath() + "background.png")) {
+        return EXIT_FAILURE;
+    }
     
     if (!playerTexture.loadFromFile(resourcePath() + "joeFinal.png")) {
         return EXIT_FAILURE;
@@ -98,7 +103,12 @@ int main(int, char const**)
     
     vector<Weapon> playerWeapons;
     
-    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 60));
+    Sprite bgSprite(bgTexture);
+    
+    // wait its motion blur
+    bgSprite.setColor(Color(255, 255, 255, 205));
+    
+    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 90));
     
     allSpawners.at(0).activate();
     
@@ -255,7 +265,7 @@ int main(int, char const**)
                 allEnemies.at(i).setSelfVelocity(Vector2f(2, 0));
             }/*/
             
-            allEnemies.at(i).chasePlayer(player->getPosition(), 3);
+            allEnemies.at(i).chasePlayer(player->getPosition(), Vector2f(3, 10));
             allEnemies.at(i).update(allObjects, allMagnets, player);
             
         }
@@ -275,7 +285,7 @@ int main(int, char const**)
         }
         
         // Clear screen
-        window.clear(sf::Color::White);
+        window.draw(bgSprite);
         
         // Draw Bullets
         for(int i = 0; i < allBullets.size(); i++){

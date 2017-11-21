@@ -19,12 +19,12 @@ Enemy::Enemy(double _mass, vector<int> &_type, Vector2f _size, Vector2f _positio
     weapon = *_weapon;
 };
 
-void Enemy::chasePlayer(Vector2f playerpos, double speed){
+void Enemy::chasePlayer(Vector2f playerpos, Vector2f speed){
     Vector2f distance = playerpos - position;
     double mag = sqrt(distance.x*distance.x + distance.y*distance.y);
     if(!mag)
         return;
-    Vector2f newVelocity = Vector2f(distance.x/mag * speed, distance.y/mag* speed);
+    Vector2f newVelocity = Vector2f(distance.x/mag * speed.x, distance.y/mag * speed.y);
     if(isGrounded){
         setSelfVelocity(newVelocity);
     }
