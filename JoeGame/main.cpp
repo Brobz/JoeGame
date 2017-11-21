@@ -33,13 +33,13 @@ int main(int, char const**)
     
     // Load a sprite to display
 
-    sf::Texture playerTexture, wallTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture;
+    sf::Texture playerTexture, wallTexture, floorTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture;
     
     if (!playerTexture.loadFromFile(resourcePath() + "joeFinal.png")) {
         return EXIT_FAILURE;
     }
     
-    if (!gunTexture.loadFromFile(resourcePath() + "gun.png")) {
+    if (!gunTexture.loadFromFile(resourcePath() + "arm.png")) {
         return EXIT_FAILURE;
     }
     
@@ -69,6 +69,9 @@ int main(int, char const**)
     if (!buttonTexture.loadFromFile(resourcePath() + "2.png")) {
         return EXIT_FAILURE;
     }
+    if (!floorTexture.loadFromFile(resourcePath() + "ground.png")) {
+        return EXIT_FAILURE;
+    }
 
     
     
@@ -89,13 +92,13 @@ int main(int, char const**)
     vector<int> type_NM = {1, 0, 1, 1};
     vector<int> type_NG_NM = {0, 0, 1, 1};
     
-    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(300, 300), Vector2f(200, 300), &wallTexture, 30));
+    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(300, 300), Vector2f(200, 300), &wallTexture, 3000));
     
     allSpawners.at(0).activate();
     
     allLoots.push_back(Loot(0.05, type, Vector2f(20, 20), Vector2f(350, 350), &goldTexture, 0, 3));
     
-    Weapon weapon = Weapon(1, type_NG_NM, Vector2f(32,24), Vector2f(200,450), &gunTexture, 20, 3, &bulletTexture, true, type_NG, 0.15, 10, Vector2f(8, 8));
+    Weapon weapon = Weapon(1, type_NG_NM, Vector2f(45,45), Vector2f(200,450), &gunTexture, 5, 1.5, &bulletTexture, true, type_NG, 0.15, 10, Vector2f(8, 8));
     
     Magnet lootMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(), &attractorTexture, 50, -30, 0, 60);
     
@@ -103,7 +106,7 @@ int main(int, char const**)
     
     player->setSprite(*new Sprite(playerTexture,IntRect(0,0,16,16)));
 
-    allObjects.push_back(Object(5, type_NG_NM, Vector2f(1000, 64), Vector2f(-100, 555), &wallTexture));
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(1000, 64), Vector2f(-100, 555), &floorTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(1000, 64), Vector2f(-100, 150), &wallTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(64, 800), Vector2f(500, 0), &wallTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(64, 800), Vector2f(50, 0), &wallTexture));
@@ -265,7 +268,11 @@ int main(int, char const**)
 
         // Clear screen
         window.clear(sf::Color::White);
-
+        
+        // Draw Bullets
+        for(int i = 0; i < allBullets.size(); i++){
+            allBullets.at(i).draw(&window);
+        }
         
         // Draw Magnets
         for(int i = 0; i < allMagnets.size(); i++){
@@ -286,10 +293,6 @@ int main(int, char const**)
             allEnemies.at(i).draw(&window);
         }
         
-        // Draw Bullets
-        for(int i = 0; i < allBullets.size(); i++){
-            allBullets.at(i).draw(&window);
-        }
         
         // Draw Loot
         for(int i = 0; i < allLoots.size(); i++){

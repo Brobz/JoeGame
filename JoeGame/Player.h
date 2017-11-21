@@ -19,6 +19,7 @@ class Player : public Entity{
 protected:
     float jumpForce, moveForce;
     bool facingRight;
+    Vector2f weaponOffset;
     Weapon weapon;
     RectangleShape rayCast;
     Magnet lootMagnet;
