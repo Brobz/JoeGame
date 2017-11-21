@@ -71,7 +71,7 @@ void Player::update(vector<Object> &objectCol, vector<Magnet> &magnetCol, vector
         isGrounded = false;
     
     if(hp <= 0)
-        die();
+        Destroy();
     
     // Update Weapon
     weapon.setPosition(getPosition());
@@ -127,9 +127,7 @@ void Player::getLoot(int lootType, int lootAmount){
         attracctorGems += lootAmount;
     else if(lootType == 2)
         repellerGems += lootAmount;
-    
-    cout << gold << endl;
-}
+    }
 
 
 

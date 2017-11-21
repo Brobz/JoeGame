@@ -58,7 +58,7 @@ int main(int, char const**)
     if (!repellerTexture.loadFromFile(resourcePath() + "repeller.png")) {
         return EXIT_FAILURE;
     }
-    
+
     if (!goldTexture.loadFromFile(resourcePath() + "gold.png")) {
         return EXIT_FAILURE;
     }
@@ -69,6 +69,7 @@ int main(int, char const**)
     if (!buttonTexture.loadFromFile(resourcePath() + "2.png")) {
         return EXIT_FAILURE;
     }
+
     
     
     int MOUSE_INPUTS[3] = {0, 0, 0}; // LEFT, MIDDLE, RIGHT
@@ -243,16 +244,18 @@ int main(int, char const**)
         // Update Enemy physics
         for(int i = 0; i < allEnemies.size(); i++){
             if (allEnemies.at(i).isItDestroyed()){
+
                 allLoots.push_back(Loot(0.05, type, Vector2f(20, 20), allEnemies.at(i).getPosition(), &goldTexture, 0, 3));
                 allEnemies.erase(allEnemies.begin() + i);
                 continue;
             }
             
-            if(allEnemies.at(i).isItGrounded()){
+            /*/if(allEnemies.at(i).isItGrounded()){
                 allEnemies.at(i).setSelfVelocity(Vector2f(2, 0));
-            }
+            }/*/
             
             allEnemies.at(i).update(allObjects);
+            allEnemies.at(i).chasePlayer(player->getPosition(), 3);
         }
         
         // Update Object physics

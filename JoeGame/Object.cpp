@@ -219,5 +219,9 @@ float Object::getAtan(Vector2f coordinates, bool radians){
     return angle;
 }
 
+vector<int> Object::getType(){
+    return type;
+}
+
 
 

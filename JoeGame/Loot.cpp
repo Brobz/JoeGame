@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include "Loot.h"
 #include "Player.h"
+#include "ResourcePath.hpp"
 
 Loot::Loot(){};
 
@@ -16,7 +17,6 @@ Loot::Loot(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position,
     lootType = _lootType;
     lootAmount = _lootAmount;
 }
-
 
 void Loot::update(vector<Object> &colliders, Player* playerCol){
     // Add gravity force

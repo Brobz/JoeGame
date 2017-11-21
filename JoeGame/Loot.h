@@ -19,6 +19,7 @@ protected:
 public:
     Loot();
     Loot(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _lootType, int _lootAmount);
+    Loot(int _lootType, int _lootAmount, Vector2f _position, vector<int> type);
     void update(vector<Object> &colliders, Player* playerCol);
     bool collidesWith(Player* playerCol);
 };

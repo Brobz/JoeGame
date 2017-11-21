@@ -19,6 +19,7 @@ protected:
     Vector2f selfVelocity;
 public:
     Entity();
+
     Entity(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _maxHp, int _spriteSheetSize, int _animationSpeed);
     void die();
     void update(vector<Object> &colliders);

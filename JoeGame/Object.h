@@ -65,6 +65,7 @@ public:
     bool isItDestroyed();
     static float getAtan(Vector2f coordinates, bool radians = true);
     Vector2f getSize();
+    vector<int> getType();
 };
 
 

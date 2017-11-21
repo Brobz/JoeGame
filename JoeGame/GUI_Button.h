@@ -13,6 +13,7 @@
 #include "GUI_Text.h"
 
 class GUI_Button : public GUI_Object{
+
 protected:
     GUI_Text text;
     Sprite hoverSprite;
