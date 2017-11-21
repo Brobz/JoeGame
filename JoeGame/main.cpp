@@ -33,9 +33,13 @@ int main(int, char const**)
     
     // Load a sprite to display
 
-    sf::Texture playerTexture, wallTexture, floorTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture;
+    sf::Texture playerTexture, enemyTexture, wallTexture, floorTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture;
     
     if (!playerTexture.loadFromFile(resourcePath() + "joeFinal.png")) {
+        return EXIT_FAILURE;
+    }
+    
+    if (!enemyTexture.loadFromFile(resourcePath() + "enemy.png")) {
         return EXIT_FAILURE;
     }
     
@@ -92,13 +96,15 @@ int main(int, char const**)
     vector<int> type_NM = {1, 0, 1, 1};
     vector<int> type_NG_NM = {0, 0, 1, 1};
     
-    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(300, 300), Vector2f(200, 300), &wallTexture, 3000));
+    vector<Weapon> playerWeapons;
+    
+    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 60));
     
     allSpawners.at(0).activate();
     
-    allLoots.push_back(Loot(0.05, type, Vector2f(20, 20), Vector2f(350, 350), &goldTexture, 0, 3));
+    Weapon weapon = Weapon(type_NG_NM, Vector2f(45,45), &gunTexture, 5, 1.5, &bulletTexture, true, type_NG, 0.15, 10, Vector2f(8, 8));
     
-    Weapon weapon = Weapon(1, type_NG_NM, Vector2f(45,45), Vector2f(200,450), &gunTexture, 5, 1.5, &bulletTexture, true, type_NG, 0.15, 10, Vector2f(8, 8));
+    playerWeapons.push_back(Weapon(type_NG_NM, Vector2f(45,45), &gunTexture, 5, 1.5, &bulletTexture, true, type_NG, 0.15, 10, Vector2f(8, 8)));
     
     Magnet lootMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(), &attractorTexture, 50, -30, 0, 60);
     
@@ -204,14 +210,6 @@ int main(int, char const**)
             player->setSelfVelocity(Vector2f(0, player->getSelfVelocity().y));
         }
         
-        // Update Spawner physics
-        for(int i = 0; i < allSpawners.size(); i++){
-            allSpawners.at(i).update();
-            if(allSpawners.at(i).canItSpawn()){
-                allEnemies.push_back(Enemy(0.75, type, Vector2f(32,64), allSpawners.at(i).getPosition(), &playerTexture, 100, &weapon, 9, 60));
-                allSpawners.at(i).spawned();
-            }
-        }
         
         // Update Magnet physics
         for(int i = 0; i < allMagnets.size(); i++){
@@ -232,7 +230,7 @@ int main(int, char const**)
         }
         
         // Update Player physics
-        player->update(allObjects, allMagnets, allLoots, clock.getElapsedTime());
+        player->update(allObjects, allMagnets, allLoots);
         
         
         // Update Loot Physics
@@ -257,15 +255,25 @@ int main(int, char const**)
                 allEnemies.at(i).setSelfVelocity(Vector2f(2, 0));
             }/*/
             
-            allEnemies.at(i).update(allObjects);
             allEnemies.at(i).chasePlayer(player->getPosition(), 3);
+            allEnemies.at(i).update(allObjects, allMagnets, player);
+            
         }
         
         // Update Object physics
         for(int i = 0; i < allObjects.size(); i++){
             allObjects.at(i).update();
         }
-
+        
+        // Update Spawner physics
+        for(int i = 0; i < allSpawners.size(); i++){
+            allSpawners.at(i).update();
+            if(allSpawners.at(i).canItSpawn()){
+                allEnemies.push_back(Enemy(0.75, type, Vector2f(50,50), allSpawners.at(i).getPosition(), &enemyTexture, 50, &weapon, 9, 60));
+                allSpawners.at(i).spawned();
+            }
+        }
+        
         // Clear screen
         window.clear(sf::Color::White);
         
@@ -298,6 +306,8 @@ int main(int, char const**)
         for(int i = 0; i < allLoots.size(); i++){
             allLoots.at(i).draw(&window);
         }
+        
+        allSpawners.at(0).draw(&window);
         // Update the window
         window.display();
     }

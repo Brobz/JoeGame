@@ -24,7 +24,7 @@ protected:
     Vector2f bulletSize;
 public:
     Weapon();
-    Weapon(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, double _firingRate, double _firingForce, Texture* _bulletTexture, bool _isPlayer, vector<int>& _bulletType, float _bulletMass, float _bulletDamage, Vector2f _bulletSize);
+    Weapon(vector<int> &_type, Vector2f _size, Texture* texture, double _firingRate, double _firingForce, Texture* _bulletTexture, bool _isPlayer, vector<int>& _bulletType, float _bulletMass, float _bulletDamage, Vector2f _bulletSize);
     void fire(vector<Bullet> &bullets);
     void update();
 };

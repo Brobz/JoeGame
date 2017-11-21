@@ -27,7 +27,7 @@ Player::Player(double _mass, vector<int> &_type, Vector2f _size, Vector2f _posit
     weapon.getSprite()->setOrigin(2, 2);
 }
 
-void Player::update(vector<Object> &objectCol, vector<Magnet> &magnetCol, vector<Loot> &lootCol, Time time){
+void Player::update(vector<Object> &objectCol, vector<Magnet> &magnetCol, vector<Loot> &lootCol){
     // Add gravity force
     addForce(Vector2f(0, GRAVITY * mass), 0);
     // Add acceleration to velocity
