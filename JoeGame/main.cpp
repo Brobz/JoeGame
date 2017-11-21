@@ -33,7 +33,7 @@ int main(int, char const**)
     
     // Load a sprite to display
 
-    sf::Texture playerTexture, enemyTexture, wallTexture, floorTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture, bgTexture;
+    sf::Texture playerTexture, enemyTexture, wallTexture, floorTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture, bgTexture, enemyArmTexture;
     
     
     if (!bgTexture.loadFromFile(resourcePath() + "background.png")) {
@@ -49,6 +49,10 @@ int main(int, char const**)
     }
     
     if (!gunTexture.loadFromFile(resourcePath() + "arm.png")) {
+        return EXIT_FAILURE;
+    }
+    
+    if (!enemyArmTexture.loadFromFile(resourcePath() + "enemyArm.png")) {
         return EXIT_FAILURE;
     }
     
@@ -280,7 +284,7 @@ int main(int, char const**)
         for(int i = 0; i < allSpawners.size(); i++){
             allSpawners.at(i).update();
             if(allSpawners.at(i).canItSpawn()){
-                allEnemies.push_back(Enemy(0.75, type, Vector2f(50,50), allSpawners.at(i).getPosition(), &enemyTexture, 50, new  Weapon(type_NG_NM, Vector2f(45,45), &gunTexture, 0.5, 0.5, &bulletTexture, false, type_NG, 0.15, 20, Vector2f(8, 8)), 9, 60, true));
+                allEnemies.push_back(Enemy(0.75, type, Vector2f(50,50), allSpawners.at(i).getPosition(), &enemyTexture, 50, new  Weapon(type_NG_NM, Vector2f(45,45), &enemyArmTexture, 0.5, 0.5, &bulletTexture, false, type_NG, 0.15, 20, Vector2f(8, 8)), 9, 60, true));
                 allSpawners.at(i).spawned();
             }
         }
