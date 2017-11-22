@@ -92,7 +92,7 @@ void Enemy::update(vector<Object> &objectCol, vector<Magnet> &magnetCol, Player*
 }
 
 void Enemy::pointWeapon(Player* player){
-    Vector2f playerPos = player->getPosition();
+    Vector2f playerPos = Vector2f(player->getPosition().x + player->getSize().x / 2.0, player->getPosition().y + player->getSize().y / 2.0);
     
     float angle = Object::getAtan(Vector2f(playerPos.x - weapon.getPosition().x, playerPos.y - weapon.getPosition().y), false);
     

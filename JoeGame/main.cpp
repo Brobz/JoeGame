@@ -17,7 +17,7 @@
 int main(int, char const**)
 {
     const int WIDTH = 900, HEIGHT = 600;
-    const double SCALE = 1.5;
+    const double SCALE = 1.3;
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "SFML window", sf::Style::Close);
     // Create the main view
@@ -232,7 +232,7 @@ int main(int, char const**)
                 allMagnets.clear();
             }
         }
-        
+
         // Input arrays
         if(MOUSE_INPUTS[0])
             player->fireWeapon(allBullets);
@@ -294,7 +294,7 @@ int main(int, char const**)
                 continue;
             }
             
-            if(allEnemies.at(i).isShooter()){
+            if(allEnemies.at(i).isShooter() && !player->isItDestroyed()){
                 allEnemies.at(i).fireWeapon(allBullets);
             }
             
@@ -312,7 +312,7 @@ int main(int, char const**)
         for(int i = 0; i < allSpawners.size(); i++){
             allSpawners.at(i).update();
             if(allSpawners.at(i).canItSpawn()){
-                allEnemies.push_back(Enemy(0.75, type, Vector2f(50,50), allSpawners.at(i).getPosition(), &enemyTexture, 50, new Weapon(type_NG_NM, Vector2f(45,45), &enemyArmTexture, 0.5, 0.1, bulletTexture, false, type_NG, 0.15, 20, Vector2f(8, 8)), 9, 60, true));
+                allEnemies.push_back(Enemy(0.75, type, Vector2f(50,50), allSpawners.at(i).getPosition(), &enemyTexture, 50, new Weapon(type_NG_NM, Vector2f(45,45), &enemyArmTexture, 0.5, 0.5, bulletTexture, false, type_NG, 0.15, 20, Vector2f(8, 8)), 9, 60, true));
                 allSpawners.at(i).spawned();
             }
         }

@@ -123,8 +123,6 @@ Weapon* Player::getWeapon(){
 }
 
 void Player::die(){
-    position = Vector2f(-200, -200);
-    sprite.setPosition(position);
     Destroy();
 }
 
