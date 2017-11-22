@@ -216,14 +216,15 @@ int main(int, char const**)
             }
             
             //Magnet debugging
+            window.setView(view);
             if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::N) {
-                Vector2f mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
+                Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
                 mousePos -= Vector2f(16,16);
                 allMagnets.push_back((Magnet(1, type_NG, Vector2f(32, 32), mousePos, &attractorTexture, 50, -800, 0, 60)));
             }
             
             if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::M) {
-                Vector2f mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
+                Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
                 mousePos -= Vector2f(16,16);
                 allMagnets.push_back((Magnet(1, type_NG, Vector2f(32, 32), mousePos, &repellerTexture, 50, 800, 0, 60)));
             }
@@ -231,6 +232,8 @@ int main(int, char const**)
             if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::B) {
                 allMagnets.clear();
             }
+            
+            window.setView(window.getDefaultView());
         }
 
         // Input arrays
