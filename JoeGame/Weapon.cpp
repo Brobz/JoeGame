@@ -12,18 +12,20 @@
 
 Weapon::Weapon(){};
 
-Weapon::Weapon(vector<int> &_type, Vector2f _size, Texture* texture, double _firingRate, double _firingForce, Texture* _bulletTexture, bool _isPlayer, vector<int>& _bulletType, float _bulletMass, float _bulletDamage, Vector2f _bulletSize) : Object(0, _type, _size, Vector2f(), texture){
+Weapon::Weapon(vector<int> &_type, Vector2f _size, Texture* texture, double _firingRate, double _firingForce, Texture _bulletTexture, bool _isPlayer, vector<int>& _bulletType, float _bulletMass, float _bulletDamage, Vector2f _bulletSize) : Object(0, _type, _size, Vector2f(), texture){
     firingRate = _firingRate;
     firingForce = _firingForce;
-    bulletTexture = *_bulletTexture;
+    bulletTexture = _bulletTexture;
     isPlayer = _isPlayer;
     bulletType = _bulletType;
     bulletMass = _bulletMass;
     bulletDamage = _bulletDamage;
     bulletSize = _bulletSize;
     canFire = true;
-    if(!isPlayer)
+    if(!isPlayer){
         canFire = false;
+        timeUntilNextFire = 60 / firingRate;
+    }
 }
 
 void Weapon::fire(vector<Bullet> &bullets){

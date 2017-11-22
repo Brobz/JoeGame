@@ -40,6 +40,7 @@ void Bullet::update(vector<Object> &objectcol, Player* playercol, vector<Enemy> 
         if(collidesWith(magnetCol.at(i))){
             DealDamage(magnetCol.at(i), damage);
             Destroy();
+            return;
         }
     }
 
@@ -47,6 +48,7 @@ void Bullet::update(vector<Object> &objectcol, Player* playercol, vector<Enemy> 
         if(collidesWith(*playercol)){
             DealDamage(*playercol, damage);
             Destroy();
+            return;
         }
 
     }else{
@@ -54,6 +56,7 @@ void Bullet::update(vector<Object> &objectcol, Player* playercol, vector<Enemy> 
             if(collidesWith(enemycol.at(i))){
                 DealDamage(enemycol.at(i), damage);
                 Destroy();
+                return;
             }
         }
     }

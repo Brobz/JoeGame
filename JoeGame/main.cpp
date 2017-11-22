@@ -16,8 +16,14 @@
 
 int main(int, char const**)
 {
+    const int WIDTH = 900, HEIGHT = 600;
+    const double SCALE = 1.5;
     // Create the main window
-    sf::RenderWindow window(sf::VideoMode(900, 600), "SFML window", sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "SFML window", sf::Style::Close);
+    // Create the main view
+    sf::View view(Vector2f(WIDTH / 2.0, HEIGHT / 2.0), Vector2f(WIDTH * SCALE, HEIGHT * SCALE));
+    
+    window.setView(view);
     
     window.setFramerateLimit(60);
     window.setKeyRepeatEnabled(0);
@@ -105,26 +111,23 @@ int main(int, char const**)
     vector<int> type_NM = {1, 0, 1, 1};
     vector<int> type_NG_NM = {0, 0, 1, 1};
     
-    vector<Weapon> playerWeapons;
-    
     Sprite bgSprite(bgTexture);
     
     // wait its motion blur
     bgSprite.setColor(Color(255, 255, 255, 205));
     
-    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 240));
+    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 225));
     
     allSpawners.at(0).activate();
 
-    Weapon playerWeapon = Weapon(type_NG_NM, Vector2f(45,45), &gunTexture, 5, 1.5, &bulletTexture, true, type_NG, 0.15, 20, Vector2f(8, 8));
-    
-    playerWeapons.push_back(Weapon(type_NG_NM, Vector2f(45,45), &gunTexture, 5, 1.5, &bulletTexture, true, type_NG, 0.15, 10, Vector2f(8, 8)));
+    Weapon playerWeapon = Weapon(type_NG_NM, Vector2f(45,45), &gunTexture, 5, 1.5, bulletTexture, true, type_NG, 0.15, 20, Vector2f(8, 8));
     
     Magnet lootMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(), &attractorTexture, 50, -30, 0, 60);
     
     player = new Player(0.75, type, Vector2f(50, 50), Vector2f(150, 500), &playerTexture, 100, 10, 5, &playerWeapon, &lootMagnet, 9, 60);
     
     player->setSprite(*new Sprite(playerTexture,IntRect(0,0,16,16)));
+    
 
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(1000, 64), Vector2f(-100, 555), &floorTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(1000, 64), Vector2f(-100, 150), &wallTexture));
@@ -309,7 +312,7 @@ int main(int, char const**)
         for(int i = 0; i < allSpawners.size(); i++){
             allSpawners.at(i).update();
             if(allSpawners.at(i).canItSpawn()){
-                allEnemies.push_back(Enemy(0.75, type, Vector2f(50,50), allSpawners.at(i).getPosition(), &enemyTexture, 50, new  Weapon(type_NG_NM, Vector2f(45,45), &enemyArmTexture, 0.5, 0.5, &bulletTexture, false, type_NG, 0.15, 20, Vector2f(8, 8)), 9, 60, true));
+                allEnemies.push_back(Enemy(0.75, type, Vector2f(50,50), allSpawners.at(i).getPosition(), &enemyTexture, 50, new Weapon(type_NG_NM, Vector2f(45,45), &enemyArmTexture, 0.5, 0.1, bulletTexture, false, type_NG, 0.15, 20, Vector2f(8, 8)), 9, 60, true));
                 allSpawners.at(i).spawned();
             }
         }
@@ -318,8 +321,13 @@ int main(int, char const**)
         lifeBar.setSize(sf::Vector2f((float)player->getHP()/player->getMaxHP()*150, 20));
         goldLabel.setText(std::to_string(player->getGold()));
         
-        // Clear screen
+        // Clear screen and set view
+        window.clear(sf::Color::Black);
         window.draw(bgSprite);
+        view.setCenter(player->getPosition());
+        window.setView(view);
+        
+        
         
         // Draw Bullets
         for(int i = 0; i < allBullets.size(); i++){
@@ -352,6 +360,8 @@ int main(int, char const**)
             allLoots.at(i).draw(&window);
         }
         
+        // Reset view and draw GUI
+        window.setView(window.getDefaultView());
         window.draw(lifeBarBG);
         window.draw(lifeBar);
         window.draw(goldBar);

@@ -95,7 +95,7 @@ void Player::draw(RenderWindow* window){
 }
 
 void Player::pointWeapon(RenderWindow* window){
-    Vector2i mousePos = sf::Mouse::getPosition(*window);
+    Vector2f mousePos = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
     
     float angle = Object::getAtan(Vector2f(mousePos.x - weapon.getPosition().x, mousePos.y - weapon.getPosition().y), false);
     
