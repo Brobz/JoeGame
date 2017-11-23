@@ -10,12 +10,14 @@
 #include "Loot.h"
 #include "Player.h"
 #include "ResourcePath.hpp"
-
+#include <random>
 Loot::Loot(){};
 
 Loot::Loot(double _mass, vector<int> &_type, Vector2f _size, Vector2f _position, Texture* texture, int _lootType, int _lootAmount) : Object(_mass, _type, _size, _position, texture){
     lootType = _lootType;
     lootAmount = _lootAmount;
+    addForce(Vector2f(((double) rand() / RAND_MAX - 0.5) * 0.25,((double) rand() / RAND_MAX - 1) * 0.8))
+    ;
 }
 
 void Loot::update(vector<Object> &colliders, Player* playerCol){

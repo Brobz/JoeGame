@@ -6,6 +6,10 @@ int main(int, char const**)
 {
     const int WIDTH = 900, HEIGHT = 600;
     const double SCALE = 1.3;
+    
+    // Seed random
+    srand((int)time(NULL));
+    
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "SFML window", sf::Style::Close);
     // Create the main view
@@ -91,6 +95,7 @@ int main(int, char const**)
     vector<Bullet> allBullets;
     vector<Magnet> allMagnets;
     vector<Spawner> allSpawners;
+    vector<Resource> allResources;
     vector<Loot> allLoots;
     
     
@@ -105,6 +110,8 @@ int main(int, char const**)
     bgSprite.setColor(Color(255, 255, 255, 205));
     
     allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 225));
+    
+    allResources.push_back(Resource(3, type_NM, Vector2f(120, 80), Vector2f(250, 500), &wallTexture, 150, 0, 60, type_NM, &goldTexture));
     
     allSpawners.at(0).activate();
 
@@ -158,7 +165,7 @@ int main(int, char const**)
     
     sf::Clock clock;
     
-    Level level_zero = Level(player, allObjects, allEnemies, allBullets, allMagnets, allSpawners, allLoots);
+    Level level_zero = Level(player, allObjects, allEnemies, allBullets, allMagnets, allSpawners, allResources, allLoots);
     
     level_zero.setTextures(&goldTexture, &enemyTexture, &enemyArmTexture, &bulletTexture);
     
@@ -258,126 +265,7 @@ int main(int, char const**)
         goldLabel.draw(&window);
         
         window.display();
-        
-        /*/
-        // Update Magnet physics
-        for(int i = 0; i < allMagnets.size(); i++){
-            if (allMagnets.at(i).isItDestroyed()){
-                allMagnets.erase(allMagnets.begin() + i);
-                continue;
-            }
-            allMagnets.at(i).update(allObjects, allBullets, player, allEnemies);
-        }
-        
-        // Update Bullet physicss
-        for(int i = 0; i < allBullets.size(); i++){
-            if (allBullets.at(i).isItDestroyed()){
-                allBullets.erase(allBullets.begin() + i);
-                continue;
-            }
-            allBullets.at(i).update(allObjects, player, allEnemies, allMagnets);
-        }
-        
-        // Update Player physics
-        if(!player->isItDestroyed())
-            player->update(allObjects, allMagnets, allLoots);
-        
-        
-        // Update Loot Physics
-        for(int i = 0; i < allLoots.size(); i++){
-            if (allLoots.at(i).isItDestroyed()){
-                allLoots.erase(allLoots.begin() + i);
-                continue;
-            }
-            allLoots.at(i).update(allObjects, player);
-        }
-        
-        // Update Enemy physics
-        for(int i = 0; i < allEnemies.size(); i++){
-            if (allEnemies.at(i).isItDestroyed()){
-
-                allLoots.push_back(Loot(0.05, type, Vector2f(20, 20), allEnemies.at(i).getPosition(), &goldTexture, 0, 3));
-                allEnemies.erase(allEnemies.begin() + i);
-                continue;
-            }
-            
-            if(allEnemies.at(i).isShooter() && !player->isItDestroyed()){
-                allEnemies.at(i).fireWeapon(allBullets);
-            }
-            
-            allEnemies.at(i).chasePlayer(player->getPosition(), Vector2f(1, 8));
-            allEnemies.at(i).update(allObjects, allMagnets, player);
-            
-        }
-        
-        // Update Object physics
-        for(int i = 0; i < allObjects.size(); i++){
-            allObjects.at(i).update();
-        }
-        
-        // Update Spawner physics
-        for(int i = 0; i < allSpawners.size(); i++){
-            allSpawners.at(i).update();
-            if(allSpawners.at(i).canItSpawn()){
-                allEnemies.push_back(Enemy(0.75, type, Vector2f(50,50), allSpawners.at(i).getPosition(), &enemyTexture, 50, new Weapon(type_NG_NM, Vector2f(45,45), &enemyArmTexture, 0.5, 0.5, bulletTexture, false, type_NG, 0.15, 20, Vector2f(8, 8)), 9, 60, true));
-                allSpawners.at(i).spawned();
-            }
-        }
-        
-        //Update HP Bar
-        lifeBar.setSize(sf::Vector2f((float)player->getHP()/player->getMaxHP()*150, 20));
-        goldLabel.setText(std::to_string(player->getGold()));
-        
-        // Clear screen and set view
-        window.clear(sf::Color::Black);
-        window.draw(bgSprite);
-        view.setCenter(player->getPosition());
-        window.setView(view);
-        
-        
-        
-        // Draw Bullets
-        for(int i = 0; i < allBullets.size(); i++){
-            allBullets.at(i).draw(&window);
-        }
-        
-        // Draw Magnets
-        for(int i = 0; i < allMagnets.size(); i++){
-            allMagnets.at(i).draw(&window);
-        }
-        
-        // Draw all objects
-        for(int i = 0; i < allObjects.size(); i++){
-            allObjects.at(i).draw(&window);
-        }
-        
-        // Draw Player
-        if(!player->isItDestroyed())
-            player->draw(&window);
-        
-        
-        // Draw Enemies
-        for(int i = 0; i < allEnemies.size(); i++){
-            allEnemies.at(i).draw(&window);
-        }
-        
-        
-        // Draw Loot
-        for(int i = 0; i < allLoots.size(); i++){
-            allLoots.at(i).draw(&window);
-        }
-        
-        // Reset view and draw GUI
-        window.setView(window.getDefaultView());
-        window.draw(lifeBarBG);
-        window.draw(lifeBar);
-        window.draw(goldBar);
-        window.draw(goldIcon);
-        goldLabel.draw(&window);
-        
-        // Update the window
-        window.display();
-        /*/
+    
     }
 
     return EXIT_SUCCESS;

@@ -42,6 +42,7 @@
 		DB357B331FBB4F58003A9305 /* gold.png in Resources */ = {isa = PBXBuildFile; fileRef = DB357B321FBB4F57003A9305 /* gold.png */; };
 		DB6B98A31FB3C814000EA66A /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB6B98A21FB3C814000EA66A /* Player.cpp */; };
 		DB6B98A51FB3E943000EA66A /* gun.png in Resources */ = {isa = PBXBuildFile; fileRef = DB6B98A41FB3E943000EA66A /* gun.png */; };
+		DB9895811FC74AB800D37803 /* Resource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB9895801FC74AB800D37803 /* Resource.cpp */; };
 		DBCA62891FC48956003585B3 /* enemyArm.png in Resources */ = {isa = PBXBuildFile; fileRef = DBCA62881FC48956003585B3 /* enemyArm.png */; };
 		DBDEF9CC1FBD09820065C30F /* joeFinal.png in Resources */ = {isa = PBXBuildFile; fileRef = DBDEF9CB1FBD09820065C30F /* joeFinal.png */; };
 /* End PBXBuildFile section */
@@ -99,6 +100,8 @@
 		DB6B98A11FB3C59F000EA66A /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		DB6B98A21FB3C814000EA66A /* Player.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		DB6B98A41FB3E943000EA66A /* gun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gun.png; sourceTree = "<group>"; };
+		DB98957F1FC74AA500D37803 /* Resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Resource.h; sourceTree = "<group>"; };
+		DB9895801FC74AB800D37803 /* Resource.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Resource.cpp; sourceTree = "<group>"; };
 		DBCA62881FC48956003585B3 /* enemyArm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemyArm.png; sourceTree = "<group>"; };
 		DBDEF9CB1FBD09820065C30F /* joeFinal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = joeFinal.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,6 +161,8 @@
 				0A0CB6D61FBABC610061FF0F /* Loot.cpp */,
 				0A3DF43B1FC3864C00A302A5 /* Spawner.h */,
 				0A3DF43C1FC3865F00A302A5 /* Spawner.cpp */,
+				DB98957F1FC74AA500D37803 /* Resource.h */,
+				DB9895801FC74AB800D37803 /* Resource.cpp */,
 				0AE1C46E1FB7F44300A8632B /* GUI_Button.h */,
 				0AE1C46D1FB7F44300A8632B /* GUI_Button.cpp */,
 				0AE1C46B1FB7F44300A8632B /* GUI_Object.h */,
@@ -312,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A3DF43D1FC3865F00A302A5 /* Spawner.cpp in Sources */,
+				DB9895811FC74AB800D37803 /* Resource.cpp in Sources */,
 				0AE1C4721FB7F44400A8632B /* GUI_Button.cpp in Sources */,
 				DB1F92BF1FAE95C1002BA52D /* Entity.cpp in Sources */,
 				0A87136C1FC658C50041A3FD /* Game.cpp in Sources */,
