@@ -17,6 +17,7 @@
 #include "Enemy.h"
 #include "Magnet.h"
 #include "Spawner.h"
+#include "Resource.h"
 #include "GUI_Object.h"
 #include "GUI_Text.h"
 #include "GUI_Button.h"
@@ -28,6 +29,7 @@ protected:
     vector<Bullet> bullets;
     vector<Magnet> magnets;
     vector<Spawner> spawners;
+    vector<Resource> resources;
     vector<Loot> loots;
     Texture goldTexture, enemyTexture, enemyArmTexture, enemyBulletTexture;
     vector<int> type = {1, 1, 1, 1};
@@ -37,7 +39,7 @@ protected:
 public:
     Player* player;
     Level();
-    Level(Player* _player, vector<Object> _objects, vector<Enemy> _enemies, vector<Bullet> _bullets, vector<Magnet> _magnets, vector<Spawner> _spawners, vector<Loot> _loots);
+    Level(Player* _player, vector<Object> _objects, vector<Enemy> _enemies, vector<Bullet> _bullets, vector<Magnet> _magnets, vector<Spawner> _spawners, vector<Resource> _resources, vector<Loot> _loots);
     void setTextures(Texture* _goldTexture, Texture* _enemyTexture, Texture* _enemyArmTexture, Texture* _enemyBulletTexture);
     void draw(RenderWindow* window);
     void update(int mouseInputs[], int keyInputs[]);

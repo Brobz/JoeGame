@@ -6,6 +6,10 @@ int main(int, char const**)
 {
     const int WIDTH = 900, HEIGHT = 600;
     const double SCALE = 1.3;
+    
+    // Seed random
+    srand((int)time(NULL));
+    
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "SFML window", sf::Style::Close);
     // Create the main view
@@ -50,6 +54,7 @@ int main(int, char const**)
     vector<Bullet> allBullets;
     vector<Magnet> allMagnets;
     vector<Spawner> allSpawners;
+    vector<Resource> allResources;
     vector<Loot> allLoots;
     
     
@@ -64,6 +69,8 @@ int main(int, char const**)
     bgSprite.setColor(Color(255, 255, 255, 205));
     
     allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 225));
+    
+    allResources.push_back(Resource(3, type_NM, Vector2f(120, 80), Vector2f(250, 500), &wallTexture, 150, 0, 60, type_NM, &goldTexture));
     
     allSpawners.at(0).activate();
 
@@ -117,7 +124,7 @@ int main(int, char const**)
     
     sf::Clock clock;
     
-    Level level_zero = Level(player, allObjects, allEnemies, allBullets, allMagnets, allSpawners, allLoots);
+    Level level_zero = Level(player, allObjects, allEnemies, allBullets, allMagnets, allSpawners, allResources, allLoots);
     
     level_zero.setTextures(&goldTexture, &enemyTexture, &enemyArmTexture, &bulletTexture);
     

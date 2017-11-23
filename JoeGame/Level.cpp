@@ -10,13 +10,14 @@
 
 Level::Level(){};
 
-Level::Level(Player* _player, vector<Object> _objects, vector<Enemy> _enemies, vector<Bullet> _bullets, vector<Magnet> _magnets, vector<Spawner> _spawners, vector<Loot> _loots){
+Level::Level(Player* _player, vector<Object> _objects, vector<Enemy> _enemies, vector<Bullet> _bullets, vector<Magnet> _magnets, vector<Spawner> _spawners, vector<Resource> _resources, vector<Loot> _loots){
     player = _player;
     objects = _objects;
     enemies = _enemies;
     bullets = _bullets;
     magnets = _magnets;
     spawners = _spawners;
+    resources = _resources;
     loots = _loots;
 }
 void Level::draw(RenderWindow* window){
@@ -33,6 +34,12 @@ void Level::draw(RenderWindow* window){
     // Draw all objects
     for(int i = 0; i < objects.size(); i++){
         objects.at(i).draw(window);
+    }
+    
+    
+    // Draw all resources
+    for(int i = 0; i < resources.size(); i++){
+        resources.at(i).draw(window);
     }
     
     // Draw Player
@@ -86,7 +93,7 @@ void Level::update(int mouseInputs[], int keyInputs[]){
             bullets.erase(bullets.begin() + i);
             continue;
         }
-        bullets.at(i).update(objects, player, enemies, magnets);
+        bullets.at(i).update(objects, player, enemies, magnets, resources, loots);
     }
     
     // Update Player physics
@@ -107,7 +114,8 @@ void Level::update(int mouseInputs[], int keyInputs[]){
     for(int i = 0; i < enemies.size(); i++){
         if (enemies.at(i).isItDestroyed()){
             
-            loots.push_back(Loot(0.05, type, Vector2f(20, 20), enemies.at(i).getPosition(), &goldTexture, 0, 3));
+            for(int j = 0; j < 5; j++)
+                loots.push_back(Loot(0.05, type, Vector2f(10, 10), enemies.at(i).getPosition(), &goldTexture, 0, 1));
             enemies.erase(enemies.begin() + i);
             continue;
         }
@@ -124,6 +132,15 @@ void Level::update(int mouseInputs[], int keyInputs[]){
     // Update Object physics
     for(int i = 0; i < objects.size(); i++){
         objects.at(i).update();
+    }
+    
+    // Update Resource Physics
+    for(int i = 0; i < resources.size(); i++){
+        if(resources.at(i).isItDestroyed()){
+            resources.erase(resources.begin() + i);
+            continue;
+        }
+        resources.at(i).update(objects);
     }
     
     // Update Spawner physics
