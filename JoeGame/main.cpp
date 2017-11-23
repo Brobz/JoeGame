@@ -124,7 +124,7 @@ int main(int, char const**)
     
     Level level_zero = Level(player, allObjects, allEnemies, allBullets, allMagnets, allSpawners, allResources, allLoots);
     
-    level_zero.setTextures(&goldTexture, &enemyTexture, &enemyArmTexture, &bulletTexture, &attractorTexture, &repellerTexture);
+    level_zero.setTextures(&goldTexture, &enemyTexture, &enemyArmTexture, &bulletTexture, &attractorTexture, &repellerTexture, &crossTexture);
     
     Game GAME;
     GAME.addLevel(&level_zero);
