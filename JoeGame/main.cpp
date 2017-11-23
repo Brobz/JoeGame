@@ -30,12 +30,11 @@ int main(int, char const**)
     
     
     // Load a sprite to display
-
-   sf::Texture bgTexture, playerTexture, enemyTexture, wallTexture, floorTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture, resourceTexture, enemyArmTexture;
+   sf::Texture bgTexture, playerTexture, enemyTexture, wallTexture, floorTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture, enemyArmTexture, attractorGemTexture, attractorResourceTexture, repellerGemTexture, repellerResourceTexture;
     
-    vector<Texture*> allTextures = {&bgTexture, &playerTexture, &enemyTexture, &wallTexture, &floorTexture, &attractorTexture, &repellerTexture, &gunTexture, &bulletTexture, &guiTexture, &buttonTexture, &goldTexture, &resourceTexture, &enemyArmTexture};
+    vector<Texture*> allTextures = {&bgTexture, &playerTexture, &enemyTexture, &wallTexture, &floorTexture, &attractorTexture, &repellerTexture, &gunTexture, &bulletTexture, &guiTexture, &buttonTexture, &goldTexture, &enemyArmTexture, &attractorGemTexture, &attractorResourceTexture, &repellerGemTexture, &repellerResourceTexture};
     
-    vector<string> textureID = {"background.png", "joeFinal.png", "enemy.png", "wall.png", "ground.png", "attractor.png", "repeller.png", "arm.png", "bullet.png", "gui.png", "2.png", "gold.png", "resource.png", "enemyArm.png"};
+    vector<string> textureID = {"background.png", "joeFinal.png", "enemy.png", "wall.png", "ground.png", "attractor.png", "repeller.png", "arm.png", "bullet.png", "gui.png", "2.png", "gold.png", "enemyArm.png", "attractorGem.png", "attractorResource.png", "repellerGem.png", "repellerResource.png"};
     
     
     for (int i = 0; i < allTextures.size(); i++){
@@ -68,7 +67,7 @@ int main(int, char const**)
     
     allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 225));
     
-    allResources.push_back(Resource(3, type_NM, Vector2f(120, 80), Vector2f(250, 500), &wallTexture, 150, 0, 60, type, &resourceTexture, 2));
+    allResources.push_back(Resource(3, type_NM, Vector2f(120, 80), Vector2f(250, 500), &repellerResourceTexture, 150, 0, 60, type_NM, &repellerGemTexture, 2));
     
     allSpawners.at(0).activate();
 
