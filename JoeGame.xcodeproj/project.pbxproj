@@ -19,6 +19,8 @@
 		0A3DF4521FC3C46700A302A5 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DF4511FC3C46600A302A5 /* background.png */; };
 		0A5D0E011FB6172800E863A0 /* bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A5D0E001FB6172800E863A0 /* bullet.png */; };
 		0A5D0E041FB6266D00E863A0 /* Magnet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D0E031FB6266D00E863A0 /* Magnet.cpp */; };
+		0A8713691FC64FDE0041A3FD /* Level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A8713681FC64FDE0041A3FD /* Level.cpp */; };
+		0A87136C1FC658C50041A3FD /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A87136B1FC658C50041A3FD /* Game.cpp */; };
 		0AD1BCCA1FAEF75300FAD766 /* pacman.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD1BCC91FAEF75300FAD766 /* pacman.png */; };
 		0AE1C4711FB7F44400A8632B /* GUI_Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AE1C46C1FB7F44300A8632B /* GUI_Text.cpp */; };
 		0AE1C4721FB7F44400A8632B /* GUI_Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AE1C46D1FB7F44300A8632B /* GUI_Button.cpp */; };
@@ -60,6 +62,10 @@
 		0A5D0E001FB6172800E863A0 /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet.png; sourceTree = "<group>"; };
 		0A5D0E021FB620D900E863A0 /* Magnet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Magnet.h; sourceTree = "<group>"; };
 		0A5D0E031FB6266D00E863A0 /* Magnet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Magnet.cpp; sourceTree = "<group>"; };
+		0A8713671FC64FBD0041A3FD /* Level.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Level.h; sourceTree = "<group>"; };
+		0A8713681FC64FDE0041A3FD /* Level.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Level.cpp; sourceTree = "<group>"; };
+		0A87136A1FC658B60041A3FD /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		0A87136B1FC658C50041A3FD /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		0AD1BCC91FAEF75300FAD766 /* pacman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pacman.png; sourceTree = "<group>"; };
 		0AE1C46B1FB7F44300A8632B /* GUI_Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GUI_Object.h; sourceTree = "<group>"; };
 		0AE1C46C1FB7F44300A8632B /* GUI_Text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GUI_Text.cpp; sourceTree = "<group>"; };
@@ -130,6 +136,10 @@
 				DB1F92A51FAE38DD002BA52D /* ResourcePath.mm */,
 				DB1F92A71FAE38DD002BA52D /* ResourcePath.hpp */,
 				DB1F92A81FAE38DD002BA52D /* main.cpp */,
+				0A87136A1FC658B60041A3FD /* Game.h */,
+				0A87136B1FC658C50041A3FD /* Game.cpp */,
+				0A8713671FC64FBD0041A3FD /* Level.h */,
+				0A8713681FC64FDE0041A3FD /* Level.cpp */,
 				DB1F92B81FAE3A11002BA52D /* Object.h */,
 				DB1F92B91FAE4143002BA52D /* Object.cpp */,
 				DB1F92BD1FAE9494002BA52D /* Entity.h */,
@@ -304,9 +314,11 @@
 				0A3DF43D1FC3865F00A302A5 /* Spawner.cpp in Sources */,
 				0AE1C4721FB7F44400A8632B /* GUI_Button.cpp in Sources */,
 				DB1F92BF1FAE95C1002BA52D /* Entity.cpp in Sources */,
+				0A87136C1FC658C50041A3FD /* Game.cpp in Sources */,
 				DB6B98A31FB3C814000EA66A /* Player.cpp in Sources */,
 				0AE1C4711FB7F44400A8632B /* GUI_Text.cpp in Sources */,
 				3F52B77B1FB2AC4300BFDE4E /* Weapon.cpp in Sources */,
+				0A8713691FC64FDE0041A3FD /* Level.cpp in Sources */,
 				3F216EA31FB3E88C00AEF021 /* Bullet.cpp in Sources */,
 				0AE1C4731FB7F44400A8632B /* GUI_Object.cpp in Sources */,
 				0A0CB6D71FBABC610061FF0F /* Loot.cpp in Sources */,

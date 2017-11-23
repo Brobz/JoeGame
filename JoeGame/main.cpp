@@ -1,18 +1,6 @@
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
-
 // Here is a small helper for you! Have a look.
 #include "ResourcePath.hpp"
-#include "Entity.h"
-#include "Weapon.h"
-#include "Player.h"
-#include "Bullet.h"
-#include "Enemy.h"
-#include "Magnet.h"
-#include "Spawner.h"
-#include "GUI_Object.h"
-#include "GUI_Text.h"
-#include "GUI_Button.h"
+#include "Game.h"
 
 int main(int, char const**)
 {
@@ -169,6 +157,16 @@ int main(int, char const**)
     GUI_Text goldLabel = GUI_Text(Vector2f(window.getSize().x-goldBar.getSize().x + 4,18), std::to_string(player->getGold()), 18, &font, Color::Black);
     
     sf::Clock clock;
+    
+    Level level_zero = Level(player, allObjects, allEnemies, allBullets, allMagnets, allSpawners, allLoots);
+    
+    level_zero.setTextures(&goldTexture, &enemyTexture, &enemyArmTexture, &bulletTexture);
+    
+    Game GAME;
+    GAME.addLevel(&level_zero);
+    
+    GAME.setCurrentLevel(0);
+    
     // Start the game loop
     while (window.isOpen())
     {
@@ -235,27 +233,33 @@ int main(int, char const**)
             
             window.setView(window.getDefaultView());
         }
-
-        // Input arrays
-        if(MOUSE_INPUTS[0])
-            player->fireWeapon(allBullets);
         
-        if(KEY_INPUTS[3]){
-            player->setFacingRight(true);
-            player->setSelfVelocity(Vector2f(player->getMoveForce(), player->getSelfVelocity().y));
-        } 
+        GAME.update(MOUSE_INPUTS, KEY_INPUTS);
         
-        if(KEY_INPUTS[1]){
-            player->setFacingRight(false);
-            player->setSelfVelocity(Vector2f(-player->getMoveForce(), player->getSelfVelocity().y));
-            
-        }
+        //Update HP and Gold Bar
+        lifeBar.setSize(sf::Vector2f((float)player->getHP()/player->getMaxHP()*150, 20));
+        goldLabel.setText(std::to_string(player->getGold()));
         
-        if(!KEY_INPUTS[1] && !KEY_INPUTS[3]){
-            player->setSelfVelocity(Vector2f(0, player->getSelfVelocity().y));
-        }
+        window.clear(sf::Color::Black);
+        window.draw(bgSprite);
         
+        view.setCenter(player->getPosition());
+        window.setView(view);
         
+        GAME.draw(&window);
+        
+        // Reset view and draw GUI
+        window.setView(window.getDefaultView());
+        
+        window.draw(lifeBarBG);
+        window.draw(lifeBar);
+        window.draw(goldBar);
+        window.draw(goldIcon);
+        goldLabel.draw(&window);
+        
+        window.display();
+        
+        /*/
         // Update Magnet physics
         for(int i = 0; i < allMagnets.size(); i++){
             if (allMagnets.at(i).isItDestroyed()){
@@ -373,6 +377,7 @@ int main(int, char const**)
         
         // Update the window
         window.display();
+        /*/
     }
 
     return EXIT_SUCCESS;
