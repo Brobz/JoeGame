@@ -39,6 +39,8 @@ public:
     Weapon* getWeapon();
     void getLoot(int lootType, int lootAmount);
     int getGold();
+    int getAttractorGems();
+    int getRepellerGems();
     void die();
     int getFiringMode();
     void setFiringMode(int _firingMode);

@@ -16,7 +16,7 @@ protected:
     vector<Level> levels;
 public:
     Game();
-    void update(int mouseInputs[], int keyInputs[]);
+    void update(int mouseInputs[], int keyInputs[], Vector2f mousePos);
     void draw(RenderWindow* window);
     void addLevel(Level* _level);
     void setCurrentLevel(int _level);

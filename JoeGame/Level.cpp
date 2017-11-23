@@ -43,8 +43,24 @@ void Level::draw(RenderWindow* window){
     }
     
     // Draw Player
-    if(!player->isItDestroyed())
+    if(!player->isItDestroyed()){
         player->draw(window);
+        if(player->getFiringMode() == 1){
+            Sprite alphaAttractor(attractorTexture);
+            Vector2f mousePos = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
+            alphaAttractor.setPosition(Vector2f(mousePos.x - 16, mousePos.y - 16));
+            alphaAttractor.setScale(2, 2);
+            alphaAttractor.setColor(Color::Color(255, 255, 255, 80));
+            window->draw(alphaAttractor);
+        }else if(player->getFiringMode() == 2){
+            Sprite alphaRepeller(repellerTexture);
+            Vector2f mousePos = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
+            alphaRepeller.setPosition(Vector2f(mousePos.x - 16, mousePos.y - 16));
+            alphaRepeller.setScale(2, 2);
+            alphaRepeller.setColor(Color::Color(255, 255, 255, 80));
+            window->draw(alphaRepeller);
+        }
+    }
     
     
     // Draw Enemies
@@ -58,10 +74,29 @@ void Level::draw(RenderWindow* window){
         loots.at(i).draw(window);
     }
 }
-void Level::update(int mouseInputs[], int keyInputs[]){
+void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos){
     // Input arrays
-    if(mouseInputs[0])
-        player->fireWeapon(bullets);
+    if(mouseInputs[0]){
+        if(!player->getFiringMode())
+            player->fireWeapon(bullets);
+        else if(player->getFiringMode() == 1){
+            if(player->getAttractorGems() >= 10 && player->getGold() >= 5){
+                magnets.push_back((Magnet(1, type_NG, Vector2f(32, 32), Vector2f(mousePos.x - 16, mousePos.y - 16), &attractorTexture, 50, -800, 0, 60)));
+            
+                mouseInputs[0] = 0;
+                player->getLoot(0, -5);
+                player->getLoot(1, -10);
+            }
+        }else if(player->getFiringMode() == 2){
+            if(player->getRepellerGems() >= 10 && player->getGold() >= 5){
+                magnets.push_back((Magnet(1, type_NG, Vector2f(32, 32), Vector2f(mousePos.x - 16, mousePos.y - 16), &repellerTexture, 50, 800, 0, 60)));
+                mouseInputs[0] = 0;
+                player->getLoot(0, -5);
+                player->getLoot(2, -10);
+            }
+        }
+        
+    }
     
     if(mouseInputs[1]){
         player->setFiringMode(player->getFiringMode() + 1);
@@ -164,9 +199,11 @@ void Level::update(int mouseInputs[], int keyInputs[]){
 }
 
 
-void Level::setTextures(Texture* _goldTexture, Texture* _enemyTexture, Texture* _enemyArmTexture, Texture* _enemyBulletTexture){
+void Level::setTextures(Texture* _goldTexture, Texture* _enemyTexture, Texture* _enemyArmTexture, Texture* _enemyBulletTexture, Texture* _attractorTexture, Texture* _repellerTexture){
     goldTexture = *_goldTexture;
     enemyTexture = *_enemyTexture;
     enemyArmTexture = *_enemyArmTexture;
     enemyBulletTexture = *_enemyBulletTexture;
+    attractorTexture = *_attractorTexture;
+    repellerTexture = *_repellerTexture;
 }

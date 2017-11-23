@@ -127,6 +127,14 @@ int Player::getGold(){
     return gold;
 }
 
+int Player::getRepellerGems(){
+    return repellerGems;
+}
+
+int Player::getAttractorGems(){
+    return attracctorGems;
+}
+
 Weapon* Player::getWeapon(){
     return &weapon;
 }

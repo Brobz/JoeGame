@@ -6,6 +6,7 @@ int main(int, char const**)
 {
     const int WIDTH = 900, HEIGHT = 600;
     const double SCALE = 1.3;
+    Vector2f MOUSE_POS;
     
     // Seed random
     srand((int)time(NULL));
@@ -67,7 +68,7 @@ int main(int, char const**)
     
     allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 225));
     
-    allResources.push_back(Resource(3, type_NM, Vector2f(120, 80), Vector2f(250, 500), &repellerResourceTexture, 150, 0, 60, type, &repellerGemTexture, 2));
+    allResources.push_back(Resource(3, type_NM, Vector2f(120, 80), Vector2f(250, 500), &attractorResourceTexture, 200, 0, 60, type, &attractorGemTexture, 1));
     
     allSpawners.at(0).activate();
 
@@ -123,7 +124,7 @@ int main(int, char const**)
     
     Level level_zero = Level(player, allObjects, allEnemies, allBullets, allMagnets, allSpawners, allResources, allLoots);
     
-    level_zero.setTextures(&goldTexture, &enemyTexture, &enemyArmTexture, &bulletTexture);
+    level_zero.setTextures(&goldTexture, &enemyTexture, &enemyArmTexture, &bulletTexture, &attractorTexture, &repellerTexture);
     
     Game GAME;
     GAME.addLevel(&level_zero);
@@ -207,7 +208,11 @@ int main(int, char const**)
             window.setView(window.getDefaultView());
         }
         
-        GAME.update(MOUSE_INPUTS, KEY_INPUTS);
+        window.setView(view);
+        MOUSE_POS = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+        window.setView(window.getDefaultView());
+        
+        GAME.update(MOUSE_INPUTS, KEY_INPUTS, MOUSE_POS);
         
         //Update HP and Gold Bar
         lifeBar.setSize(sf::Vector2f((float)player->getHP()/player->getMaxHP()*150, 20));

@@ -10,8 +10,8 @@
 
 Game::Game(){};
 
-void Game::update(int mouseInputs[], int keyInputs[]){
-    levels.at(currentLevel).update(mouseInputs, keyInputs);
+void Game::update(int mouseInputs[], int keyInputs[], Vector2f mousePos){
+    levels.at(currentLevel).update(mouseInputs, keyInputs, mousePos);
 }
 void Game::draw(RenderWindow* window){
     levels.at(currentLevel).draw(window);
