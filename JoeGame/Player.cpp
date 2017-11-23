@@ -23,6 +23,7 @@ Player::Player(double _mass, vector<int> &_type, Vector2f _size, Vector2f _posit
     gold = 0;
     attracctorGems = 0;
     repellerGems = 0;
+    firingMode = 0;
     weaponOffset = Vector2f(25, 32);
     weapon.getSprite()->setOrigin(2, 2);
     weapon.setPosition(position + weaponOffset);
@@ -85,6 +86,14 @@ void Player::update(vector<Object> &objectCol, vector<Magnet> &magnetCol, vector
     lootMagnet.setPosition(position);
     lootMagnet.update(lootCol);
     
+}
+
+void Player::setFiringMode(int _firingMode){
+    firingMode = _firingMode;
+}
+
+int Player::getFiringMode(){
+    return firingMode;
 }
 
 void Player::draw(RenderWindow* window){

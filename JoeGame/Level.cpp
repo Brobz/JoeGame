@@ -63,6 +63,16 @@ void Level::update(int mouseInputs[], int keyInputs[]){
     if(mouseInputs[0])
         player->fireWeapon(bullets);
     
+    if(mouseInputs[1]){
+        player->setFiringMode(player->getFiringMode() + 1);
+        if(player->getFiringMode() > 2){
+            player->setFiringMode(0);
+        }
+        
+        mouseInputs[1] = 0;
+        cout << player->getFiringMode() << endl;
+    }
+    
     if(keyInputs[3]){
         player->setFacingRight(true);
         player->setSelfVelocity(Vector2f(player->getMoveForce(), player->getSelfVelocity().y));

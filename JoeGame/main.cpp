@@ -31,14 +31,12 @@ int main(int, char const**)
     
     // Load a sprite to display
 
-   sf::Texture bgTexture, playerTexture, enemyTexture, wallTexture, floorTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture, enemyArmTexture;
+   sf::Texture bgTexture, playerTexture, enemyTexture, wallTexture, floorTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture, resourceTexture, enemyArmTexture;
     
-    vector<Texture*> allTextures = {&bgTexture, &playerTexture, &enemyTexture, &wallTexture, &floorTexture, &attractorTexture, &repellerTexture, &gunTexture, &bulletTexture, &guiTexture, &buttonTexture, &goldTexture, &enemyArmTexture};
+    vector<Texture*> allTextures = {&bgTexture, &playerTexture, &enemyTexture, &wallTexture, &floorTexture, &attractorTexture, &repellerTexture, &gunTexture, &bulletTexture, &guiTexture, &buttonTexture, &goldTexture, &resourceTexture, &enemyArmTexture};
     
-    vector<string> textureID = {"background.png", "joeFinal.png", "enemy.png", "wall.png", "ground.png", "attractor.png", "repeller.png", "arm.png", "bullet.png", "gui.png", "2.png", "gold.png", "enemyArm.png"};
+    vector<string> textureID = {"background.png", "joeFinal.png", "enemy.png", "wall.png", "ground.png", "attractor.png", "repeller.png", "arm.png", "bullet.png", "gui.png", "2.png", "gold.png", "resource.png", "enemyArm.png"};
     
-    
-    //JUAN AT ITS BEST
     
     for (int i = 0; i < allTextures.size(); i++){
         if(!allTextures.at(i)->loadFromFile( resourcePath() + textureID.at(i) ))
@@ -70,7 +68,7 @@ int main(int, char const**)
     
     allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 225));
     
-    allResources.push_back(Resource(3, type_NM, Vector2f(120, 80), Vector2f(250, 500), &wallTexture, 150, 0, 60, type_NM, &goldTexture));
+    allResources.push_back(Resource(3, type_NM, Vector2f(120, 80), Vector2f(250, 500), &wallTexture, 150, 0, 60, type, &resourceTexture, 2));
     
     allSpawners.at(0).activate();
 
@@ -176,6 +174,16 @@ int main(int, char const**)
             
             if(event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Button::Left) {
                 MOUSE_INPUTS[0] = 0;
+                //allPlayers.at(0).fireWeapon(allBullets);
+            }
+            
+            if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Right) {
+                MOUSE_INPUTS[1] = 1;
+                //allPlayers.at(0).fireWeapon(allBullets);
+            }
+            
+            if(event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Button::Right) {
+                MOUSE_INPUTS[1] = 0;
                 //allPlayers.at(0).fireWeapon(allBullets);
             }
             
