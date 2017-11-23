@@ -26,6 +26,7 @@
 		0A89099C1FC7726A00C34F3A /* attractorGem.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8909981FC7726900C34F3A /* attractorGem.png */; };
 		0A89099D1FC7726A00C34F3A /* repellerResource.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8909991FC7726900C34F3A /* repellerResource.png */; };
 		0A89099E1FC7726A00C34F3A /* attractorResource.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A89099A1FC7726A00C34F3A /* attractorResource.png */; };
+		0A8909A01FC7807900C34F3A /* cross.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A89099F1FC7807800C34F3A /* cross.png */; };
 		0AD1BCCA1FAEF75300FAD766 /* pacman.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD1BCC91FAEF75300FAD766 /* pacman.png */; };
 		0AE1C4711FB7F44400A8632B /* GUI_Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AE1C46C1FB7F44300A8632B /* GUI_Text.cpp */; };
 		0AE1C4721FB7F44400A8632B /* GUI_Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AE1C46D1FB7F44300A8632B /* GUI_Button.cpp */; };
@@ -77,6 +78,7 @@
 		0A8909981FC7726900C34F3A /* attractorGem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = attractorGem.png; sourceTree = "<group>"; };
 		0A8909991FC7726900C34F3A /* repellerResource.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = repellerResource.png; sourceTree = "<group>"; };
 		0A89099A1FC7726A00C34F3A /* attractorResource.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = attractorResource.png; sourceTree = "<group>"; };
+		0A89099F1FC7807800C34F3A /* cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross.png; sourceTree = "<group>"; };
 		0AD1BCC91FAEF75300FAD766 /* pacman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pacman.png; sourceTree = "<group>"; };
 		0AE1C46B1FB7F44300A8632B /* GUI_Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GUI_Object.h; sourceTree = "<group>"; };
 		0AE1C46C1FB7F44300A8632B /* GUI_Text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GUI_Text.cpp; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				DB16FA691FB7AE620032DE8D /* attractor.png */,
 				0A3DF4441FC39D4700A302A5 /* resource.png */,
 				DBDEF9CB1FBD09820065C30F /* joeFinal.png */,
+				0A89099F1FC7807800C34F3A /* cross.png */,
 				DB16FA681FB7AE620032DE8D /* repeller.png */,
 				DB6B98A41FB3E943000EA66A /* gun.png */,
 				0AE1C4741FB7F4AB00A8632B /* 2.png */,
@@ -284,6 +287,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A8909A01FC7807900C34F3A /* cross.png in Resources */,
 				0A89099C1FC7726A00C34F3A /* attractorGem.png in Resources */,
 				DBCA62891FC48956003585B3 /* enemyArm.png in Resources */,
 				DB16FA6B1FB7AE620032DE8D /* attractor.png in Resources */,
