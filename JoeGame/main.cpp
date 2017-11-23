@@ -67,7 +67,7 @@ int main(int, char const**)
     
     allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 225));
     
-    allResources.push_back(Resource(3, type_NM, Vector2f(120, 80), Vector2f(250, 500), &repellerResourceTexture, 150, 0, 60, type_NM, &repellerGemTexture, 2));
+    allResources.push_back(Resource(3, type_NM, Vector2f(120, 80), Vector2f(250, 500), &repellerResourceTexture, 150, 0, 60, type, &repellerGemTexture, 2));
     
     allSpawners.at(0).activate();
 
