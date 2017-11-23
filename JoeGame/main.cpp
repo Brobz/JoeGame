@@ -27,60 +27,19 @@ int main(int, char const**)
     
     // Load a sprite to display
 
-    sf::Texture playerTexture, enemyTexture, wallTexture, floorTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture, bgTexture, enemyArmTexture;
+   sf::Texture bgTexture, playerTexture, enemyTexture, wallTexture, floorTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture, enemyArmTexture;
+    
+    vector<Texture*> allTextures = {&bgTexture, &playerTexture, &enemyTexture, &wallTexture, &floorTexture, &attractorTexture, &repellerTexture, &gunTexture, &bulletTexture, &guiTexture, &buttonTexture, &goldTexture, &enemyArmTexture};
+    
+    vector<string> textureID = {"background.png", "joeFinal.png", "enemy.png", "wall.png", "ground.png", "attractor.png", "repeller.png", "arm.png", "bullet.png", "gui.png", "2.png", "gold.png", "enemyArm.png"};
     
     
-    if (!bgTexture.loadFromFile(resourcePath() + "background.png")) {
-        return EXIT_FAILURE;
-    }
+    //JUAN AT ITS BEST
     
-    if (!playerTexture.loadFromFile(resourcePath() + "joeFinal.png")) {
-        return EXIT_FAILURE;
+    for (int i = 0; i < allTextures.size(); i++){
+        if(!allTextures.at(i)->loadFromFile( resourcePath() + textureID.at(i) ))
+            return EXIT_FAILURE;
     }
-    
-    if (!enemyTexture.loadFromFile(resourcePath() + "enemy.png")) {
-        return EXIT_FAILURE;
-    }
-    
-    if (!gunTexture.loadFromFile(resourcePath() + "arm.png")) {
-        return EXIT_FAILURE;
-    }
-    
-    if (!enemyArmTexture.loadFromFile(resourcePath() + "enemyArm.png")) {
-        return EXIT_FAILURE;
-    }
-    
-    if (!bulletTexture.loadFromFile(resourcePath() + "bullet.png")) {
-        return EXIT_FAILURE;
-    }
-    
-    if (!wallTexture.loadFromFile(resourcePath() + "wall.png")) {
-        return EXIT_FAILURE;
-    }
-    
-    if (!attractorTexture.loadFromFile(resourcePath() + "attractor.png")) {
-        return EXIT_FAILURE;
-    }
-    
-    if (!repellerTexture.loadFromFile(resourcePath() + "repeller.png")) {
-        return EXIT_FAILURE;
-    }
-
-    if (!goldTexture.loadFromFile(resourcePath() + "gold.png")) {
-        return EXIT_FAILURE;
-    }
-    
-    if (!guiTexture.loadFromFile(resourcePath() + "gui.png")) {
-        return EXIT_FAILURE;
-    }
-    if (!buttonTexture.loadFromFile(resourcePath() + "2.png")) {
-        return EXIT_FAILURE;
-    }
-    if (!floorTexture.loadFromFile(resourcePath() + "ground.png")) {
-        return EXIT_FAILURE;
-    }
-
-    
     
     int MOUSE_INPUTS[3] = {0, 0, 0}; // LEFT, MIDDLE, RIGHT
     int KEY_INPUTS[5] = {0, 0, 0, 0, 0}; // W, A, S, D, SPACEBAR
@@ -258,126 +217,7 @@ int main(int, char const**)
         goldLabel.draw(&window);
         
         window.display();
-        
-        /*/
-        // Update Magnet physics
-        for(int i = 0; i < allMagnets.size(); i++){
-            if (allMagnets.at(i).isItDestroyed()){
-                allMagnets.erase(allMagnets.begin() + i);
-                continue;
-            }
-            allMagnets.at(i).update(allObjects, allBullets, player, allEnemies);
-        }
-        
-        // Update Bullet physicss
-        for(int i = 0; i < allBullets.size(); i++){
-            if (allBullets.at(i).isItDestroyed()){
-                allBullets.erase(allBullets.begin() + i);
-                continue;
-            }
-            allBullets.at(i).update(allObjects, player, allEnemies, allMagnets);
-        }
-        
-        // Update Player physics
-        if(!player->isItDestroyed())
-            player->update(allObjects, allMagnets, allLoots);
-        
-        
-        // Update Loot Physics
-        for(int i = 0; i < allLoots.size(); i++){
-            if (allLoots.at(i).isItDestroyed()){
-                allLoots.erase(allLoots.begin() + i);
-                continue;
-            }
-            allLoots.at(i).update(allObjects, player);
-        }
-        
-        // Update Enemy physics
-        for(int i = 0; i < allEnemies.size(); i++){
-            if (allEnemies.at(i).isItDestroyed()){
-
-                allLoots.push_back(Loot(0.05, type, Vector2f(20, 20), allEnemies.at(i).getPosition(), &goldTexture, 0, 3));
-                allEnemies.erase(allEnemies.begin() + i);
-                continue;
-            }
-            
-            if(allEnemies.at(i).isShooter() && !player->isItDestroyed()){
-                allEnemies.at(i).fireWeapon(allBullets);
-            }
-            
-            allEnemies.at(i).chasePlayer(player->getPosition(), Vector2f(1, 8));
-            allEnemies.at(i).update(allObjects, allMagnets, player);
-            
-        }
-        
-        // Update Object physics
-        for(int i = 0; i < allObjects.size(); i++){
-            allObjects.at(i).update();
-        }
-        
-        // Update Spawner physics
-        for(int i = 0; i < allSpawners.size(); i++){
-            allSpawners.at(i).update();
-            if(allSpawners.at(i).canItSpawn()){
-                allEnemies.push_back(Enemy(0.75, type, Vector2f(50,50), allSpawners.at(i).getPosition(), &enemyTexture, 50, new Weapon(type_NG_NM, Vector2f(45,45), &enemyArmTexture, 0.5, 0.5, bulletTexture, false, type_NG, 0.15, 20, Vector2f(8, 8)), 9, 60, true));
-                allSpawners.at(i).spawned();
-            }
-        }
-        
-        //Update HP Bar
-        lifeBar.setSize(sf::Vector2f((float)player->getHP()/player->getMaxHP()*150, 20));
-        goldLabel.setText(std::to_string(player->getGold()));
-        
-        // Clear screen and set view
-        window.clear(sf::Color::Black);
-        window.draw(bgSprite);
-        view.setCenter(player->getPosition());
-        window.setView(view);
-        
-        
-        
-        // Draw Bullets
-        for(int i = 0; i < allBullets.size(); i++){
-            allBullets.at(i).draw(&window);
-        }
-        
-        // Draw Magnets
-        for(int i = 0; i < allMagnets.size(); i++){
-            allMagnets.at(i).draw(&window);
-        }
-        
-        // Draw all objects
-        for(int i = 0; i < allObjects.size(); i++){
-            allObjects.at(i).draw(&window);
-        }
-        
-        // Draw Player
-        if(!player->isItDestroyed())
-            player->draw(&window);
-        
-        
-        // Draw Enemies
-        for(int i = 0; i < allEnemies.size(); i++){
-            allEnemies.at(i).draw(&window);
-        }
-        
-        
-        // Draw Loot
-        for(int i = 0; i < allLoots.size(); i++){
-            allLoots.at(i).draw(&window);
-        }
-        
-        // Reset view and draw GUI
-        window.setView(window.getDefaultView());
-        window.draw(lifeBarBG);
-        window.draw(lifeBar);
-        window.draw(goldBar);
-        window.draw(goldIcon);
-        goldLabel.draw(&window);
-        
-        // Update the window
-        window.display();
-        /*/
+    
     }
 
     return EXIT_SUCCESS;
