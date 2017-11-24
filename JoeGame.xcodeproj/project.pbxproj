@@ -50,6 +50,10 @@
 		DB1F92BC1FAE4EC7002BA52D /* block.png in Resources */ = {isa = PBXBuildFile; fileRef = DB1F92BB1FAE4EC7002BA52D /* block.png */; };
 		DB1F92BF1FAE95C1002BA52D /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB1F92BE1FAE95C1002BA52D /* Entity.cpp */; };
 		DB219D701FC8624A006A12A9 /* munro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB219D6F1FC8624A006A12A9 /* munro.ttf */; };
+		DB219D7D1FC88B08006A12A9 /* playButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DB219D791FC88B08006A12A9 /* playButton.png */; };
+		DB219D7E1FC88B08006A12A9 /* aboutButtonHover.png in Resources */ = {isa = PBXBuildFile; fileRef = DB219D7A1FC88B08006A12A9 /* aboutButtonHover.png */; };
+		DB219D7F1FC88B08006A12A9 /* aboutButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DB219D7B1FC88B08006A12A9 /* aboutButton.png */; };
+		DB219D801FC88B08006A12A9 /* playButtonHover.png in Resources */ = {isa = PBXBuildFile; fileRef = DB219D7C1FC88B08006A12A9 /* playButtonHover.png */; };
 		DB357B331FBB4F58003A9305 /* gold.png in Resources */ = {isa = PBXBuildFile; fileRef = DB357B321FBB4F57003A9305 /* gold.png */; };
 		DB6B98A31FB3C814000EA66A /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB6B98A21FB3C814000EA66A /* Player.cpp */; };
 		DB6B98A51FB3E943000EA66A /* gun.png in Resources */ = {isa = PBXBuildFile; fileRef = DB6B98A41FB3E943000EA66A /* gun.png */; };
@@ -118,6 +122,10 @@
 		DB1F92BD1FAE9494002BA52D /* Entity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		DB1F92BE1FAE95C1002BA52D /* Entity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
 		DB219D6F1FC8624A006A12A9 /* munro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = munro.ttf; sourceTree = "<group>"; };
+		DB219D791FC88B08006A12A9 /* playButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playButton.png; sourceTree = "<group>"; };
+		DB219D7A1FC88B08006A12A9 /* aboutButtonHover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aboutButtonHover.png; sourceTree = "<group>"; };
+		DB219D7B1FC88B08006A12A9 /* aboutButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aboutButton.png; sourceTree = "<group>"; };
+		DB219D7C1FC88B08006A12A9 /* playButtonHover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playButtonHover.png; sourceTree = "<group>"; };
 		DB357B321FBB4F57003A9305 /* gold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gold.png; sourceTree = "<group>"; };
 		DB6B98A11FB3C59F000EA66A /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		DB6B98A21FB3C814000EA66A /* Player.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
@@ -225,6 +233,10 @@
 				0A8909971FC7726900C34F3A /* repellerGem.png */,
 				0A8909AD1FC7AAAC00C34F3A /* plusGreyedOut.png */,
 				0A8909991FC7726900C34F3A /* repellerResource.png */,
+				DB219D7B1FC88B08006A12A9 /* aboutButton.png */,
+				DB219D7A1FC88B08006A12A9 /* aboutButtonHover.png */,
+				DB219D791FC88B08006A12A9 /* playButton.png */,
+				DB219D7C1FC88B08006A12A9 /* playButtonHover.png */,
 				0AD1BCC91FAEF75300FAD766 /* pacman.png */,
 				0A8909AB1FC7A5B800C34F3A /* plus.png */,
 				0A370B391FC507FB00ACAD62 /* enemy.png */,
@@ -303,10 +315,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A8909A01FC7807900C34F3A /* cross.png in Resources */,
+				DB219D7D1FC88B08006A12A9 /* playButton.png in Resources */,
 				0A89099C1FC7726A00C34F3A /* attractorGem.png in Resources */,
 				0A8909A81FC78F4100C34F3A /* attractorGreyedOut.png in Resources */,
 				DBCA62891FC48956003585B3 /* enemyArm.png in Resources */,
 				DB16FA6B1FB7AE620032DE8D /* attractor.png in Resources */,
+				DB219D7E1FC88B08006A12A9 /* aboutButtonHover.png in Resources */,
+				DB219D7F1FC88B08006A12A9 /* aboutButton.png in Resources */,
 				0A370B3A1FC507FB00ACAD62 /* enemy.png in Resources */,
 				0A89099B1FC7726A00C34F3A /* repellerGem.png in Resources */,
 				0A3DF4521FC3C46700A302A5 /* background.png in Resources */,
@@ -315,6 +330,7 @@
 				DB16FA6A1FB7AE620032DE8D /* repeller.png in Resources */,
 				0A8909AC1FC7A5B900C34F3A /* plus.png in Resources */,
 				DB357B331FBB4F58003A9305 /* gold.png in Resources */,
+				DB219D801FC88B08006A12A9 /* playButtonHover.png in Resources */,
 				0A8909A71FC78F4100C34F3A /* repellerGreyedOut.png in Resources */,
 				DB1F92B21FAE38DD002BA52D /* icon.png in Resources */,
 				0A8909AE1FC7AAAC00C34F3A /* plusGreyedOut.png in Resources */,
