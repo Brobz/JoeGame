@@ -98,9 +98,10 @@ int main(int, char const**)
     GUI_Button guibutton = GUI_Button(Vector2f(16,16), Vector2f(100,100), &buttonTexture, guitext, &guiTexture);
     
     //GUI
-    sf::RectangleShape lifeBar, lifeBarBG, goldBar;
-    sf::Sprite goldIcon;
+    sf::RectangleShape lifeBar, lifeBarBG, goldBar, attractorBar, repellerBar;
+    sf::Sprite goldIcon, attractorIcon, repellerIcon;
     
+    //LifeBar
     lifeBar.setSize(sf::Vector2f(150, 20));
     lifeBar.setPosition(sf::Vector2f(20, 20));
     lifeBar.setFillColor(Color(97, 216, 54));
@@ -111,6 +112,7 @@ int main(int, char const**)
     lifeBarBG.setOutlineThickness(3);
     lifeBarBG.setOutlineColor(Color(0,0,0));
     
+    //GoldBar
     goldBar.setSize(sf::Vector2f(75, 20));
     goldBar.setPosition(sf::Vector2f(window.getSize().x-20-goldBar.getSize().x, 20));
     goldBar.setFillColor(Color(246,200,0));
@@ -121,6 +123,31 @@ int main(int, char const**)
     goldIcon.setPosition(window.getSize().x-16-goldBar.getSize().x, 22);
     
     GUI_Text goldLabel = GUI_Text(Vector2f(window.getSize().x-goldBar.getSize().x + 4,18), std::to_string(player->getGold()), 18, &font, Color::Black);
+    
+    //Attractor counter
+    attractorBar.setSize(sf::Vector2f(75, 20));
+    attractorBar.setPosition(sf::Vector2f(window.getSize().x-20-goldBar.getSize().x, 54));
+    attractorBar.setFillColor(Color(30,146,255));
+    attractorBar.setOutlineThickness(3);
+    attractorBar.setOutlineColor(Color(0,0,0));
+    
+    attractorIcon.setTexture(attractorGemTexture);
+    attractorIcon.setPosition(window.getSize().x-16-goldBar.getSize().x, 56);
+    
+    GUI_Text attractorLabel = GUI_Text(Vector2f(window.getSize().x-goldBar.getSize().x + 4,52), std::to_string(player->getAttractorGems()), 18, &font, Color::Black);
+    
+    //Repeller counter
+    repellerBar.setSize(sf::Vector2f(75, 20));
+    repellerBar.setPosition(sf::Vector2f(window.getSize().x-20-goldBar.getSize().x, 88));
+    repellerBar.setFillColor(Color(255,0,0));
+    repellerBar.setOutlineThickness(3);
+    repellerBar.setOutlineColor(Color(0,0,0));
+    
+    repellerIcon.setTexture(repellerGemTexture);
+    repellerIcon.setPosition(window.getSize().x-16-goldBar.getSize().x, 90);
+    
+    GUI_Text repellerLabel = GUI_Text(Vector2f(window.getSize().x-goldBar.getSize().x + 4,86), std::to_string(player->getRepellerGems()), 18, &font, Color::Black);
+    
     
     sf::Clock clock;
     
@@ -216,9 +243,11 @@ int main(int, char const**)
         
         GAME.update(MOUSE_INPUTS, KEY_INPUTS, MOUSE_POS);
         
-        //Update HP and Gold Bar
+        //Update HP and GUI
         lifeBar.setSize(sf::Vector2f((float)player->getHP()/player->getMaxHP()*150, 20));
         goldLabel.setText(std::to_string(player->getGold()));
+        attractorLabel.setText(std::to_string(player->getAttractorGems()));
+        repellerLabel.setText(std::to_string(player->getRepellerGems()));
         
         window.clear(sf::Color::Black);
         window.draw(bgSprite);
@@ -233,9 +262,19 @@ int main(int, char const**)
         
         window.draw(lifeBarBG);
         window.draw(lifeBar);
+        
         window.draw(goldBar);
         window.draw(goldIcon);
+        
+        window.draw(attractorBar);
+        window.draw(attractorIcon);
+        
+        window.draw(repellerBar);
+        window.draw(repellerIcon);
+        
         goldLabel.draw(&window);
+        attractorLabel.draw(&window);
+        repellerLabel.draw(&window);
         
         window.display();
     
