@@ -120,7 +120,10 @@ void Entity::draw(RenderWindow* window){
             if(spriteOffset >= spriteSheetSize)
                 spriteOffset = 0;
         }
-        sprite.setTextureRect(IntRect(16 * spriteOffset, 0, 16, 16));
+        if(facingRight)
+            sprite.setTextureRect(IntRect(16 * spriteOffset, 0, 16, 16));
+        else
+            sprite.setTextureRect(IntRect(16 * spriteOffset, 16, 16, 16));
     }
     
     else if(selfVelocity.x < 0){
@@ -131,7 +134,10 @@ void Entity::draw(RenderWindow* window){
             if(spriteOffset >= spriteSheetSize)
                 spriteOffset = 0;
         }
-        sprite.setTextureRect(IntRect(16 * spriteOffset, 16, 16, 16));
+        if(facingRight)
+            sprite.setTextureRect(IntRect(16 * spriteOffset, 0, 16, 16));
+        else
+            sprite.setTextureRect(IntRect(16 * spriteOffset, 16, 16, 16));
     }
     else{
         currentAnimFrame = 0;

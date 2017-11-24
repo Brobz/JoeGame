@@ -161,16 +161,16 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos){
         }
         
         mouseInputs[1] = 0;
-        cout << player->getFiringMode() << endl;
+        
     }
     
     if(keyInputs[3]){
-        player->setFacingRight(true);
+        //player->setFacingRight(true);
         player->setSelfVelocity(Vector2f(player->getMoveForce(), player->getSelfVelocity().y));
     }
     
     if(keyInputs[1]){
-        player->setFacingRight(false);
+        //player->setFacingRight(false);
         player->setSelfVelocity(Vector2f(-player->getMoveForce(), player->getSelfVelocity().y));
         
     }

@@ -65,6 +65,11 @@ void Enemy::update(vector<Object> &objectCol, vector<Magnet> &magnetCol, Player*
         collidesWith(magnetCol.at(i), 1);
     }
     
+    if(selfVelocity.x > 0)
+        setFacingRight(true);
+    else if (selfVelocity.x < 0)
+        setFacingRight(false);
+    
     // Add friction to velocity
     if(velocity.x > 0){
         velocity.x -= velocity.x * FRICTION;
@@ -105,7 +110,7 @@ void Enemy::pointWeapon(Player* player){
     
     weapon.getSprite()->setRotation(angle + 90);
     
-    if (angle > 180 && angle < 360)
+    if (angle > 180 || angle < 0)
         weapon.getSprite()->setTextureRect(IntRect(0, 0, 16, 16));
     else
         weapon.getSprite()->setTextureRect(IntRect(0, 16, 16, 16));
