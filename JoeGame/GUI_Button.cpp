@@ -12,10 +12,10 @@
 
 GUI_Button::GUI_Button(){}
 
-GUI_Button::GUI_Button(Vector2f _size, Vector2f _position, Texture* texture, GUI_Text _text, Texture* _hoverTexture) : GUI_Object(_size, _position, texture){
-    text = _text;
+GUI_Button::GUI_Button(Vector2f _size, Vector2f _position, Texture* texture, Texture* _hoverTexture, int _ID) : GUI_Object(_size, _position, texture){
     idleTexture = *texture;
     hoverTexture = *_hoverTexture;
+    ID = _ID;
 }
 
 void GUI_Button::draw(RenderWindow* window){
@@ -33,4 +33,8 @@ bool GUI_Button::wasClicked(Vector2f mousePos){
         return true;
     
     return false;
+}
+
+int GUI_Button::getID(){
+    return ID;
 }

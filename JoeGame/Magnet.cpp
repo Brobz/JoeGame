@@ -88,4 +88,5 @@ int Magnet::getTier(){
 }
 void Magnet::setTier(int _tier){
     tier = _tier;
+    hp = maxHp * tier;
 }

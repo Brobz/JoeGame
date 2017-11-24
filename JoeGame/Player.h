@@ -23,6 +23,7 @@ protected:
     RectangleShape rayCast;
     Magnet lootMagnet;
     int gold, attracctorGems, repellerGems;
+    int NM_Bullets, attractors, repellers;
     int firingMode;
     //Inventory inventory (tbi)
     
@@ -41,6 +42,12 @@ public:
     int getGold();
     int getAttractorGems();
     int getRepellerGems();
+    int getAttractors();
+    int getRepellers();
+    int getNMBullets();
+    void setAttractors(int _attr);
+    void setRepellers(int _rep);
+    void setNMBullets(int _nmb);
     void die();
     int getFiringMode();
     void setFiringMode(int _firingMode);
