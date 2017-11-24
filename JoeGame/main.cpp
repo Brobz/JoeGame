@@ -71,7 +71,7 @@ int main(int, char const**)
     
     Magnet lootMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(), &attractorTexture, 50, -30, 0, 60);
     
-    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 225));
+    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(600, 80), &wallTexture, 100));
     
     allResources.push_back(Resource(3, type_NM, Vector2f(100, 50), Vector2f(200, 80), &repellerResourceTexture, 600, 0, 60, type, &repellerGemTexture, 2));
     
