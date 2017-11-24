@@ -157,6 +157,8 @@ bool Entity::isItGrounded(){
 
 void Entity::recieveDamage(int _damage){
     hp -= _damage;
+    if(_damage < 0 && hp > maxHp)
+        hp = maxHp;
 }
 
 void Entity::setSelfVelocity(Vector2f _selfVelocity){

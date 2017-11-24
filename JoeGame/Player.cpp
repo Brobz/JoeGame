@@ -23,6 +23,9 @@ Player::Player(double _mass, vector<int> &_type, Vector2f _size, Vector2f _posit
     gold = 0;
     attracctorGems = 0;
     repellerGems = 0;
+    NM_Bullets = 0;
+    attractors = 0;
+    repellers = 0;
     firingMode = 0;
     weaponOffset = Vector2f(25, 32);
     weapon.getSprite()->setOrigin(2, 2);
@@ -128,7 +131,7 @@ float Player::getMoveForce(){
 }
 
 void Player::fireWeapon(vector<Bullet> &bullets){
-    weapon.fire(bullets);
+    NM_Bullets = weapon.fire(bullets, NM_Bullets);
 }
 
 int Player::getGold(){
@@ -158,7 +161,29 @@ void Player::getLoot(int lootType, int lootAmount){
         attracctorGems += lootAmount;
     else if(lootType == 2)
         repellerGems += lootAmount;
-    }
+    
+}
+
+int Player::getAttractors(){
+    return attractors;
+}
+int Player::getRepellers(){
+    return repellers;
+}
+int Player::getNMBullets(){
+    return NM_Bullets;
+}
+
+
+void Player::setAttractors(int _attr){
+    attractors = _attr;
+}
+void Player::setRepellers(int _rep){
+    repellers = _rep;
+}
+void Player::setNMBullets(int _nmb){
+    NM_Bullets = _nmb;
+}
 
 
 

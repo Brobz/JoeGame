@@ -26,6 +26,7 @@ public:
     Weapon();
     Weapon(vector<int> &_type, Vector2f _size, Texture* texture, double _firingRate, double _firingForce, Texture _bulletTexture, bool _isPlayer, vector<int>& _bulletType, float _bulletMass, float _bulletDamage, Vector2f _bulletSize);
     void fire(vector<Bullet> &bullets);
+    int fire(vector<Bullet> &bullets, int nmBullets);
     void update();
 };
 

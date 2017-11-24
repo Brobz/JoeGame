@@ -91,6 +91,8 @@ int main(int, char const**)
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(64, 800), Vector2f(500, 0), &wallTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(64, 800), Vector2f(50, 0), &wallTexture));
     
+    allShops.push_back(Object(5, type_NM, Vector2f(24, 16), Vector2f(275, 450), &wallTexture));
+    
     GUI_Object guiobj = GUI_Object(Vector2f(16,16), Vector2f(200,200), &guiTexture);
     
     Font font;
@@ -98,10 +100,12 @@ int main(int, char const**)
         return EXIT_FAILURE;
     }
     
-    GUI_Text guitext = GUI_Text(Vector2f(0,0), "button", 30, &font, Color::Red);
-    GUI_Button guibutton = GUI_Button(Vector2f(16,16), Vector2f(100,100), &buttonTexture, guitext, &guiTexture);
+    GUI_Button playButton = GUI_Button(Vector2f(61,37), Vector2f(0,400), &playButtonTexture, &playButtonHoverTexture, 2);
+    GUI_Button aboutButton = GUI_Button(Vector2f(61,37), Vector2f(250,400), &aboutButtonTexture, &aboutButtonHoverTexture, 1);
     
-    allButtons.push_back(guibutton);
+    allButtons.push_back(playButton);
+    allButtons.push_back(aboutButton);
+    
     
     //GUI
     sf::RectangleShape lifeBar, lifeBarBG, goldBar, attractorBar, repellerBar;
@@ -156,9 +160,17 @@ int main(int, char const**)
     
     sf::Clock clock;
     
+    Level main_menu = Level(allButtons);
+    
+    allButtons.clear();
+    
     Level level_zero = Level(player, allObjects, allShops, allEnemies, allBullets, allMagnets, allSpawners, allResources, allLoots, allButtons, allShopButtons);
     
+    
+    
+    
     Game GAME;
+    GAME.addLevel(&main_menu);
     GAME.addLevel(&level_zero);
     GAME.setTextures(&goldTexture, &enemyTexture, &enemyArmTexture, &bulletTexture, &attractorTexture, &repellerTexture, &crossTexture, &plusTexture, &plusGreyedOutTexture, &attractorGreyedOutTexture, &repellerGreyedOutTexture, &attractorGemTexture, &repellerGemTexture);
     GAME.setCurrentLevel(0);

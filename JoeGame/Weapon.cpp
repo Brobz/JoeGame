@@ -38,6 +38,19 @@ void Weapon::fire(vector<Bullet> &bullets){
     canFire = false;
 }
 
+int Weapon::fire(vector<Bullet> &bullets, int nmBullets){
+    if(!canFire)
+        return nmBullets;
+    if(nmBullets > 0)
+        bulletType.at(1) = 0;
+    Bullet newBullet = Bullet(bulletMass, bulletType, bulletSize, Vector2f(position.x, position.y), &bulletTexture, bulletDamage, isPlayer);
+    Vector2f force = Vector2f(firingForce * cos(sprite.getRotation() * M_PI / 180), firingForce * sin(sprite.getRotation() * M_PI / 180));
+    newBullet.addForce(force);
+    bullets.push_back(newBullet);
+    canFire = false;
+    return nmBullets - 1;
+}
+
 void Weapon::update(){
     sprite.setPosition(position);
     if(!canFire){
