@@ -30,12 +30,6 @@ Level::Level(Player* _player, vector<Object> _objects, vector<Object> _shops, ve
     inShop = false;
 }
 void Level::draw(RenderWindow* window){
-    if(inShop){
-        // Draw all shop buttons
-        for(int i = 0; i < shopButtons.size(); i++){
-            shopButtons.at(i).draw(window);
-        }
-    }
     // Draw All Shops
     for(int i = 0; i < shops.size(); i++){
         shops.at(i).draw(window);
@@ -91,12 +85,6 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
             gamePaused = false;
             keyInputs[4] = 0;
             keyInputs[5] = 0;
-        }
-        
-        for(int i = 0; i < shopButtons.size(); i++){
-            if(shopButtons.at(i).wasClicked(mousePos) && mouseInputs[0]){
-                buyFromShop(i);
-            }
         }
     }
     if(gamePaused){
@@ -379,6 +367,18 @@ void Level::drawButtons(RenderWindow* window, Vector2f mousePos, int mouseInputs
        
         if(buttons.at(i).wasClicked(mousePos) && mouseInputs[0])
             level = buttons.at(i).getID();
+    }
+    
+    if(inShop){
+        for(int i = 0; i < shopButtons.size(); i++){
+            shopButtons.at(i).draw(window);
+        }
+        
+        for(int i = 0; i < shopButtons.size(); i++){
+            if(shopButtons.at(i).wasClicked(mousePos) && mouseInputs[0]){
+                buyFromShop(i);
+            }
+        }
     }
     
 }

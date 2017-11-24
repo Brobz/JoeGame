@@ -101,6 +101,18 @@ int main(int, char const**)
     allButtons.push_back(playButton);
     allButtons.push_back(aboutButton);
     
+    allShopButtons.push_back(GUI_Button(Vector2f(32,32), Vector2f(100,100), &shopBGTexture, &shopBGTexture, -1));
+    
+    allShopButtons.push_back(GUI_Button(Vector2f(24,24), Vector2f(135,175), &shopAttractorTexture, &shopAttractorTexture, -1));
+    
+    allShopButtons.push_back(GUI_Button(Vector2f(24,24), Vector2f(305,175), &shopRepellerTexture, &shopRepellerTexture, -1));
+    
+     allShopButtons.push_back(GUI_Button(Vector2f(24,24), Vector2f(465,175), &shopGunTexture, &shopGunTexture, -1));
+    
+    allShopButtons.push_back(GUI_Button(Vector2f(24,24), Vector2f(625,175), &shopHeartTexture, &shopHeartTexture, -1));
+    
+   
+    
     
     //GUI
     sf::RectangleShape lifeBar, lifeBarBG, goldBar, attractorBar, repellerBar;
