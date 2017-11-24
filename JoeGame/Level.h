@@ -24,7 +24,7 @@
 
 class Level{
 protected:
-    static const int MAGNET_GEM_COST = 10, MAGNET_GOLD_COST = 15;
+    static const int MAGNET_GEM_COST = 1, MAGNET_GOLD_COST = 1;
     vector<Object> objects;
     vector<Enemy> enemies;
     vector<Bullet> bullets;

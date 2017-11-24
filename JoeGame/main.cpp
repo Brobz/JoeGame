@@ -68,7 +68,9 @@ int main(int, char const**)
     
     allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 225));
     
-    allResources.push_back(Resource(3, type_NM, Vector2f(120, 80), Vector2f(250, 500), &attractorResourceTexture, 600, 0, 60, type, &attractorGemTexture, 1));
+    allResources.push_back(Resource(3, type_NM, Vector2f(100, 60), Vector2f(150, 500), &repellerResourceTexture, 600, 0, 60, type, &repellerGemTexture, 2));
+    
+    allResources.push_back(Resource(3, type_NM, Vector2f(100, 60), Vector2f(350, 500), &attractorResourceTexture, 600, 0, 60, type, &attractorGemTexture, 1));
     
     allSpawners.at(0).activate();
 
@@ -76,7 +78,7 @@ int main(int, char const**)
     
     Magnet lootMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(), &attractorTexture, 50, -30, 0, 60);
     
-    player = new Player(0.75, type, Vector2f(50, 50), Vector2f(150, 500), &playerTexture, 100, 10, 5, &playerWeapon, &lootMagnet, 9, 60);
+    player = new Player(0.75, type, Vector2f(50, 50), Vector2f(250, 500), &playerTexture, 100, 10, 5, &playerWeapon, &lootMagnet, 9, 60);
     
     player->setSprite(*new Sprite(playerTexture,IntRect(0,0,16,16)));
     
