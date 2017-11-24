@@ -16,10 +16,12 @@ class GUI_Button : public GUI_Object{
 
 protected:
     GUI_Text text;
-    Sprite hoverSprite;
+    Texture idleTexture, hoverTexture;
 public:
     GUI_Button();
     GUI_Button(Vector2f _size, Vector2f _position, Texture* texture, GUI_Text _text, Texture* _hoverSprite);
+    void draw(RenderWindow* window);
+    bool wasClicked(Vector2f mousePos);
 };
 
 #endif /* GUI_Button_h */
