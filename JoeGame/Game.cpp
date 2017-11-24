@@ -30,9 +30,13 @@ void Game::drawButtons(RenderWindow* window, Vector2f mousePos, int mouseInputs[
     levels.at(currentLevel).drawButtons(window, mousePos, mouseInputs, currentLevel);
 }
 
-void Game::setTextures(sf::Texture *_goldTexture, sf::Texture *_enemyTexture, sf::Texture *_enemyArmTexture, sf::Texture *_enemyBulletTexture, sf::Texture *_attractorTexture, sf::Texture *_repellerTexture, sf::Texture *_crossTexture, sf::Texture *_plusTexture, sf::Texture *_plusGreyedOutTexture, sf::Texture *_attractorGreyedOut, sf::Texture *_repellerGreyedOut, sf::Texture *_attractorGemTexture, sf::Texture *_repellerGemTexture){
+void Game::drawShopText(RenderWindow* window){
+    levels.at(currentLevel).drawShopText(window);
+}
+
+void Game::setTextures(sf::Texture *_goldTexture, sf::Texture *_enemyTexture, sf::Texture *_enemyArmTexture, sf::Texture *_enemyBulletTexture, sf::Texture *_attractorTexture, sf::Texture *_repellerTexture, sf::Texture *_crossTexture, sf::Texture *_plusTexture, sf::Texture *_plusGreyedOutTexture, sf::Texture *_attractorGreyedOut, sf::Texture *_repellerGreyedOut, sf::Texture *_attractorGemTexture, sf::Texture *_repellerGemTexture, sf::Font *_font){
     for(int i = 0; i < levels.size(); i++){
-        levels.at(i).setTextures(_goldTexture, _enemyTexture, _enemyArmTexture, _enemyBulletTexture, _attractorTexture, _repellerTexture, _crossTexture, _plusTexture, _plusGreyedOutTexture, _attractorGreyedOut, _repellerGreyedOut, _attractorGemTexture, _repellerGemTexture);
+        levels.at(i).setTextures(_goldTexture, _enemyTexture, _enemyArmTexture, _enemyBulletTexture, _attractorTexture, _repellerTexture, _crossTexture, _plusTexture, _plusGreyedOutTexture, _attractorGreyedOut, _repellerGreyedOut, _attractorGemTexture, _repellerGemTexture, _font);
     }
 }
 

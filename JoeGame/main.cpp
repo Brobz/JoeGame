@@ -5,7 +5,7 @@
 int main(int, char const**)
 {
     const int WIDTH = 900, HEIGHT = 600;
-    const double SCALE = 5;
+    const double SCALE = 0.5;
     Vector2f MOUSE_POS;
     
     // Seed random
@@ -221,7 +221,7 @@ int main(int, char const**)
     Game GAME;
     GAME.addLevel(&main_menu);
     GAME.addLevel(&level_zero);
-    GAME.setTextures(&wallTexture, &enemyTexture, &enemyArmTexture, &bulletTexture, &attractorTexture, &repellerTexture, &crossTexture, &plusTexture, &plusGreyedOutTexture, &attractorGreyedOutTexture, &repellerGreyedOutTexture, &attractorGemTexture, &repellerGemTexture);
+    GAME.setTextures(&wallTexture, &enemyTexture, &enemyArmTexture, &bulletTexture, &attractorTexture, &repellerTexture, &crossTexture, &plusTexture, &plusGreyedOutTexture, &attractorGreyedOutTexture, &repellerGreyedOutTexture, &attractorGemTexture, &repellerGemTexture, &font);
     GAME.setCurrentLevel(0);
     
     // Start the game loop
@@ -317,6 +317,7 @@ int main(int, char const**)
         
          MOUSE_POS = window.mapPixelToCoords(sf::Mouse::getPosition(window));
         GAME.drawButtons(&window, MOUSE_POS, MOUSE_INPUTS);
+        GAME.drawShopText(&window);
         
         if(GAME.getCurrentLevel() > 0){
             window.draw(lifeBarBG);

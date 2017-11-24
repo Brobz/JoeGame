@@ -7,6 +7,7 @@
 //
 
 #include "Level.h"
+#include "ResourcePath.hpp"
 
 Level::Level(){};
 
@@ -151,9 +152,10 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
         player->setSelfVelocity(Vector2f(0, player->getSelfVelocity().y));
     }
     
-    if(keyInputs[4]){
-        for(int i = 0; i < shops.size(); i++){
-            if(player->getSprite()->getGlobalBounds().intersects(shops.at(i).getSprite()->getGlobalBounds())){
+    for(int i = 0; i < shops.size(); i++){
+        if(player->getSprite()->getGlobalBounds().intersects(shops.at(i).getSprite()->getGlobalBounds())){
+            //drawWindow
+            if(keyInputs[4]){
                 gamePaused = true;
                 inShop = true;
                 keyInputs[4] = 0;
@@ -417,7 +419,18 @@ void Level::drawButtons(RenderWindow* window, Vector2f mousePos, int mouseInputs
     
 }
 
-void Level::setTextures(Texture* _goldTexture, Texture* _enemyTexture, Texture* _enemyArmTexture, Texture* _enemyBulletTexture, Texture* _attractorTexture, Texture* _repellerTexture, Texture*  _crossTexture, Texture* _plusTexture, Texture* _plusGreyedOutTexture, Texture* _attractorGreyedOut, Texture* _repellerGreyedOut, Texture* _attractorGemTexture, Texture* _repellerGemTexture){
+void Level::drawShopText(RenderWindow* window){
+    
+    for(int i = 0; i < shops.size(); i++){
+        
+        if(player->getSprite()->getGlobalBounds().intersects(shops.at(i).getSprite()->getGlobalBounds()) && !inShop){
+            GUI_Text enterShop = GUI_Text(Vector2f(shops.at(i).getPosition().x+300,shops.at(i).getPosition().y), "Press [E] to enter shop", 18, &font, Color::White);
+            enterShop.draw(window);
+        }
+    }
+}
+
+void Level::setTextures(Texture* _goldTexture, Texture* _enemyTexture, Texture* _enemyArmTexture, Texture* _enemyBulletTexture, Texture* _attractorTexture, Texture* _repellerTexture, Texture*  _crossTexture, Texture* _plusTexture, Texture* _plusGreyedOutTexture, Texture* _attractorGreyedOut, Texture* _repellerGreyedOut, Texture* _attractorGemTexture, Texture* _repellerGemTexture, Font* _font){
     goldTexture = *_goldTexture;
     enemyTexture = *_enemyTexture;
     enemyArmTexture = *_enemyArmTexture;
@@ -431,5 +444,7 @@ void Level::setTextures(Texture* _goldTexture, Texture* _enemyTexture, Texture* 
     repellerGreyedOut = *_repellerGreyedOut;
     attractorGemTexture = *_attractorGemTexture;
     repellerGemTexture = *_repellerGemTexture;
+    font = *_font;
+    
 
 }
