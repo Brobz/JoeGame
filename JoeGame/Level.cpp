@@ -121,9 +121,21 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos){
             if(player->getAttractorGems() >= 10 && player->getGold() >= 10){
                 Magnet newMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(mousePos.x - 16, mousePos.y - 16), &attractorTexture, 50, -800, 0, 60);
                 vector<Object> colliders;
+                for(int i = 0; i < magnets.size(); i++){
+                    colliders.push_back(magnets.at(i));
+                
+                    if(!Magnet::canBePlaced(newMagnet, colliders)){
+                        magnets.at(i).setTier(magnets.at(i).getTier() + 1);
+                        mouseInputs[0] = 0;
+                        player->getLoot(0, -5);
+                        player->getLoot(1, -10);
+                        break;
+                    }
+                }
+                
                 colliders.insert(colliders.begin(), objects.begin(), objects.end());
                 colliders.insert(colliders.begin(), enemies.begin(), enemies.end());
-                colliders.insert(colliders.begin(), magnets.begin(), magnets.end());
+                
                 colliders.insert(colliders.begin(), resources.begin(), resources.end());
                 colliders.push_back(*player);
                 if(Magnet::canBePlaced(newMagnet, colliders)){
@@ -138,9 +150,19 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos){
             if(player->getRepellerGems() >= 10 && player->getGold() >= 10){
                 Magnet newMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(mousePos.x - 16, mousePos.y - 16), &repellerTexture, 50, 800, 0, 60);
                 vector<Object> colliders;
+                for(int i = 0; i < magnets.size(); i++){
+                    colliders.push_back(magnets.at(i));
+                    
+                    if(!Magnet::canBePlaced(newMagnet, colliders)){
+                        magnets.at(i).setTier(magnets.at(i).getTier() + 1);
+                        mouseInputs[0] = 0;
+                        player->getLoot(0, -5);
+                        player->getLoot(2, -10);
+                        break;
+                    }
+                }
                 colliders.insert(colliders.begin(), objects.begin(), objects.end());
                 colliders.insert(colliders.begin(), enemies.begin(), enemies.end());
-                colliders.insert(colliders.begin(), magnets.begin(), magnets.end());
                 colliders.insert(colliders.begin(), resources.begin(), resources.end());
                 colliders.push_back(*player);
                 if(Magnet::canBePlaced(newMagnet, colliders)){

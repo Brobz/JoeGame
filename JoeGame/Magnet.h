@@ -18,6 +18,7 @@ class Player;
 
 class Magnet : public Entity{
 protected:
+    int tier;
     double pullingForce;
 public:
     Magnet();
@@ -27,6 +28,8 @@ public:
     void update(vector<Object> &objectCol, vector<Bullet>  &bulletCol, Player* playerCol, vector<Enemy> &enemyCol);
     static bool canBePlaced(Magnet magnet, vector<Object> &objectCol);
     double getPullingForce();
+    int getTier();
+    void setTier(int _tier);
 };
 
 #endif /* Magnet_h */
