@@ -305,7 +305,7 @@ int main(int, char const**)
         }
         
         window.clear(sf::Color::White);
-        //window.draw(bgSprite);
+        window.draw(bgSprite);
         
         view.setCenter(player->getPosition());
         window.setView(view);
