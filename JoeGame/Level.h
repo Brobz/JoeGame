@@ -28,6 +28,7 @@ protected:
     static const int NM_BULLETS_GOLD_COST = 25, HEART_BOX_GOLD_COST = 50;
     vector<Object> objects;
     vector<Object> shops;
+    vector<Magnet> portals;
     vector<Enemy> enemies;
     vector<Bullet> bullets;
     vector<Magnet> magnets;
@@ -46,7 +47,7 @@ public:
     Player* player;
     Level();
     Level(vector<GUI_Button> _buttons);
-    Level(Player* _player, vector<Object> _objects, vector<Object> _shops, vector<Enemy> _enemies, vector<Bullet> _bullets, vector<Magnet> _magnets, vector<Spawner> _spawners, vector<Resource> _resources, vector<Loot> _loots, vector<GUI_Button> _buttons, vector<GUI_Button> _shopButtons);
+    Level(Player* _player, vector<Object> _objects, vector<Object> _shops, vector<Magnet> _portals, vector<Enemy> _enemies, vector<Bullet> _bullets, vector<Magnet> _magnets, vector<Spawner> _spawners, vector<Resource> _resources, vector<Loot> _loots, vector<GUI_Button> _buttons, vector<GUI_Button> _shopButtons);
     void setTextures(Texture* _goldTexture, Texture* _enemyTexture, Texture* _enemyArmTexture, Texture* _enemyBulletTexture, Texture* _attractorTexture, Texture* _repellerTexture, Texture*  _crossTexture, Texture* _plusTexture, Texture* _plusGreyedOutTexture,  Texture* _attractorGreyedOut, Texture* _repellerGreyedOut, Texture* _attractorGemTexture, Texture* _repellerGemTexture);
     void draw(RenderWindow* window);
     void update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &level);

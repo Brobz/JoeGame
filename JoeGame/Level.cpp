@@ -14,10 +14,11 @@ Level::Level(vector<GUI_Button> _buttons){
     buttons = _buttons;
 }
 
-Level::Level(Player* _player, vector<Object> _objects, vector<Object> _shops, vector<Enemy> _enemies, vector<Bullet> _bullets, vector<Magnet> _magnets, vector<Spawner> _spawners, vector<Resource> _resources, vector<Loot> _loots, vector<GUI_Button> _buttons, vector<GUI_Button> _shopButtons){
+Level::Level(Player* _player, vector<Object> _objects, vector<Object> _shops, vector<Magnet> _portals, vector<Enemy> _enemies, vector<Bullet> _bullets, vector<Magnet> _magnets, vector<Spawner> _spawners, vector<Resource> _resources, vector<Loot> _loots, vector<GUI_Button> _buttons, vector<GUI_Button> _shopButtons){
     player = _player;
     objects = _objects;
     shops = _shops;
+    portals = _portals;
     enemies = _enemies;
     bullets = _bullets;
     magnets = _magnets;
@@ -33,6 +34,11 @@ void Level::draw(RenderWindow* window){
     // Draw All Shops
     for(int i = 0; i < shops.size(); i++){
         shops.at(i).draw(window);
+    }
+    
+    // Draw all portals
+    for(int i = 0; i < portals.size(); i++){
+        portals.at(i).draw(window);
     }
     
     // Draw Bullets
@@ -145,6 +151,17 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
     if(keyInputs[5]){
         gamePaused  = true;
         keyInputs[5] = 0;
+    }
+    
+    // Update portals
+    for(int i = 0; i < portals.size(); i++){
+        //portals.at(i).excertForce(player);
+        if(player->getSprite()->getGlobalBounds().intersects(portals.at(i).getSprite()->getGlobalBounds())){
+            if(portals.at(i).getPullingForce() < 0){
+                level = 0;
+                player->setPosition(Vector2f(50, 50));
+            }
+        }
     }
     
     // Update Magnet physics

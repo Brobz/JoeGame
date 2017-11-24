@@ -32,6 +32,7 @@
 		0A8909AC1FC7A5B900C34F3A /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8909AB1FC7A5B800C34F3A /* plus.png */; };
 		0A8909AE1FC7AAAC00C34F3A /* plusGreyedOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8909AD1FC7AAAC00C34F3A /* plusGreyedOut.png */; };
 		0A8F65C61FC8A50E00B8C379 /* shop.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8F65C51FC8A50D00B8C379 /* shop.png */; };
+		0A8F65C81FC8B25900B8C379 /* portal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8F65C71FC8B25900B8C379 /* portal.png */; };
 		0AD1BCCA1FAEF75300FAD766 /* pacman.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD1BCC91FAEF75300FAD766 /* pacman.png */; };
 		0AE1C4711FB7F44400A8632B /* GUI_Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AE1C46C1FB7F44300A8632B /* GUI_Text.cpp */; };
 		0AE1C4721FB7F44400A8632B /* GUI_Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AE1C46D1FB7F44300A8632B /* GUI_Button.cpp */; };
@@ -103,6 +104,7 @@
 		0A8909AB1FC7A5B800C34F3A /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		0A8909AD1FC7AAAC00C34F3A /* plusGreyedOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plusGreyedOut.png; sourceTree = "<group>"; };
 		0A8F65C51FC8A50D00B8C379 /* shop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop.png; sourceTree = "<group>"; };
+		0A8F65C71FC8B25900B8C379 /* portal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = portal.png; sourceTree = "<group>"; };
 		0AD1BCC91FAEF75300FAD766 /* pacman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pacman.png; sourceTree = "<group>"; };
 		0AE1C46B1FB7F44300A8632B /* GUI_Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GUI_Object.h; sourceTree = "<group>"; };
 		0AE1C46C1FB7F44300A8632B /* GUI_Text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GUI_Text.cpp; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				0A8909971FC7726900C34F3A /* repellerGem.png */,
 				0A8909AD1FC7AAAC00C34F3A /* plusGreyedOut.png */,
 				0A8909991FC7726900C34F3A /* repellerResource.png */,
+				0A8F65C71FC8B25900B8C379 /* portal.png */,
 				DB219D7B1FC88B08006A12A9 /* aboutButton.png */,
 				DB219D7A1FC88B08006A12A9 /* aboutButtonHover.png */,
 				DB219D791FC88B08006A12A9 /* playButton.png */,
@@ -364,6 +367,7 @@
 				0A3DF4521FC3C46700A302A5 /* background.png in Resources */,
 				0A3DF4411FC39A2100A302A5 /* bullet.png in Resources */,
 				DB219D881FC8A9FA006A12A9 /* shopGun.png in Resources */,
+				0A8F65C81FC8B25900B8C379 /* portal.png in Resources */,
 				0A5D0E011FB6172800E863A0 /* bullet.png in Resources */,
 				DB16FA6A1FB7AE620032DE8D /* repeller.png in Resources */,
 				DB219D861FC8A9FA006A12A9 /* shopAttractor.png in Resources */,
