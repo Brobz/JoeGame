@@ -44,16 +44,19 @@ int main(int, char const**)
     }
     
     int MOUSE_INPUTS[3] = {0, 0, 0}; // LEFT, MIDDLE, RIGHT
-    int KEY_INPUTS[5] = {0, 0, 0, 0, 0}; // W, A, S, D, SPACEBAR
+    int KEY_INPUTS[7] = {0, 0, 0, 0, 0, 0, 0}; // W, A, S, D, E, ESCAPE, SPACEBAR
     
     Player* player;
     vector<Object> allObjects;
+    vector<Object> allShops;
     vector<Enemy> allEnemies;
     vector<Bullet> allBullets;
     vector<Magnet> allMagnets;
     vector<Spawner> allSpawners;
     vector<Resource> allResources;
     vector<Loot> allLoots;
+    vector<GUI_Button> allButtons;
+    vector<GUI_Button> allShopButtons;
     
     
     vector<int> type = {1, 1, 1, 1};
@@ -94,8 +97,11 @@ int main(int, char const**)
     if (!font.loadFromFile(resourcePath() + "munro.ttf")) {
         return EXIT_FAILURE;
     }
-    GUI_Text guitext = GUI_Text(Vector2f(0,0), "hola", 30, &font, Color::Red);
+    
+    GUI_Text guitext = GUI_Text(Vector2f(0,0), "button", 30, &font, Color::Red);
     GUI_Button guibutton = GUI_Button(Vector2f(16,16), Vector2f(100,100), &buttonTexture, guitext, &guiTexture);
+    
+    allButtons.push_back(guibutton);
     
     //GUI
     sf::RectangleShape lifeBar, lifeBarBG, goldBar, attractorBar, repellerBar;
@@ -148,16 +154,13 @@ int main(int, char const**)
     
     GUI_Text repellerLabel = GUI_Text(Vector2f(window.getSize().x-goldBar.getSize().x + 4,86), std::to_string(player->getRepellerGems()), 18, &font, Color::Black);
     
-    
     sf::Clock clock;
     
-    Level level_zero = Level(player, allObjects, allEnemies, allBullets, allMagnets, allSpawners, allResources, allLoots);
-    
-    level_zero.setTextures(&goldTexture, &enemyTexture, &enemyArmTexture, &bulletTexture, &attractorTexture, &repellerTexture, &crossTexture, &plusTexture, &plusGreyedOutTexture, &attractorGreyedOutTexture, &repellerGreyedOutTexture, &attractorGemTexture, &repellerGemTexture);
+    Level level_zero = Level(player, allObjects, allShops, allEnemies, allBullets, allMagnets, allSpawners, allResources, allLoots, allButtons, allShopButtons);
     
     Game GAME;
     GAME.addLevel(&level_zero);
-    
+    GAME.setTextures(&goldTexture, &enemyTexture, &enemyArmTexture, &bulletTexture, &attractorTexture, &repellerTexture, &crossTexture, &plusTexture, &plusGreyedOutTexture, &attractorGreyedOutTexture, &repellerGreyedOutTexture, &attractorGemTexture, &repellerGemTexture);
     GAME.setCurrentLevel(0);
     
     // Start the game loop
@@ -168,73 +171,49 @@ int main(int, char const**)
         while (window.pollEvent(event))
         {
             // Close window: exit
-            if (event.type == sf::Event::Closed) {
+            if (event.type == sf::Event::Closed)
                 window.close();
-            }
-            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::A) {
+            
+            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::A)
                 KEY_INPUTS[1] = 1;
-                //allPlayers.at(0).setSelfVelocity(Vector2f(-fuck_copy_paste, 0));
-            }
             
-            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::D) {
+            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::D)
                 KEY_INPUTS[3] = 1;
-                //allPlayers.at(0).setSelfVelocity(Vector2f(fuck_copy_paste, 0));
-            }
             
-            if((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Space)) {
+            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::E)
+                KEY_INPUTS[4] = 1;
+            
+            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+                KEY_INPUTS[5] = 1;
+            
+            if((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Space))
                 if(player->isItGrounded())
                     player->addForce(Vector2f(0, -player->getJumpForce()));
-            }
             
-            if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::A) {
+            if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::A)
                 KEY_INPUTS[1] = 0;
-                //allPlayers.at(0).setSelfVelocity(Vector2f(0, allPlayers.at(0).getSelfVelocity().y));
-            }
             
-            if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::D) {
+            if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::D)
                 KEY_INPUTS[3] = 0;
-                //allPlayers.at(0).setSelfVelocity(Vector2f(0, allPlayers.at(0).getSelfVelocity().y));
-            }
             
-            if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Left) {
+            if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::E)
+                KEY_INPUTS[4] = 0;
+            
+            if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
+                KEY_INPUTS[5] = 0;
+            
+            if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Left)
                 MOUSE_INPUTS[0] = 1;
-                //allPlayers.at(0).fireWeapon(allBullets);
-            }
             
-            if(event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Button::Left) {
+            if(event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Button::Left)
                 MOUSE_INPUTS[0] = 0;
-                //allPlayers.at(0).fireWeapon(allBullets);
-            }
             
-            if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Right) {
+            if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Right)
                 MOUSE_INPUTS[1] = 1;
-                //allPlayers.at(0).fireWeapon(allBullets);
-            }
             
-            if(event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Button::Right) {
+            if(event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Button::Right)
                 MOUSE_INPUTS[1] = 0;
-                //allPlayers.at(0).fireWeapon(allBullets);
-            }
             
-            //Magnet debugging
-            window.setView(view);
-            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::N) {
-                Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-                mousePos -= Vector2f(16,16);
-                allMagnets.push_back((Magnet(1, type_NG, Vector2f(32, 32), mousePos, &attractorTexture, 50, -800, 0, 60)));
-            }
-            
-            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::M) {
-                Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-                mousePos -= Vector2f(16,16);
-                allMagnets.push_back((Magnet(1, type_NG, Vector2f(32, 32), mousePos, &repellerTexture, 50, 800, 0, 60)));
-            }
-            
-            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::B) {
-                allMagnets.clear();
-            }
-            
-            window.setView(window.getDefaultView());
         }
         
         window.setView(view);

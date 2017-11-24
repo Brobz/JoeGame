@@ -24,26 +24,32 @@
 
 class Level{
 protected:
-    static const int MAGNET_GEM_COST = 1, MAGNET_GOLD_COST = 1;
+    static const int MAGNET_GEM_COST = 5, MAGNET_GOLD_COST = 10;
     vector<Object> objects;
+    vector<Object> shops;
     vector<Enemy> enemies;
     vector<Bullet> bullets;
     vector<Magnet> magnets;
     vector<Spawner> spawners;
     vector<Resource> resources;
     vector<Loot> loots;
+    vector<GUI_Button> buttons;
+    vector<GUI_Button> shopButtons;
     Texture goldTexture, enemyTexture, enemyArmTexture, enemyBulletTexture, attractorTexture, repellerTexture, crossTexture, plusTexture, plusGreyedOutTexture, attractorGreyedOut, repellerGreyedOut, attractorGemTexture, repellerGemTexture;
     vector<int> type = {1, 1, 1, 1};
     vector<int> type_NG = {0, 1, 1, 1};
     vector<int> type_NM = {1, 0, 1, 1};
     vector<int> type_NG_NM = {0, 0, 1, 1};
+    bool gamePaused;
 public:
     Player* player;
     Level();
-    Level(Player* _player, vector<Object> _objects, vector<Enemy> _enemies, vector<Bullet> _bullets, vector<Magnet> _magnets, vector<Spawner> _spawners, vector<Resource> _resources, vector<Loot> _loots);
+    Level(Player* _player, vector<Object> _objects, vector<Object> _shops, vector<Enemy> _enemies, vector<Bullet> _bullets, vector<Magnet> _magnets, vector<Spawner> _spawners, vector<Resource> _resources, vector<Loot> _loots, vector<GUI_Button> _buttons, vector<GUI_Button> _shopButtons);
     void setTextures(Texture* _goldTexture, Texture* _enemyTexture, Texture* _enemyArmTexture, Texture* _enemyBulletTexture, Texture* _attractorTexture, Texture* _repellerTexture, Texture*  _crossTexture, Texture* _plusTexture, Texture* _plusGreyedOutTexture,  Texture* _attractorGreyedOut, Texture* _repellerGreyedOut, Texture* _attractorGemTexture, Texture* _repellerGemTexture);
     void draw(RenderWindow* window);
     void update(int mouseInputs[], int keyInputs[], Vector2f mousePos);
+    void updateMagnetFiringMode(int mode, Vector2f mousePos, int mouseInputs[]);
+    void drawMagnetFiringMode(int mode, RenderWindow* window);
 };
 
 #endif /* Level_h */

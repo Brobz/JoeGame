@@ -12,7 +12,25 @@
 
 GUI_Button::GUI_Button(){}
 
-GUI_Button::GUI_Button(Vector2f _size, Vector2f _position, Texture* texture, GUI_Text _text, Texture* _hoverSprite) : GUI_Object(_size, _position, texture){
+GUI_Button::GUI_Button(Vector2f _size, Vector2f _position, Texture* texture, GUI_Text _text, Texture* _hoverTexture) : GUI_Object(_size, _position, texture){
     text = _text;
-    //add hoversprite somehow
+    idleTexture = *texture;
+    hoverTexture = *_hoverTexture;
+}
+
+void GUI_Button::draw(RenderWindow* window){
+    Vector2f mousePos = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
+    if(sprite.getGlobalBounds().contains(mousePos))
+        sprite.setTexture(hoverTexture);
+    else
+        sprite.setTexture(idleTexture);
+    
+    (*window).draw(sprite);
+}
+
+bool GUI_Button::wasClicked(Vector2f mousePos){
+    if(sprite.getGlobalBounds().contains(mousePos))
+        return true;
+    
+    return false;
 }
