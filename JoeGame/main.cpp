@@ -5,7 +5,7 @@
 int main(int, char const**)
 {
     const int WIDTH = 900, HEIGHT = 600;
-    const double SCALE = 0.5;
+    const double SCALE = 0.8;
     Vector2f MOUSE_POS;
     
     // Seed random
@@ -79,17 +79,18 @@ int main(int, char const**)
     
     allSpawners.at(0).activate();
     
-    player = new Player(0.75, type, Vector2f(50, 50), Vector2f(50, 50), &playerTexture, 100, 10, 5, &playerWeapon, &lootMagnet, 9, 60);
+    player = new Player(0.75, type, Vector2f(50, 50), Vector2f(50, 160), &playerTexture, 100, 10, 5, &playerWeapon, &lootMagnet, 9, 60);
     
     player->setSprite(*new Sprite(playerTexture,IntRect(0,0,16,16)));
     
-    allPortals.push_back(Magnet(1, type_NG_NM, Vector2f(48, 48), Vector2f(50, 50), &portalTexture, 10000000, 10, 5, 10));
+    allPortals.push_back(Magnet(1, type_NG_NM, Vector2f(48, 48), Vector2f(50, 160), &portalTexture, 10000000, 10, 5, 10));
     
-    allPortals.push_back(Magnet(1, type_NG_NM, Vector2f(48, 48), Vector2f(200, 50), &portalTexture, 10000000, -10, 5, 10));
+    allPortals.push_back(Magnet(1, type_NG_NM, Vector2f(48, 48), Vector2f(800, 50), &portalTexture, 10000000, -10, 5, 10));
     
     
     
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(32, 250), Vector2f(0, 0), &wallTexture));
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(32, 250), Vector2f(868, 0), &wallTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(900, 32), Vector2f(0, 0), &wallTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(900, 32), Vector2f(0, 250), &wallTexture));
     
@@ -100,11 +101,9 @@ int main(int, char const**)
         return EXIT_FAILURE;
     }
     
-    GUI_Button playButton = GUI_Button(Vector2f(61,37), Vector2f(0,400), &playButtonTexture, &playButtonHoverTexture, 2);
-    GUI_Button aboutButton = GUI_Button(Vector2f(61,37), Vector2f(250,400), &aboutButtonTexture, &aboutButtonHoverTexture, 1);
+    GUI_Button playButton = GUI_Button(Vector2f(61,37), Vector2f(350,250), &playButtonTexture, &playButtonHoverTexture, 1);;
     
     allButtons.push_back(playButton);
-    allButtons.push_back(aboutButton);
     
     allShopButtons.push_back(GUI_Button(Vector2f(32,32), Vector2f(100,100), &shopBGTexture, &shopBGTexture, -1));
     
@@ -221,7 +220,7 @@ int main(int, char const**)
     Game GAME;
     GAME.addLevel(&main_menu);
     GAME.addLevel(&level_zero);
-    GAME.setTextures(&wallTexture, &enemyTexture, &enemyArmTexture, &bulletTexture, &attractorTexture, &repellerTexture, &crossTexture, &plusTexture, &plusGreyedOutTexture, &attractorGreyedOutTexture, &repellerGreyedOutTexture, &attractorGemTexture, &repellerGemTexture, &font);
+    GAME.setTextures(&goldTexture, &enemyTexture, &enemyArmTexture, &bulletTexture, &attractorTexture, &repellerTexture, &crossTexture, &plusTexture, &plusGreyedOutTexture, &attractorGreyedOutTexture, &repellerGreyedOutTexture, &attractorGemTexture, &repellerGemTexture, &font);
     GAME.setCurrentLevel(0);
     
     // Start the game loop

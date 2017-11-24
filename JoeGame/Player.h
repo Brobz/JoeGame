@@ -51,6 +51,7 @@ public:
     void die();
     int getFiringMode();
     void setFiringMode(int _firingMode);
+    void revive();
     
 };
 

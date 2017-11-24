@@ -185,5 +185,8 @@ void Player::setNMBullets(int _nmb){
     NM_Bullets = _nmb;
 }
 
+void Player::revive(){
+    isDestroyed = false;
+}
 
 

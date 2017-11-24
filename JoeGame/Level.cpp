@@ -102,21 +102,19 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
         
         return;
     }
+    
     // Input arrays
     if(mouseInputs[0]){
-        objects.push_back(Object(5, type_NG_NM, Vector2f(64, 64), mousePos, &goldTexture));
-        cout << "Object(5, type_NG_NM, Vector2f(64, 64), Vector2f(" << mousePos.x << ", " << mousePos.y << "), goldTexture);" << endl;
-        /*/
         if(!player->getFiringMode())
             player->fireWeapon(bullets);
         else if(player->getFiringMode() == 1){
             updateMagnetFiringMode(1, mousePos, mouseInputs);
+            mouseInputs[0] = 0;
         }else if(player->getFiringMode() == 2){
             updateMagnetFiringMode(2, mousePos, mouseInputs);
+            mouseInputs[0] = 0;
         }
-         /*/
-                 
-        mouseInputs[0] = 0;
+        
     }
     
     if(mouseInputs[1]){
@@ -174,28 +172,21 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
         //portals.at(i).excertForce(player);
         if(player->getSprite()->getGlobalBounds().intersects(portals.at(i).getSprite()->getGlobalBounds())){
             if(portals.at(i).getPullingForce() < 0){
+                player->recieveDamage(-player->getMaxHP());
+                player->setPosition(Vector2f(50, 160));
+                player->revive();
+                enemies.clear();
+                loots.clear();
+                bullets.clear();
+                magnets.clear();
+                for(int i = 0; i < resources.size(); i++){
+                    resources.at(i).Entity::recieveDamage(-resources.at(i).getMaxHP());
+                }
                 level = 0;
-                player->setPosition(Vector2f(50, 50));
             }
         }
     }
     
-    // Update Magnet physics
-    for(int i = 0; i < magnets.size(); i++){
-        if (magnets.at(i).isItDestroyed()){
-            for(int j = 0; j < MAGNET_GEM_COST * magnets.at(i).getTier(); j++){
-                if(magnets.at(i).getPullingForce() < 0)
-                    loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &attractorGemTexture, 1, 1));
-                else
-                    loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &repellerGemTexture, 1, 1));
-            }
-            for(int j = 0; j < MAGNET_GOLD_COST / 3.0 * magnets.at(i).getTier(); j++)
-                loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &goldTexture, 0, 1));
-            magnets.erase(magnets.begin() + i);
-            continue;
-        }
-        magnets.at(i).update(objects, bullets, player, enemies);
-    }
     
     // Update Shop
     for(int i = 0; i < shops.size(); i++){
@@ -214,6 +205,19 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
     // Update Player physics
     if(!player->isItDestroyed())
         player->update(objects, magnets, loots);
+    else{
+        player->recieveDamage(-player->getMaxHP());
+        player->setPosition(Vector2f(50, 160));
+        player->revive();
+        enemies.clear();
+        loots.clear();
+        magnets.clear();
+        bullets.clear();
+        for(int i = 0; i < resources.size(); i++){
+            resources.at(i).Entity::recieveDamage(-resources.at(i).getMaxHP());
+        }
+        level = 0;
+    }
     
     
     // Update Loot Physics
@@ -265,6 +269,23 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
             enemies.push_back(Enemy(0.75, type, Vector2f(50,50), spawners.at(i).getPosition(), &enemyTexture, 50, new Weapon(type_NG_NM, Vector2f(45,45), &enemyArmTexture, 0.5, 0.5, enemyBulletTexture, false, type_NG, 0.15, 20, Vector2f(8, 8)), 9, 60, true));
             spawners.at(i).spawned();
         }
+    }
+    
+    // Update Magnet physics
+    for(int i = 0; i < magnets.size(); i++){
+        if (magnets.at(i).isItDestroyed()){
+            for(int j = 0; j < MAGNET_GEM_COST * magnets.at(i).getTier(); j++){
+                if(magnets.at(i).getPullingForce() < 0)
+                    loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &attractorGemTexture, 1, 1));
+                else
+                    loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &repellerGemTexture, 1, 1));
+            }
+            for(int j = 0; j < MAGNET_GOLD_COST / 3.0 * magnets.at(i).getTier(); j++)
+                loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &goldTexture, 0, 1));
+            magnets.erase(magnets.begin() + i);
+            continue;
+        }
+        magnets.at(i).update(objects, bullets, player, enemies);
     }
 }
 
@@ -409,7 +430,7 @@ void Level::drawButtons(RenderWindow* window, Vector2f mousePos, int mouseInputs
             shopButtons.at(i).draw(window);
         }
         
-        for(int i = 0; i < shopButtons.size(); i++){
+        for(int i = 1; i < shopButtons.size(); i++){
             if(shopButtons.at(i).wasClicked(mousePos) && mouseInputs[0]){
                 buyFromShop(i);
                 mouseInputs[0] = 0;
