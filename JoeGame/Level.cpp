@@ -83,17 +83,8 @@ void Level::draw(RenderWindow* window){
     for(int i = 0; i < loots.size(); i++){
         loots.at(i).draw(window);
     }
-    
-    // Draw all buttons
-    for(int i = 0; i < buttons.size(); i++){
-        buttons.at(i).draw(window);
-    }
 }
 void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &level){
-    for(int i = 0; i < buttons.size(); i++){
-        if(buttons.at(i).wasClicked(mousePos) && mouseInputs[0])
-            level = buttons.at(i).getID();
-    }
     if(inShop){
         if(keyInputs[4] || keyInputs[5]){
             inShop = false;
@@ -364,19 +355,31 @@ void Level::buyFromShop(int item){
     }
     
     else if(item == 3){
-        if(player->getGold() >= HEART_BOX_GOLD_COST){
-            player->recieveDamage(-35);
-            player->getLoot(0, -HEART_BOX_GOLD_COST);
-        }
-    }
-    
-    else if(item == 4){
         if(player->getGold() >= NM_BULLETS_GOLD_COST){
             player->setNMBullets(player->getNMBullets() + 15);
             player->getLoot(0, -NM_BULLETS_GOLD_COST);
         }
     }
     
+    else if(item == 4){
+        if(player->getGold() >= HEART_BOX_GOLD_COST){
+            player->recieveDamage(-35);
+            player->getLoot(0, -HEART_BOX_GOLD_COST);
+        }
+    }
+    
+    
+    
+    
+}
+
+void Level::drawButtons(RenderWindow* window, Vector2f mousePos, int mouseInputs[], int &level){
+    for(int i = 0; i < buttons.size(); i++){
+        buttons.at(i).draw(window);
+       
+        if(buttons.at(i).wasClicked(mousePos) && mouseInputs[0])
+            level = buttons.at(i).getID();
+    }
     
 }
 

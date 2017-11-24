@@ -21,6 +21,7 @@ public:
     void draw(RenderWindow* window);
     void addLevel(Level* _level);
     void setCurrentLevel(int _level);
+    void drawButtons(RenderWindow* window, Vector2f mousePos, int mouseInputs[]);
     int getCurrentLevel();
     
 };

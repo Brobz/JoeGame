@@ -31,11 +31,11 @@ int main(int, char const**)
     
     
     // Load a sprite to display
-   sf::Texture bgTexture, playerTexture, enemyTexture, wallTexture, floorTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture, enemyArmTexture, attractorGemTexture, attractorResourceTexture, repellerGemTexture, repellerResourceTexture, crossTexture, attractorGreyedOutTexture, repellerGreyedOutTexture, plusTexture, plusGreyedOutTexture, aboutButtonTexture, aboutButtonHoverTexture, playButtonTexture, playButtonHoverTexture;
+   sf::Texture bgTexture, playerTexture, enemyTexture, wallTexture, floorTexture, shopTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture, enemyArmTexture, attractorGemTexture, attractorResourceTexture, repellerGemTexture, repellerResourceTexture, crossTexture, attractorGreyedOutTexture, repellerGreyedOutTexture, plusTexture, plusGreyedOutTexture, aboutButtonTexture, aboutButtonHoverTexture, playButtonTexture, playButtonHoverTexture;
     
-    vector<Texture*> allTextures = {&bgTexture, &playerTexture, &enemyTexture, &wallTexture, &floorTexture, &attractorTexture, &repellerTexture, &gunTexture, &bulletTexture, &guiTexture, &buttonTexture, &goldTexture, &enemyArmTexture, &attractorGemTexture, &attractorResourceTexture, &repellerGemTexture, &repellerResourceTexture, &crossTexture, &attractorGreyedOutTexture, &repellerGreyedOutTexture, &plusTexture, &plusGreyedOutTexture, &aboutButtonTexture, &aboutButtonHoverTexture, &playButtonTexture, &playButtonHoverTexture};
+    vector<Texture*> allTextures = {&bgTexture, &playerTexture, &enemyTexture, &wallTexture, &floorTexture, &shopTexture, &attractorTexture, &repellerTexture, &gunTexture, &bulletTexture, &guiTexture, &buttonTexture, &goldTexture, &enemyArmTexture, &attractorGemTexture, &attractorResourceTexture, &repellerGemTexture, &repellerResourceTexture, &crossTexture, &attractorGreyedOutTexture, &repellerGreyedOutTexture, &plusTexture, &plusGreyedOutTexture, &aboutButtonTexture, &aboutButtonHoverTexture, &playButtonTexture, &playButtonHoverTexture};
     
-    vector<string> textureID = {"background.png", "joeFinal.png", "enemy.png", "wall.png", "ground.png", "attractor.png", "repeller.png", "arm.png", "bullet.png", "gui.png", "2.png", "gold.png", "enemyArm.png", "attractorGem.png", "attractorResource.png", "repellerGem.png", "repellerResource.png", "cross.png", "attractorGreyedOut.png", "repellerGreyedOut.png", "plus.png", "plusGreyedOut.png", "aboutButton.png", "aboutButtonHover.png", "playButton.png", "playButtonHover.png"};
+    vector<string> textureID = {"background.png", "joeFinal.png", "enemy.png", "wall.png", "ground.png", "shop.png", "attractor.png", "repeller.png", "arm.png", "bullet.png", "gui.png", "2.png", "gold.png", "enemyArm.png", "attractorGem.png", "attractorResource.png", "repellerGem.png", "repellerResource.png", "cross.png", "attractorGreyedOut.png", "repellerGreyedOut.png", "plus.png", "plusGreyedOut.png", "aboutButton.png", "aboutButtonHover.png", "playButton.png", "playButtonHover.png"};
     
     
     for (int i = 0; i < allTextures.size(); i++){
@@ -66,34 +66,29 @@ int main(int, char const**)
     
     Sprite bgSprite(bgTexture);
     
-    // wait its motion blur
-    bgSprite.setColor(Color(255, 255, 255, 205));
-    
-    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 225));
-    
-    allResources.push_back(Resource(3, type_NM, Vector2f(100, 60), Vector2f(150, 500), &repellerResourceTexture, 600, 0, 60, type, &repellerGemTexture, 2));
-    
-    allResources.push_back(Resource(3, type_NM, Vector2f(100, 60), Vector2f(350, 500), &attractorResourceTexture, 600, 0, 60, type, &attractorGemTexture, 1));
-    
-    allSpawners.at(0).activate();
-
     Weapon playerWeapon = Weapon(type_NG_NM, Vector2f(45,45), &gunTexture, 5, 1.5, bulletTexture, true, type_NG, 0.15, 20, Vector2f(8, 8));
     
     Magnet lootMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(), &attractorTexture, 50, -30, 0, 60);
     
-    player = new Player(0.75, type, Vector2f(50, 50), Vector2f(250, 500), &playerTexture, 100, 10, 5, &playerWeapon, &lootMagnet, 9, 60);
+    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 225));
+    
+    allResources.push_back(Resource(3, type_NM, Vector2f(100, 50), Vector2f(200, 80), &repellerResourceTexture, 600, 0, 60, type, &repellerGemTexture, 2));
+    
+    allResources.push_back(Resource(3, type_NM, Vector2f(100, 50), Vector2f(400, 80), &attractorResourceTexture, 600, 0, 60, type, &attractorGemTexture, 1));
+    
+    allSpawners.at(0).activate();
+    
+    player = new Player(0.75, type, Vector2f(50, 50), Vector2f(50, 50), &playerTexture, 100, 10, 5, &playerWeapon, &lootMagnet, 9, 60);
     
     player->setSprite(*new Sprite(playerTexture,IntRect(0,0,16,16)));
     
-
-    allObjects.push_back(Object(5, type_NG_NM, Vector2f(1000, 64), Vector2f(-100, 555), &floorTexture));
-    allObjects.push_back(Object(5, type_NG_NM, Vector2f(1000, 64), Vector2f(-100, 150), &wallTexture));
-    allObjects.push_back(Object(5, type_NG_NM, Vector2f(64, 800), Vector2f(500, 0), &wallTexture));
-    allObjects.push_back(Object(5, type_NG_NM, Vector2f(64, 800), Vector2f(50, 0), &wallTexture));
     
-    allShops.push_back(Object(5, type_NM, Vector2f(24, 16), Vector2f(275, 450), &wallTexture));
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(32, 250), Vector2f(0, 0), &wallTexture));
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(32, 250), Vector2f(0, 900), &wallTexture));
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(900, 32), Vector2f(0, 0), &wallTexture));
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(900, 32), Vector2f(0, 250), &wallTexture));
     
-    GUI_Object guiobj = GUI_Object(Vector2f(16,16), Vector2f(200,200), &guiTexture);
+    allShops.push_back(Object(5, type_NM, Vector2f(32, 24), Vector2f(100, 80), &shopTexture));
     
     Font font;
     if (!font.loadFromFile(resourcePath() + "munro.ttf")) {
@@ -235,13 +230,15 @@ int main(int, char const**)
         GAME.update(MOUSE_INPUTS, KEY_INPUTS, MOUSE_POS);
         
         //Update HP and GUI
-        lifeBar.setSize(sf::Vector2f((float)player->getHP()/player->getMaxHP()*150, 20));
-        goldLabel.setText(std::to_string(player->getGold()));
-        attractorLabel.setText(std::to_string(player->getAttractorGems()));
-        repellerLabel.setText(std::to_string(player->getRepellerGems()));
+        if(GAME.getCurrentLevel() > 1){
+            lifeBar.setSize(sf::Vector2f((float)player->getHP()/player->getMaxHP()*150, 20));
+            goldLabel.setText(std::to_string(player->getGold()));
+            attractorLabel.setText(std::to_string(player->getAttractorGems()));
+            repellerLabel.setText(std::to_string(player->getRepellerGems()));
+        }
         
-        window.clear(sf::Color::Black);
-        window.draw(bgSprite);
+        window.clear(sf::Color::White);
+        //window.draw(bgSprite);
         
         view.setCenter(player->getPosition());
         window.setView(view);
@@ -251,21 +248,26 @@ int main(int, char const**)
         // Reset view and draw GUI
         window.setView(window.getDefaultView());
         
-        window.draw(lifeBarBG);
-        window.draw(lifeBar);
+         MOUSE_POS = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+        GAME.drawButtons(&window, MOUSE_POS, MOUSE_INPUTS);
         
-        window.draw(goldBar);
-        window.draw(goldIcon);
-        
-        window.draw(attractorBar);
-        window.draw(attractorIcon);
-        
-        window.draw(repellerBar);
-        window.draw(repellerIcon);
-        
-        goldLabel.draw(&window);
-        attractorLabel.draw(&window);
-        repellerLabel.draw(&window);
+        if(GAME.getCurrentLevel() > 1){
+            window.draw(lifeBarBG);
+            window.draw(lifeBar);
+            
+            window.draw(goldBar);
+            window.draw(goldIcon);
+            
+            window.draw(attractorBar);
+            window.draw(attractorIcon);
+            
+            window.draw(repellerBar);
+            window.draw(repellerIcon);
+            
+            goldLabel.draw(&window);
+            attractorLabel.draw(&window);
+            repellerLabel.draw(&window);
+        }
         
         window.display();
     

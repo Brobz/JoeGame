@@ -24,8 +24,8 @@
 
 class Level{
 protected:
-    static const int MAGNET_GEM_COST = 5, MAGNET_GOLD_COST = 10;
-    static const int NM_BULLETS_GOLD_COST = 20, HEART_BOX_GOLD_COST = 50;
+    static const int MAGNET_GEM_COST = 8, MAGNET_GOLD_COST = 15;
+    static const int NM_BULLETS_GOLD_COST = 25, HEART_BOX_GOLD_COST = 50;
     vector<Object> objects;
     vector<Object> shops;
     vector<Enemy> enemies;
@@ -53,6 +53,7 @@ public:
     void updateMagnetFiringMode(int mode, Vector2f mousePos, int mouseInputs[]);
     void drawMagnetFiringMode(int mode, RenderWindow* window);
     void buyFromShop(int item);
+    void drawButtons(RenderWindow* window, Vector2f mousePos, int mouseInputs[], int &level);
 };
 
 #endif /* Level_h */
