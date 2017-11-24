@@ -5,7 +5,7 @@
 int main(int, char const**)
 {
     const int WIDTH = 900, HEIGHT = 600;
-    const double SCALE = 1.3;
+    const double SCALE = 5;
     Vector2f MOUSE_POS;
     
     // Seed random
@@ -221,7 +221,7 @@ int main(int, char const**)
     Game GAME;
     GAME.addLevel(&main_menu);
     GAME.addLevel(&level_zero);
-    GAME.setTextures(&goldTexture, &enemyTexture, &enemyArmTexture, &bulletTexture, &attractorTexture, &repellerTexture, &crossTexture, &plusTexture, &plusGreyedOutTexture, &attractorGreyedOutTexture, &repellerGreyedOutTexture, &attractorGemTexture, &repellerGemTexture);
+    GAME.setTextures(&wallTexture, &enemyTexture, &enemyArmTexture, &bulletTexture, &attractorTexture, &repellerTexture, &crossTexture, &plusTexture, &plusGreyedOutTexture, &attractorGreyedOutTexture, &repellerGreyedOutTexture, &attractorGemTexture, &repellerGemTexture);
     GAME.setCurrentLevel(0);
     
     // Start the game loop

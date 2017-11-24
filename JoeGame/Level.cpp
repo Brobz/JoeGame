@@ -103,6 +103,9 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
     }
     // Input arrays
     if(mouseInputs[0]){
+        objects.push_back(Object(5, type_NG_NM, Vector2f(64, 64), mousePos, &goldTexture));
+        cout << "Object(5, type_NG_NM, Vector2f(64, 64), Vector2f(" << mousePos.x << ", " << mousePos.y << "), goldTexture);" << endl;
+        /*/
         if(!player->getFiringMode())
             player->fireWeapon(bullets);
         else if(player->getFiringMode() == 1){
@@ -110,6 +113,9 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
         }else if(player->getFiringMode() == 2){
             updateMagnetFiringMode(2, mousePos, mouseInputs);
         }
+         /*/
+                 
+        mouseInputs[0] = 0;
     }
     
     if(mouseInputs[1]){
@@ -390,8 +396,10 @@ void Level::drawButtons(RenderWindow* window, Vector2f mousePos, int mouseInputs
     for(int i = 0; i < buttons.size(); i++){
         buttons.at(i).draw(window);
        
-        if(buttons.at(i).wasClicked(mousePos) && mouseInputs[0])
+        if(buttons.at(i).wasClicked(mousePos) && mouseInputs[0]){
             level = buttons.at(i).getID();
+            mouseInputs[0] = 0;
+        }
     }
     
     if(inShop){
@@ -402,6 +410,7 @@ void Level::drawButtons(RenderWindow* window, Vector2f mousePos, int mouseInputs
         for(int i = 0; i < shopButtons.size(); i++){
             if(shopButtons.at(i).wasClicked(mousePos) && mouseInputs[0]){
                 buyFromShop(i);
+                mouseInputs[0] = 0;
             }
         }
     }
