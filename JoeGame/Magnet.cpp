@@ -69,3 +69,16 @@ void Magnet::update(vector<Loot> &lootCol){
     if(hp <= 0)
         Destroy();
 }
+
+bool Magnet::canBePlaced(Magnet magnet, vector<Object> &objectCol){
+    for(int i = 0; i < objectCol.size(); i++){
+        if(magnet.getSprite()->getGlobalBounds().intersects(objectCol.at(i).getSprite()->getGlobalBounds()))
+            return false;
+    }
+    
+    return true;
+}
+
+double Magnet::getPullingForce(){
+    return pullingForce;
+}

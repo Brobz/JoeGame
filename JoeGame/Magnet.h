@@ -25,6 +25,8 @@ public:
     void excertForce(Object* other);
     void update(vector<Loot> &lootCol);
     void update(vector<Object> &objectCol, vector<Bullet>  &bulletCol, Player* playerCol, vector<Enemy> &enemyCol);
+    static bool canBePlaced(Magnet magnet, vector<Object> &objectCol);
+    double getPullingForce();
 };
 
 #endif /* Magnet_h */
