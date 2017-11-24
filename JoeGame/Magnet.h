@@ -30,6 +30,7 @@ public:
     double getPullingForce();
     int getTier();
     void setTier(int _tier);
+    void draw(RenderWindow* window);
 };
 
 #endif /* Magnet_h */

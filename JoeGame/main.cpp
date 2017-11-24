@@ -31,11 +31,11 @@ int main(int, char const**)
     
     
     // Load a sprite to display
-   sf::Texture bgTexture, playerTexture, enemyTexture, wallTexture, floorTexture, shopTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture, enemyArmTexture, attractorGemTexture, attractorResourceTexture, repellerGemTexture, repellerResourceTexture, crossTexture, attractorGreyedOutTexture, repellerGreyedOutTexture, plusTexture, plusGreyedOutTexture, aboutButtonTexture, aboutButtonHoverTexture, playButtonTexture, playButtonHoverTexture, shopAttractorTexture, shopBGTexture, shopGunTexture, shopHeartTexture, shopRepellerTexture, shopAttractorHoverTexture, shopGunHoverTexture, shopHeartHoverTexture, shopRepellerHoverTexture;
+   sf::Texture bgTexture, playerTexture, enemyTexture, wallTexture, floorTexture, shopTexture, portalTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture, enemyArmTexture, attractorGemTexture, attractorResourceTexture, repellerGemTexture, repellerResourceTexture, crossTexture, attractorGreyedOutTexture, repellerGreyedOutTexture, plusTexture, plusGreyedOutTexture, aboutButtonTexture, aboutButtonHoverTexture, playButtonTexture, playButtonHoverTexture, shopAttractorTexture, shopBGTexture, shopGunTexture, shopHeartTexture, shopRepellerTexture, shopAttractorHoverTexture, shopGunHoverTexture, shopHeartHoverTexture, shopRepellerHoverTexture;
     
-    vector<Texture*> allTextures = {&bgTexture, &playerTexture, &enemyTexture, &wallTexture, &floorTexture, &shopTexture, &attractorTexture, &repellerTexture, &gunTexture, &bulletTexture, &guiTexture, &buttonTexture, &goldTexture, &enemyArmTexture, &attractorGemTexture, &attractorResourceTexture, &repellerGemTexture, &repellerResourceTexture, &crossTexture, &attractorGreyedOutTexture, &repellerGreyedOutTexture, &plusTexture, &plusGreyedOutTexture, &aboutButtonTexture, &aboutButtonHoverTexture, &playButtonTexture, &playButtonHoverTexture, &shopAttractorTexture, &shopBGTexture, &shopGunTexture, &shopHeartTexture, &shopRepellerTexture, &shopAttractorHoverTexture, &shopGunHoverTexture, &shopHeartHoverTexture, &shopRepellerHoverTexture};
+    vector<Texture*> allTextures = {&bgTexture, &playerTexture, &enemyTexture, &wallTexture, &floorTexture, &shopTexture, &portalTexture, &attractorTexture, &repellerTexture, &gunTexture, &bulletTexture, &guiTexture, &buttonTexture, &goldTexture, &enemyArmTexture, &attractorGemTexture, &attractorResourceTexture, &repellerGemTexture, &repellerResourceTexture, &crossTexture, &attractorGreyedOutTexture, &repellerGreyedOutTexture, &plusTexture, &plusGreyedOutTexture, &aboutButtonTexture, &aboutButtonHoverTexture, &playButtonTexture, &playButtonHoverTexture, &shopAttractorTexture, &shopBGTexture, &shopGunTexture, &shopHeartTexture, &shopRepellerTexture, &shopAttractorHoverTexture, &shopGunHoverTexture, &shopHeartHoverTexture, &shopRepellerHoverTexture};
     
-    vector<string> textureID = {"background.png", "joeFinal.png", "enemy.png", "wall.png", "ground.png", "shop.png", "attractor.png", "repeller.png", "arm.png", "bullet.png", "gui.png", "2.png", "gold.png", "enemyArm.png", "attractorGem.png", "attractorResource.png", "repellerGem.png", "repellerResource.png", "cross.png", "attractorGreyedOut.png", "repellerGreyedOut.png", "plus.png", "plusGreyedOut.png", "aboutButton.png", "aboutButtonHover.png", "playButton.png", "playButtonHover.png", "shopAttractor.png", "shopBG.png", "shopGun.png", "shopHeart.png", "shopRepeller.png", "shopAttractorHover.png", "shopGunHover.png", "shopHeartHover.png", "shopRepellerHover.png"};
+    vector<string> textureID = {"background.png", "joeFinal.png", "enemy.png", "wall.png", "ground.png", "shop.png", "portal.png", "attractor.png", "repeller.png", "arm.png", "bullet.png", "gui.png", "2.png", "gold.png", "enemyArm.png", "attractorGem.png", "attractorResource.png", "repellerGem.png", "repellerResource.png", "cross.png", "attractorGreyedOut.png", "repellerGreyedOut.png", "plus.png", "plusGreyedOut.png", "aboutButton.png", "aboutButtonHover.png", "playButton.png", "playButtonHover.png", "shopAttractor.png", "shopBG.png", "shopGun.png", "shopHeart.png", "shopRepeller.png", "shopAttractorHover.png", "shopGunHover.png", "shopHeartHover.png", "shopRepellerHover.png"};
     
     
     for (int i = 0; i < allTextures.size(); i++){
@@ -49,6 +49,7 @@ int main(int, char const**)
     Player* player;
     vector<Object> allObjects;
     vector<Object> allShops;
+    vector<Magnet> allPortals;
     vector<Enemy> allEnemies;
     vector<Bullet> allBullets;
     vector<Magnet> allMagnets;
@@ -82,6 +83,11 @@ int main(int, char const**)
     
     player->setSprite(*new Sprite(playerTexture,IntRect(0,0,16,16)));
     
+    allPortals.push_back(Magnet(1, type_NG_NM, Vector2f(48, 48), Vector2f(50, 50), &portalTexture, 10000000, 10, 5, 10));
+    
+    allPortals.push_back(Magnet(1, type_NG_NM, Vector2f(48, 48), Vector2f(200, 50), &portalTexture, 10000000, -10, 5, 10));
+    
+    
     
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(32, 250), Vector2f(0, 0), &wallTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(32, 250), Vector2f(0, 900), &wallTexture));
@@ -100,6 +106,18 @@ int main(int, char const**)
     
     allButtons.push_back(playButton);
     allButtons.push_back(aboutButton);
+    
+    allShopButtons.push_back(GUI_Button(Vector2f(32,32), Vector2f(100,100), &shopBGTexture, &shopBGTexture, -1));
+    
+    allShopButtons.push_back(GUI_Button(Vector2f(24,24), Vector2f(135,175), &shopAttractorTexture, &shopAttractorHoverTexture, -1));
+    
+    allShopButtons.push_back(GUI_Button(Vector2f(24,24), Vector2f(305,175), &shopRepellerTexture, &shopRepellerHoverTexture, -1));
+    
+     allShopButtons.push_back(GUI_Button(Vector2f(24,24), Vector2f(465,175), &shopGunTexture, &shopGunHoverTexture, -1));
+    
+    allShopButtons.push_back(GUI_Button(Vector2f(24,24), Vector2f(625,175), &shopHeartTexture, &shopHeartHoverTexture, -1));
+    
+   
     
     
     //GUI
@@ -196,7 +214,7 @@ int main(int, char const**)
     
     allButtons.clear();
     
-    Level level_zero = Level(player, allObjects, allShops, allEnemies, allBullets, allMagnets, allSpawners, allResources, allLoots, allButtons, allShopButtons);
+    Level level_zero = Level(player, allObjects, allShops, allPortals, allEnemies, allBullets, allMagnets, allSpawners, allResources, allLoots, allButtons, allShopButtons);
     
     
     

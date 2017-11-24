@@ -37,7 +37,6 @@ void Magnet::excertForce(Object *other){
     float theta = Object::getAtan(Vector2f(distanceX, distanceY));
     Vector2f force = Vector2f(scalarForce * sin(theta), -scalarForce * cos(theta));
     
-    
     other->addForce(force, 1);
     
 }
@@ -89,4 +88,33 @@ int Magnet::getTier(){
 void Magnet::setTier(int _tier){
     tier = _tier;
     hp = maxHp * tier;
+}
+
+void Magnet::draw(RenderWindow* window){
+    if(pullingForce < 0){
+        currentAnimFrame++;
+        if(currentAnimFrame >= 60 / animationSpeed){
+            spriteOffset++;
+            currentAnimFrame = 0;
+            if(spriteOffset >= spriteSheetSize)
+                spriteOffset = 0;
+        }
+
+        sprite.setTextureRect(IntRect(16 * spriteOffset, 0, 16, 16));
+        
+    }
+    
+    else if(pullingForce > 0){
+        currentAnimFrame++;
+        if(currentAnimFrame >= 60 / animationSpeed){
+            spriteOffset++;
+            currentAnimFrame = 0;
+            if(spriteOffset >= spriteSheetSize)
+                spriteOffset = 0;
+        }
+
+        sprite.setTextureRect(IntRect(16 * spriteOffset, 16, 16, 16));
+    }
+    
+    Object::draw(window);
 }
