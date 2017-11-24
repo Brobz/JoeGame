@@ -24,6 +24,7 @@
 
 class Level{
 protected:
+    static const int MAGNET_GEM_COST = 10, MAGNET_GOLD_COST = 15;
     vector<Object> objects;
     vector<Enemy> enemies;
     vector<Bullet> bullets;
@@ -31,7 +32,7 @@ protected:
     vector<Spawner> spawners;
     vector<Resource> resources;
     vector<Loot> loots;
-    Texture goldTexture, enemyTexture, enemyArmTexture, enemyBulletTexture, attractorTexture, repellerTexture, crossTexture, plusTexture, attractorGreyedOut, repellerGreyedOut, attractorGemTexture, repellerGemTexture;
+    Texture goldTexture, enemyTexture, enemyArmTexture, enemyBulletTexture, attractorTexture, repellerTexture, crossTexture, plusTexture, plusGreyedOutTexture, attractorGreyedOut, repellerGreyedOut, attractorGemTexture, repellerGemTexture;
     vector<int> type = {1, 1, 1, 1};
     vector<int> type_NG = {0, 1, 1, 1};
     vector<int> type_NM = {1, 0, 1, 1};
@@ -40,7 +41,7 @@ public:
     Player* player;
     Level();
     Level(Player* _player, vector<Object> _objects, vector<Enemy> _enemies, vector<Bullet> _bullets, vector<Magnet> _magnets, vector<Spawner> _spawners, vector<Resource> _resources, vector<Loot> _loots);
-    void setTextures(Texture* _goldTexture, Texture* _enemyTexture, Texture* _enemyArmTexture, Texture* _enemyBulletTexture, Texture* _attractorTexture, Texture* _repellerTexture, Texture*  _crossTexture, Texture* _plusTexture, Texture* _attractorGreyedOut, Texture* _repellerGreyedOut, Texture* _attractorGemTexture, Texture* _repellerGemTexture);
+    void setTextures(Texture* _goldTexture, Texture* _enemyTexture, Texture* _enemyArmTexture, Texture* _enemyBulletTexture, Texture* _attractorTexture, Texture* _repellerTexture, Texture*  _crossTexture, Texture* _plusTexture, Texture* _plusGreyedOutTexture,  Texture* _attractorGreyedOut, Texture* _repellerGreyedOut, Texture* _attractorGemTexture, Texture* _repellerGemTexture);
     void draw(RenderWindow* window);
     void update(int mouseInputs[], int keyInputs[], Vector2f mousePos);
 };

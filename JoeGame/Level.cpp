@@ -47,19 +47,20 @@ void Level::draw(RenderWindow* window){
         player->draw(window);
         if(player->getFiringMode() == 1){
             Sprite alphaAttractor(attractorTexture);
+            Sprite overlay(plusTexture);
             Vector2f mousePos = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
             alphaAttractor.setPosition(Vector2f(mousePos.x - 16, mousePos.y - 16));
             alphaAttractor.setScale(2, 2);
             alphaAttractor.setColor(Color::Color(255, 255, 255, 80));
-            if(player->getAttractorGems() < 10 || player->getGold() < 10){
+            if(player->getAttractorGems() < Level::MAGNET_GEM_COST || player->getGold() < Level::MAGNET_GOLD_COST){
                 alphaAttractor.setTexture(attractorGreyedOut);
+                overlay.setTexture(plusGreyedOutTexture);
             }
             
             window->draw(alphaAttractor);
             Magnet newMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(mousePos.x - 16, mousePos.y - 16), &attractorTexture, 50, -800, 0, 60);
             vector<Object> colliders;
             colliders.insert(colliders.begin(), magnets.begin(), magnets.end());
-            Sprite overlay(plusTexture);
             overlay.setPosition(Vector2f(mousePos.x - 16, mousePos.y - 16));
             overlay.setScale(2, 2);
             overlay.setColor(Color::Color(255, 255, 255, 80));
@@ -79,18 +80,19 @@ void Level::draw(RenderWindow* window){
             
         }else if(player->getFiringMode() == 2){
             Sprite alphaRepeller(repellerTexture);
+            Sprite overlay(plusTexture);
             Vector2f mousePos = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
             alphaRepeller.setPosition(Vector2f(mousePos.x - 16, mousePos.y - 16));
             alphaRepeller.setScale(2, 2);
             alphaRepeller.setColor(Color::Color(255, 255, 255, 80));
-            if(player->getRepellerGems() <= 10 || player->getGold() <= 10){
+            if(player->getAttractorGems() < Level::MAGNET_GEM_COST || player->getGold() < Level::MAGNET_GOLD_COST){
                 alphaRepeller.setTexture(repellerGreyedOut);
+                overlay.setTexture(plusGreyedOutTexture);
             }
             window->draw(alphaRepeller);
             Magnet newMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(mousePos.x - 16, mousePos.y - 16), &attractorTexture, 50, -800, 0, 60);
             vector<Object> colliders;
             colliders.insert(colliders.begin(), magnets.begin(), magnets.end());
-            Sprite overlay(plusTexture);
             overlay.setPosition(Vector2f(mousePos.x - 16, mousePos.y - 16));
             overlay.setScale(2, 2);
             overlay.setColor(Color::Color(255, 255, 255, 80));
@@ -130,7 +132,7 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos){
         if(!player->getFiringMode())
             player->fireWeapon(bullets);
         else if(player->getFiringMode() == 1){
-            if(player->getAttractorGems() >= 10 && player->getGold() >= 10){
+            if(player->getAttractorGems() >= MAGNET_GEM_COST && player->getGold() >= MAGNET_GOLD_COST){
                 Magnet newMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(mousePos.x - 16, mousePos.y - 16), &attractorTexture, 50, -800, 0, 60);
                 vector<Object> colliders;
                 for(int i = 0; i < magnets.size(); i++){
@@ -139,8 +141,8 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos){
                     if(!Magnet::canBePlaced(newMagnet, colliders)){
                         magnets.at(i).setTier(magnets.at(i).getTier() + 1);
                         mouseInputs[0] = 0;
-                        player->getLoot(0, -5);
-                        player->getLoot(1, -10);
+                        player->getLoot(0, -MAGNET_GOLD_COST);
+                        player->getLoot(1, -MAGNET_GEM_COST);
                         break;
                     }
                 }
@@ -154,12 +156,12 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos){
                     magnets.push_back(newMagnet);
             
                     mouseInputs[0] = 0;
-                    player->getLoot(0, -5);
+                    player->getLoot(0, -10);
                     player->getLoot(1, -10);
                 }
             }
         }else if(player->getFiringMode() == 2){
-            if(player->getRepellerGems() >= 10 && player->getGold() >= 10){
+            if(player->getAttractorGems() >= MAGNET_GEM_COST && player->getGold() >= MAGNET_GOLD_COST){
                 Magnet newMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(mousePos.x - 16, mousePos.y - 16), &repellerTexture, 50, 800, 0, 60);
                 vector<Object> colliders;
                 for(int i = 0; i < magnets.size(); i++){
@@ -168,8 +170,8 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos){
                     if(!Magnet::canBePlaced(newMagnet, colliders)){
                         magnets.at(i).setTier(magnets.at(i).getTier() + 1);
                         mouseInputs[0] = 0;
-                        player->getLoot(0, -5);
-                        player->getLoot(2, -10);
+                        player->getLoot(0, -MAGNET_GOLD_COST);
+                        player->getLoot(2, -MAGNET_GEM_COST);
                         break;
                     }
                 }
@@ -216,13 +218,13 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos){
     // Update Magnet physics
     for(int i = 0; i < magnets.size(); i++){
         if (magnets.at(i).isItDestroyed()){
-            for(int j = 0; j < 10; j++){
+            for(int j = 0; j < MAGNET_GEM_COST; j++){
                 if(magnets.at(i).getPullingForce() < 0)
-                    loots.push_back(Loot(0.05, type, Vector2f(20, 20), magnets.at(i).getPosition(), &attractorGemTexture, 1, 1));
+                    loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &attractorGemTexture, 1, 1));
                 else
-                    loots.push_back(Loot(0.05, type, Vector2f(20, 20), magnets.at(i).getPosition(), &repellerGemTexture, 1, 1));
+                    loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &repellerGemTexture, 1, 1));
             }
-            for(int j = 0; j < 5; j++)
+            for(int j = 0; j < MAGNET_GOLD_COST / 3; j++)
                 loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &goldTexture, 0, 1));
             magnets.erase(magnets.begin() + i);
             continue;
@@ -297,7 +299,7 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos){
 }
 
 
-void Level::setTextures(Texture* _goldTexture, Texture* _enemyTexture, Texture* _enemyArmTexture, Texture* _enemyBulletTexture, Texture* _attractorTexture, Texture* _repellerTexture, Texture*  _crossTexture, Texture* _plusTexture, Texture* _attractorGreyedOut, Texture* _repellerGreyedOut, Texture* _attractorGemTexture, Texture* _repellerGemTexture){
+void Level::setTextures(Texture* _goldTexture, Texture* _enemyTexture, Texture* _enemyArmTexture, Texture* _enemyBulletTexture, Texture* _attractorTexture, Texture* _repellerTexture, Texture*  _crossTexture, Texture* _plusTexture, Texture* _plusGreyedOutTexture, Texture* _attractorGreyedOut, Texture* _repellerGreyedOut, Texture* _attractorGemTexture, Texture* _repellerGemTexture){
     goldTexture = *_goldTexture;
     enemyTexture = *_enemyTexture;
     enemyArmTexture = *_enemyArmTexture;
@@ -306,6 +308,7 @@ void Level::setTextures(Texture* _goldTexture, Texture* _enemyTexture, Texture* 
     repellerTexture = *_repellerTexture;
     crossTexture = *_crossTexture;
     plusTexture = *_plusTexture;
+    plusGreyedOutTexture = *_plusGreyedOutTexture;
     attractorGreyedOut = *_attractorGreyedOut;
     repellerGreyedOut = *_repellerGreyedOut;
     attractorGemTexture = *_attractorGemTexture;
