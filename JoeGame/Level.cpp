@@ -238,13 +238,13 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos){
     // Update Magnet physics
     for(int i = 0; i < magnets.size(); i++){
         if (magnets.at(i).isItDestroyed()){
-            for(int j = 0; j < MAGNET_GEM_COST; j++){
+            for(int j = 0; j < MAGNET_GEM_COST * magnets.at(i).getTier(); j++){
                 if(magnets.at(i).getPullingForce() < 0)
                     loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &attractorGemTexture, 1, 1));
                 else
                     loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &repellerGemTexture, 1, 1));
             }
-            for(int j = 0; j < MAGNET_GOLD_COST / 3; j++)
+            for(int j = 0; j < MAGNET_GOLD_COST / 3.0 * magnets.at(i).getTier(); j++)
                 loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &goldTexture, 0, 1));
             magnets.erase(magnets.begin() + i);
             continue;
