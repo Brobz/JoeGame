@@ -48,7 +48,10 @@ int Weapon::fire(vector<Bullet> &bullets, int nmBullets){
     newBullet.addForce(force);
     bullets.push_back(newBullet);
     canFire = false;
-    return nmBullets - 1;
+    if (nmBullets > 0)
+        return nmBullets - 1;
+    else
+        return nmBullets;
 }
 
 void Weapon::update(){

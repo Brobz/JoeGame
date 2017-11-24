@@ -71,7 +71,7 @@ int main(int, char const**)
     
     Magnet lootMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(), &attractorTexture, 50, -30, 0, 60);
     
-    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(300, 300), &wallTexture, 225));
+    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(600, 80), &wallTexture, 100));
     
     allResources.push_back(Resource(3, type_NM, Vector2f(100, 50), Vector2f(200, 80), &repellerResourceTexture, 600, 0, 60, type, &repellerGemTexture, 2));
     
@@ -120,15 +120,15 @@ int main(int, char const**)
     
     
     //GUI
-    sf::RectangleShape lifeBar, lifeBarBG, goldBar, attractorBar, repellerBar;
-    sf::Sprite goldIcon, attractorIcon, repellerIcon;
+    sf::RectangleShape lifeBar, lifeBarBG, goldBar, attractorBar, repellerBar, attractorInv, repellerInv, ammoInv;
+    sf::Sprite goldIcon, attractorIcon, repellerIcon, attractorInvIcon, repellerInvIcon, ammoInvIcon;
     
     //LifeBar
-    lifeBar.setSize(sf::Vector2f(150, 20));
+    lifeBar.setSize(sf::Vector2f(250, 20));
     lifeBar.setPosition(sf::Vector2f(20, 20));
     lifeBar.setFillColor(Color(97, 216, 54));
     
-    lifeBarBG.setSize(sf::Vector2f(150, 20));
+    lifeBarBG.setSize(sf::Vector2f(250, 20));
     lifeBarBG.setPosition(sf::Vector2f(20, 20));
     lifeBarBG.setFillColor(Color(238, 17,0));
     lifeBarBG.setOutlineThickness(3);
@@ -169,6 +169,43 @@ int main(int, char const**)
     repellerIcon.setPosition(window.getSize().x-16-goldBar.getSize().x, 90);
     
     GUI_Text repellerLabel = GUI_Text(Vector2f(window.getSize().x-goldBar.getSize().x + 4,86), std::to_string(player->getRepellerGems()), 18, &font, Color::Black);
+    
+    //Attractor inventory
+    attractorInv.setSize(sf::Vector2f(50, 20));
+    attractorInv.setPosition(sf::Vector2f(20, 54));
+    attractorInv.setFillColor(Color(30,146,255));
+    attractorInv.setOutlineThickness(3);
+    attractorInv.setOutlineColor(Color(0,0,0));
+    
+    attractorInvIcon.setTexture(attractorTexture);
+    attractorInvIcon.setPosition(22, 56);
+    
+    GUI_Text attractorInvLabel = GUI_Text(Vector2f(44,52), std::to_string(player->getAttractors()), 18, &font, Color::Black);
+    
+    //Repeller inventory
+    repellerInv.setSize(sf::Vector2f(50, 20));
+    repellerInv.setPosition(sf::Vector2f(90, 54));
+    repellerInv.setFillColor(Color(255,0,0));
+    repellerInv.setOutlineThickness(3);
+    repellerInv.setOutlineColor(Color(0,0,0));
+    
+    repellerInvIcon.setTexture(repellerTexture);
+    repellerInvIcon.setPosition(92, 56);
+    
+    GUI_Text repellerInvLabel = GUI_Text(Vector2f(114,52), std::to_string(player->getRepellers()), 18, &font, Color::Black);
+    
+    //Anti-mag inventory
+    ammoInv.setSize(sf::Vector2f(50, 20));
+    ammoInv.setPosition(sf::Vector2f(160, 54));
+    ammoInv.setFillColor(Color(96,222,176));
+    ammoInv.setOutlineThickness(3);
+    ammoInv.setOutlineColor(Color(0,0,0));
+    
+    ammoInvIcon.setTexture(bulletTexture);
+    ammoInvIcon.setPosition(162, 56);
+    
+    GUI_Text ammoInvLabel = GUI_Text(Vector2f(184,52), std::to_string(player->getNMBullets()), 18, &font, Color::Black);
+    
     
     sf::Clock clock;
     
@@ -257,11 +294,14 @@ int main(int, char const**)
         GAME.update(MOUSE_INPUTS, KEY_INPUTS, MOUSE_POS);
         
         //Update HP and GUI
-        if(GAME.getCurrentLevel() > 1){
-            lifeBar.setSize(sf::Vector2f((float)player->getHP()/player->getMaxHP()*150, 20));
+        if(GAME.getCurrentLevel() > 0){
+            lifeBar.setSize(sf::Vector2f((float)player->getHP()/player->getMaxHP()*250, 20));
             goldLabel.setText(std::to_string(player->getGold()));
             attractorLabel.setText(std::to_string(player->getAttractorGems()));
             repellerLabel.setText(std::to_string(player->getRepellerGems()));
+            attractorInvLabel.setText(std::to_string(player->getAttractors()));
+            repellerInvLabel.setText(std::to_string(player->getRepellers()));
+            ammoInvLabel.setText(std::to_string(player->getNMBullets()));
         }
         
         window.clear(sf::Color::White);
@@ -278,7 +318,7 @@ int main(int, char const**)
          MOUSE_POS = window.mapPixelToCoords(sf::Mouse::getPosition(window));
         GAME.drawButtons(&window, MOUSE_POS, MOUSE_INPUTS);
         
-        if(GAME.getCurrentLevel() > 1){
+        if(GAME.getCurrentLevel() > 0){
             window.draw(lifeBarBG);
             window.draw(lifeBar);
             
@@ -291,9 +331,21 @@ int main(int, char const**)
             window.draw(repellerBar);
             window.draw(repellerIcon);
             
+            window.draw(attractorInv);
+            window.draw(attractorInvIcon);
+            
+            window.draw(repellerInv);
+            window.draw(repellerInvIcon);
+            
+            window.draw(ammoInv);
+            window.draw(ammoInvIcon);
+            
             goldLabel.draw(&window);
             attractorLabel.draw(&window);
             repellerLabel.draw(&window);
+            attractorInvLabel.draw(&window);
+            repellerInvLabel.draw(&window);
+            ammoInvLabel.draw(&window);
         }
         
         window.display();
