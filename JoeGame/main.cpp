@@ -91,7 +91,7 @@ int main(int, char const**)
     GUI_Object guiobj = GUI_Object(Vector2f(16,16), Vector2f(200,200), &guiTexture);
     
     Font font;
-    if (!font.loadFromFile(resourcePath() + "sansation.ttf")) {
+    if (!font.loadFromFile(resourcePath() + "munro.ttf")) {
         return EXIT_FAILURE;
     }
     GUI_Text guitext = GUI_Text(Vector2f(0,0), "hola", 30, &font, Color::Red);
