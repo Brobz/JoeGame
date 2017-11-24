@@ -54,6 +54,11 @@
 		DB219D7E1FC88B08006A12A9 /* aboutButtonHover.png in Resources */ = {isa = PBXBuildFile; fileRef = DB219D7A1FC88B08006A12A9 /* aboutButtonHover.png */; };
 		DB219D7F1FC88B08006A12A9 /* aboutButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DB219D7B1FC88B08006A12A9 /* aboutButton.png */; };
 		DB219D801FC88B08006A12A9 /* playButtonHover.png in Resources */ = {isa = PBXBuildFile; fileRef = DB219D7C1FC88B08006A12A9 /* playButtonHover.png */; };
+		DB219D861FC8A9FA006A12A9 /* shopAttractor.png in Resources */ = {isa = PBXBuildFile; fileRef = DB219D811FC8A9F9006A12A9 /* shopAttractor.png */; };
+		DB219D871FC8A9FA006A12A9 /* shopHeart.png in Resources */ = {isa = PBXBuildFile; fileRef = DB219D821FC8A9F9006A12A9 /* shopHeart.png */; };
+		DB219D881FC8A9FA006A12A9 /* shopGun.png in Resources */ = {isa = PBXBuildFile; fileRef = DB219D831FC8A9F9006A12A9 /* shopGun.png */; };
+		DB219D891FC8A9FA006A12A9 /* shopRepeller.png in Resources */ = {isa = PBXBuildFile; fileRef = DB219D841FC8A9F9006A12A9 /* shopRepeller.png */; };
+		DB219D8A1FC8A9FA006A12A9 /* shopBG.png in Resources */ = {isa = PBXBuildFile; fileRef = DB219D851FC8A9FA006A12A9 /* shopBG.png */; };
 		DB357B331FBB4F58003A9305 /* gold.png in Resources */ = {isa = PBXBuildFile; fileRef = DB357B321FBB4F57003A9305 /* gold.png */; };
 		DB6B98A31FB3C814000EA66A /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB6B98A21FB3C814000EA66A /* Player.cpp */; };
 		DB6B98A51FB3E943000EA66A /* gun.png in Resources */ = {isa = PBXBuildFile; fileRef = DB6B98A41FB3E943000EA66A /* gun.png */; };
@@ -126,6 +131,11 @@
 		DB219D7A1FC88B08006A12A9 /* aboutButtonHover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aboutButtonHover.png; sourceTree = "<group>"; };
 		DB219D7B1FC88B08006A12A9 /* aboutButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aboutButton.png; sourceTree = "<group>"; };
 		DB219D7C1FC88B08006A12A9 /* playButtonHover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playButtonHover.png; sourceTree = "<group>"; };
+		DB219D811FC8A9F9006A12A9 /* shopAttractor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopAttractor.png; sourceTree = "<group>"; };
+		DB219D821FC8A9F9006A12A9 /* shopHeart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopHeart.png; sourceTree = "<group>"; };
+		DB219D831FC8A9F9006A12A9 /* shopGun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopGun.png; sourceTree = "<group>"; };
+		DB219D841FC8A9F9006A12A9 /* shopRepeller.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopRepeller.png; sourceTree = "<group>"; };
+		DB219D851FC8A9FA006A12A9 /* shopBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopBG.png; sourceTree = "<group>"; };
 		DB357B321FBB4F57003A9305 /* gold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gold.png; sourceTree = "<group>"; };
 		DB6B98A11FB3C59F000EA66A /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		DB6B98A21FB3C814000EA66A /* Player.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
@@ -227,6 +237,11 @@
 				0A3DF4401FC39A2100A302A5 /* wall.png */,
 				DBCA62881FC48956003585B3 /* enemyArm.png */,
 				0A8909981FC7726900C34F3A /* attractorGem.png */,
+				DB219D811FC8A9F9006A12A9 /* shopAttractor.png */,
+				DB219D851FC8A9FA006A12A9 /* shopBG.png */,
+				DB219D831FC8A9F9006A12A9 /* shopGun.png */,
+				DB219D821FC8A9F9006A12A9 /* shopHeart.png */,
+				DB219D841FC8A9F9006A12A9 /* shopRepeller.png */,
 				0A89099A1FC7726A00C34F3A /* attractorResource.png */,
 				0A8909A61FC78F4100C34F3A /* attractorGreyedOut.png */,
 				0A8909A51FC78F4100C34F3A /* repellerGreyedOut.png */,
@@ -320,14 +335,19 @@
 				0A8909A81FC78F4100C34F3A /* attractorGreyedOut.png in Resources */,
 				DBCA62891FC48956003585B3 /* enemyArm.png in Resources */,
 				DB16FA6B1FB7AE620032DE8D /* attractor.png in Resources */,
+				DB219D871FC8A9FA006A12A9 /* shopHeart.png in Resources */,
 				DB219D7E1FC88B08006A12A9 /* aboutButtonHover.png in Resources */,
+				DB219D891FC8A9FA006A12A9 /* shopRepeller.png in Resources */,
 				DB219D7F1FC88B08006A12A9 /* aboutButton.png in Resources */,
 				0A370B3A1FC507FB00ACAD62 /* enemy.png in Resources */,
 				0A89099B1FC7726A00C34F3A /* repellerGem.png in Resources */,
+				DB219D8A1FC8A9FA006A12A9 /* shopBG.png in Resources */,
 				0A3DF4521FC3C46700A302A5 /* background.png in Resources */,
 				0A3DF4411FC39A2100A302A5 /* bullet.png in Resources */,
+				DB219D881FC8A9FA006A12A9 /* shopGun.png in Resources */,
 				0A5D0E011FB6172800E863A0 /* bullet.png in Resources */,
 				DB16FA6A1FB7AE620032DE8D /* repeller.png in Resources */,
+				DB219D861FC8A9FA006A12A9 /* shopAttractor.png in Resources */,
 				0A8909AC1FC7A5B900C34F3A /* plus.png in Resources */,
 				DB357B331FBB4F58003A9305 /* gold.png in Resources */,
 				DB219D801FC88B08006A12A9 /* playButtonHover.png in Resources */,
