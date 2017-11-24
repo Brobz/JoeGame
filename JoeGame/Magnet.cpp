@@ -78,3 +78,7 @@ bool Magnet::canBePlaced(Magnet magnet, vector<Object> &objectCol){
     
     return true;
 }
+
+double Magnet::getPullingForce(){
+    return pullingForce;
+}

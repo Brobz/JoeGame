@@ -31,11 +31,11 @@ int main(int, char const**)
     
     
     // Load a sprite to display
-   sf::Texture bgTexture, playerTexture, enemyTexture, wallTexture, floorTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture, enemyArmTexture, attractorGemTexture, attractorResourceTexture, repellerGemTexture, repellerResourceTexture, crossTexture;
+   sf::Texture bgTexture, playerTexture, enemyTexture, wallTexture, floorTexture, attractorTexture, repellerTexture, gunTexture, bulletTexture, guiTexture, buttonTexture, goldTexture, enemyArmTexture, attractorGemTexture, attractorResourceTexture, repellerGemTexture, repellerResourceTexture, crossTexture, attractorGreyedOutTexture, repellerGreyedOutTexture;
     
-    vector<Texture*> allTextures = {&bgTexture, &playerTexture, &enemyTexture, &wallTexture, &floorTexture, &attractorTexture, &repellerTexture, &gunTexture, &bulletTexture, &guiTexture, &buttonTexture, &goldTexture, &enemyArmTexture, &attractorGemTexture, &attractorResourceTexture, &repellerGemTexture, &repellerResourceTexture, &crossTexture};
+    vector<Texture*> allTextures = {&bgTexture, &playerTexture, &enemyTexture, &wallTexture, &floorTexture, &attractorTexture, &repellerTexture, &gunTexture, &bulletTexture, &guiTexture, &buttonTexture, &goldTexture, &enemyArmTexture, &attractorGemTexture, &attractorResourceTexture, &repellerGemTexture, &repellerResourceTexture, &crossTexture, &attractorGreyedOutTexture, &repellerGreyedOutTexture};
     
-    vector<string> textureID = {"background.png", "joeFinal.png", "enemy.png", "wall.png", "ground.png", "attractor.png", "repeller.png", "arm.png", "bullet.png", "gui.png", "2.png", "gold.png", "enemyArm.png", "attractorGem.png", "attractorResource.png", "repellerGem.png", "repellerResource.png", "cross.png"};
+    vector<string> textureID = {"background.png", "joeFinal.png", "enemy.png", "wall.png", "ground.png", "attractor.png", "repeller.png", "arm.png", "bullet.png", "gui.png", "2.png", "gold.png", "enemyArm.png", "attractorGem.png", "attractorResource.png", "repellerGem.png", "repellerResource.png", "cross.png", "attractorGreyedOut.png", "repellerGreyedOut.png"};
     
     
     for (int i = 0; i < allTextures.size(); i++){
@@ -124,7 +124,7 @@ int main(int, char const**)
     
     Level level_zero = Level(player, allObjects, allEnemies, allBullets, allMagnets, allSpawners, allResources, allLoots);
     
-    level_zero.setTextures(&goldTexture, &enemyTexture, &enemyArmTexture, &bulletTexture, &attractorTexture, &repellerTexture, &crossTexture);
+    level_zero.setTextures(&goldTexture, &enemyTexture, &enemyArmTexture, &bulletTexture, &attractorTexture, &repellerTexture, &crossTexture, &attractorGreyedOutTexture, &repellerGreyedOutTexture, &attractorGemTexture, &repellerGemTexture);
     
     Game GAME;
     GAME.addLevel(&level_zero);
