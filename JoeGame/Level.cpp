@@ -122,6 +122,14 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
         
     }
     
+    if(keyInputs[0] || keyInputs[6]){
+       if(player->isItGrounded())
+           player->addForce(Vector2f(0, -player->getJumpForce()));
+        
+        keyInputs[0] = 0;
+        keyInputs[6] = 0;
+    }
+    
     if(keyInputs[3]){
         //player->setFacingRight(true);
         player->setSelfVelocity(Vector2f(player->getMoveForce(), player->getSelfVelocity().y));

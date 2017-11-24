@@ -90,7 +90,6 @@ int main(int, char const**)
     
     
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(32, 250), Vector2f(0, 0), &wallTexture));
-    allObjects.push_back(Object(5, type_NG_NM, Vector2f(32, 250), Vector2f(0, 900), &wallTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(900, 32), Vector2f(0, 0), &wallTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(900, 32), Vector2f(0, 250), &wallTexture));
     
@@ -211,9 +210,11 @@ int main(int, char const**)
             if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
                 KEY_INPUTS[5] = 1;
             
-            if((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Space))
-                if(player->isItGrounded())
-                    player->addForce(Vector2f(0, -player->getJumpForce()));
+            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W)
+                KEY_INPUTS[0] = 1;
+            
+            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space)
+                KEY_INPUTS[6] = 1;
             
             if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::A)
                 KEY_INPUTS[1] = 0;
@@ -226,6 +227,14 @@ int main(int, char const**)
             
             if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
                 KEY_INPUTS[5] = 0;
+            
+            
+            if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::W)
+                KEY_INPUTS[0] = 0;
+            
+            
+            if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Space)
+                KEY_INPUTS[6] = 0;
             
             if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Left)
                 MOUSE_INPUTS[0] = 1;
