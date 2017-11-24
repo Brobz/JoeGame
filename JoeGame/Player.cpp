@@ -110,7 +110,11 @@ void Player::pointWeapon(RenderWindow* window){
     
     weapon.getSprite()->setRotation(angle + 90);
     
-};
+    if (angle > 180 && angle < 360)
+        weapon.getSprite()->setTextureRect(IntRect(0, 0, 16, 16));
+    else
+        weapon.getSprite()->setTextureRect(IntRect(0, 16, 16, 16));
+}
 
 float Player::getJumpForce(){
     return jumpForce;
