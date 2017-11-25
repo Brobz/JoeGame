@@ -91,7 +91,11 @@ void Magnet::setTier(int _tier){
 }
 
 void Magnet::draw(RenderWindow* window){
-    if(pullingForce < 0){
+    if(!spriteSheetSize){
+        sprite.setTextureRect(IntRect(0, 0, 16, 16));
+    }
+    
+    else if(pullingForce < 0){
         currentAnimFrame++;
         if(currentAnimFrame >= 60 / animationSpeed){
             spriteOffset++;

@@ -178,6 +178,7 @@ Vector2f Object::getPosition(){
 
 void Object::setPosition(Vector2f _position){
     position = _position;
+    sprite.setPosition(position);
 }
 
 bool Object::isItDestroyed(){

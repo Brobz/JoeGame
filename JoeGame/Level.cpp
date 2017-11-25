@@ -13,6 +13,8 @@ Level::Level(){};
 
 Level::Level(vector<GUI_Button> _buttons){
     buttons = _buttons;
+    inShop = true;
+    gamePaused = true;
 }
 
 Level::Level(Player* _player, vector<Object> _objects, vector<Object> _shops, vector<Magnet> _portals, vector<Enemy> _enemies, vector<Bullet> _bullets, vector<Magnet> _magnets, vector<Spawner> _spawners, vector<Resource> _resources, vector<Loot> _loots, vector<GUI_Button> _buttons, vector<GUI_Button> _shopButtons){
@@ -187,10 +189,35 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
         }
     }
     
+    // Update Magnet physics
+    for(int i = 0; i < magnets.size(); i++){
+        if (magnets.at(i).isItDestroyed()){
+            for(int j = 0; j < MAGNET_GEM_COST * magnets.at(i).getTier(); j++){
+                if(magnets.at(i).getPullingForce() < 0)
+                    loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &attractorGemTexture, 1, 1));
+                else
+                    loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &repellerGemTexture, 1, 1));
+            }
+            for(int j = 0; j < MAGNET_GOLD_COST / 3.0 * magnets.at(i).getTier(); j++)
+                loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &goldTexture, 0, 1));
+            magnets.erase(magnets.begin() + i);
+            continue;
+        }
+        magnets.at(i).update(objects, bullets, player, enemies);
+    }
     
     // Update Shop
     for(int i = 0; i < shops.size(); i++){
         shops.at(i).update(objects);
+    }
+    
+    // Update Loot Physics
+    for(int i = 0; i < loots.size(); i++){
+        if (loots.at(i).isItDestroyed()){
+            loots.erase(loots.begin() + i);
+            continue;
+        }
+        loots.at(i).update(objects, player);
     }
     
     // Update Bullet physicss
@@ -202,32 +229,6 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
         bullets.at(i).update(objects, player, enemies, magnets, resources, loots);
     }
     
-    // Update Player physics
-    if(!player->isItDestroyed())
-        player->update(objects, magnets, loots);
-    else{
-        player->recieveDamage(-player->getMaxHP());
-        player->setPosition(Vector2f(50, 160));
-        player->revive();
-        enemies.clear();
-        loots.clear();
-        magnets.clear();
-        bullets.clear();
-        for(int i = 0; i < resources.size(); i++){
-            resources.at(i).Entity::recieveDamage(-resources.at(i).getMaxHP());
-        }
-        level = 0;
-    }
-    
-    
-    // Update Loot Physics
-    for(int i = 0; i < loots.size(); i++){
-        if (loots.at(i).isItDestroyed()){
-            loots.erase(loots.begin() + i);
-            continue;
-        }
-        loots.at(i).update(objects, player);
-    }
     
     // Update Enemy physics
     for(int i = 0; i < enemies.size(); i++){
@@ -271,21 +272,21 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
         }
     }
     
-    // Update Magnet physics
-    for(int i = 0; i < magnets.size(); i++){
-        if (magnets.at(i).isItDestroyed()){
-            for(int j = 0; j < MAGNET_GEM_COST * magnets.at(i).getTier(); j++){
-                if(magnets.at(i).getPullingForce() < 0)
-                    loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &attractorGemTexture, 1, 1));
-                else
-                    loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &repellerGemTexture, 1, 1));
-            }
-            for(int j = 0; j < MAGNET_GOLD_COST / 3.0 * magnets.at(i).getTier(); j++)
-                loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &goldTexture, 0, 1));
-            magnets.erase(magnets.begin() + i);
-            continue;
+    // Update Player physics
+    if(!player->isItDestroyed())
+        player->update(objects, magnets, loots);
+    else{
+        player->recieveDamage(-player->getMaxHP());
+        player->setPosition(Vector2f(50, 160));
+        player->revive();
+        enemies.clear();
+        loots.clear();
+        magnets.clear();
+        bullets.clear();
+        for(int i = 0; i < resources.size(); i++){
+            resources.at(i).Entity::recieveDamage(-resources.at(i).getMaxHP());
         }
-        magnets.at(i).update(objects, bullets, player, enemies);
+        level = 0;
     }
 }
 
@@ -390,7 +391,7 @@ void Level::buyFromShop(int item){
     }
     else if(item == 2){
         if(player->getRepellerGems() >= MAGNET_GEM_COST && player->getGold() >= MAGNET_GOLD_COST){
-            player->setRepellers(player->getRepellerGems() + 1);
+            player->setRepellers(player->getRepellers() + 1);
             player->getLoot(0, -MAGNET_GOLD_COST);
             player->getLoot(2, -MAGNET_GEM_COST);
         }

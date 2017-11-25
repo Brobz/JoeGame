@@ -215,8 +215,6 @@ int main(int, char const**)
     Level level_zero = Level(player, allObjects, allShops, allPortals, allEnemies, allBullets, allMagnets, allSpawners, allResources, allLoots, allButtons, allShopButtons);
     
     
-    
-    
     Game GAME;
     GAME.addLevel(&main_menu);
     GAME.addLevel(&level_zero);
@@ -314,7 +312,7 @@ int main(int, char const**)
         // Reset view and draw GUI
         window.setView(window.getDefaultView());
         
-         MOUSE_POS = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+        MOUSE_POS = window.mapPixelToCoords(sf::Mouse::getPosition(window));
         GAME.drawButtons(&window, MOUSE_POS, MOUSE_INPUTS);
         GAME.drawShopText(&window);
         
