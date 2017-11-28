@@ -169,26 +169,6 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
         keyInputs[5] = 0;
     }
     
-    // Update portals
-    for(int i = 0; i < portals.size(); i++){
-        //portals.at(i).excertForce(player);
-        if(player->getSprite()->getGlobalBounds().intersects(portals.at(i).getSprite()->getGlobalBounds())){
-            if(portals.at(i).getPullingForce() < 0){
-                player->recieveDamage(-player->getMaxHP());
-                player->setPosition(Vector2f(50, 160));
-                player->revive();
-                enemies.clear();
-                loots.clear();
-                bullets.clear();
-                magnets.clear();
-                for(int i = 0; i < resources.size(); i++){
-                    resources.at(i).Entity::recieveDamage(-resources.at(i).getMaxHP());
-                }
-                level = 0;
-            }
-        }
-    }
-    
     // Update Magnet physics
     for(int i = 0; i < magnets.size(); i++){
         if (magnets.at(i).isItDestroyed()){
@@ -206,9 +186,30 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
         magnets.at(i).update(objects, bullets, player, enemies);
     }
     
-    // Update Shop
-    for(int i = 0; i < shops.size(); i++){
-        shops.at(i).update(objects);
+    // Update Bullet physicss
+    for(int i = 0; i < bullets.size(); i++){
+        if (bullets.at(i).isItDestroyed()){
+            bullets.erase(bullets.begin() + i);
+            continue;
+        }
+        bullets.at(i).update(objects, player, enemies, magnets, resources, loots);
+    }
+    
+    // Update Player physics
+    if(!player->isItDestroyed())
+        player->update(objects, magnets, loots);
+    else{
+        player->recieveDamage(-player->getMaxHP());
+        player->setPosition(Vector2f(50, 160));
+        player->revive();
+        enemies.clear();
+        loots.clear();
+        magnets.clear();
+        bullets.clear();
+        for(int i = 0; i < resources.size(); i++){
+            resources.at(i).Entity::recieveDamage(-resources.at(i).getMaxHP());
+        }
+        level = 0;
     }
     
     // Update Loot Physics
@@ -219,16 +220,6 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
         }
         loots.at(i).update(objects, player);
     }
-    
-    // Update Bullet physicss
-    for(int i = 0; i < bullets.size(); i++){
-        if (bullets.at(i).isItDestroyed()){
-            bullets.erase(bullets.begin() + i);
-            continue;
-        }
-        bullets.at(i).update(objects, player, enemies, magnets, resources, loots);
-    }
-    
     
     // Update Enemy physics
     for(int i = 0; i < enemies.size(); i++){
@@ -254,6 +245,7 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
         objects.at(i).update();
     }
     
+    
     // Update Resource Physics
     for(int i = 0; i < resources.size(); i++){
         if(resources.at(i).isItDestroyed()){
@@ -272,22 +264,32 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
         }
     }
     
-    // Update Player physics
-    if(!player->isItDestroyed())
-        player->update(objects, magnets, loots);
-    else{
-        player->recieveDamage(-player->getMaxHP());
-        player->setPosition(Vector2f(50, 160));
-        player->revive();
-        enemies.clear();
-        loots.clear();
-        magnets.clear();
-        bullets.clear();
-        for(int i = 0; i < resources.size(); i++){
-            resources.at(i).Entity::recieveDamage(-resources.at(i).getMaxHP());
+    // Update portals
+    for(int i = 0; i < portals.size(); i++){
+        //portals.at(i).excertForce(player);
+        if(player->getSprite()->getGlobalBounds().intersects(portals.at(i).getSprite()->getGlobalBounds())){
+            if(portals.at(i).getPullingForce() < 0){
+                player->recieveDamage(-player->getMaxHP());
+                player->setPosition(Vector2f(650, 475));
+                player->revive();
+                enemies.clear();
+                loots.clear();
+                bullets.clear();
+                magnets.clear();
+                for(int i = 0; i < resources.size(); i++){
+                    resources.at(i).Entity::recieveDamage(-resources.at(i).getMaxHP());
+                }
+                level = 0;
+            }
         }
-        level = 0;
     }
+
+    
+    // Update Shop
+    for(int i = 0; i < shops.size(); i++){
+        shops.at(i).update(objects);
+    }
+
 }
 
 void Level::updateMagnetFiringMode(int mode, Vector2f mousePos, int mouseInputs[]){
@@ -446,7 +448,7 @@ void Level::drawShopText(RenderWindow* window){
     for(int i = 0; i < shops.size(); i++){
         
         if(player->getSprite()->getGlobalBounds().intersects(shops.at(i).getSprite()->getGlobalBounds()) && !inShop){
-            GUI_Text enterShop = GUI_Text(Vector2f(shops.at(i).getPosition().x+300,shops.at(i).getPosition().y), "Press [E] to enter shop", 18, &font, Color::White);
+            GUI_Text enterShop = GUI_Text(Vector2f(shops.at(i).getPosition().x - 75,shops.at(i).getPosition().y - 75), "Press [E] to enter shop", 18, &font, Color::White);
             enterShop.draw(window);
         }
     }
