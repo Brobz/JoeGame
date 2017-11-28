@@ -200,7 +200,7 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
         player->update(objects, magnets, loots);
     else{
         player->recieveDamage(-player->getMaxHP());
-        player->setPosition(Vector2f(50, 160));
+        player->setPosition(Vector2f(650, 475));
         player->revive();
         enemies.clear();
         loots.clear();

@@ -12,7 +12,7 @@ int main(int, char const**)
     srand((int)time(NULL));
     
     // Create the main window
-    sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "SFML window", sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Joe Game", sf::Style::Close);
     // Create the main view
     sf::View view(Vector2f(WIDTH / 2.0, HEIGHT / 2.0), Vector2f(WIDTH * SCALE, HEIGHT * SCALE));
     
@@ -75,26 +75,27 @@ int main(int, char const**)
     
     player->setSprite(*new Sprite(playerTexture,IntRect(0,0,16,16)));
     
-    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(475, 300), &wallTexture, 225));
+    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(725, 225), &wallTexture, 250));
     
-    allResources.push_back(Resource(3, type_NM, Vector2f(100, 60), Vector2f(150, 500), &repellerResourceTexture, 600, 0, 60, type, &repellerGemTexture, 2));
+    allResources.push_back(Resource(3, type_NM, Vector2f(80, 45), Vector2f(150, 500), &repellerResourceTexture, 600, 0, 60, type, &repellerGemTexture, 2));
     
-    allResources.push_back(Resource(3, type_NM, Vector2f(100, 60), Vector2f(350, 500), &attractorResourceTexture, 600, 0, 60, type, &attractorGemTexture, 1));
+    allResources.push_back(Resource(3, type_NM, Vector2f(80, 45), Vector2f(350, 500), &attractorResourceTexture, 600, 0, 60, type, &attractorGemTexture, 1));
     
     allSpawners.at(0).activate();
     
     allPortals.push_back(Magnet(1, type_NG_NM, Vector2f(48, 48), Vector2f(650, 475), &portalTexture, 10000000, 10, 5, 10));
     
-    allPortals.push_back(Magnet(1, type_NG_NM, Vector2f(48, 48), Vector2f(200, 250), &portalTexture, 10000000, -10, 5, 10));
+    allPortals.push_back(Magnet(1, type_NG_NM, Vector2f(48, 48), Vector2f(150, 250), &portalTexture, 10000000, -10, 5, 10));
     
     
     
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(1000, 64), Vector2f(-100, 555), &floorTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(1000, 64), Vector2f(-100, 150), &wallTexture));
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(256, 64), Vector2f(100, 325), &wallTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(64, 800), Vector2f(800, 0), &wallTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(64, 800), Vector2f(50, 0), &wallTexture));
     
-    allShops.push_back(Object(5, type_NM, Vector2f(24, 16), Vector2f(275, 450), &shopTexture));
+    allShops.push_back(Object(5, type_NM, Vector2f(32, 24), Vector2f(275, 450), &shopTexture));
     
     Font font;
     if (!font.loadFromFile(resourcePath() + "munro.ttf")) {
