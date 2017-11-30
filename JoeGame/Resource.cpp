@@ -17,7 +17,9 @@ Resource::Resource(double _mass, vector<int> &_type, Vector2f _size, Vector2f _p
 
 void Resource::recieveDamage(int _damage, vector<Loot> &_loots){
     Entity::recieveDamage(_damage);
-    Loot newLoot = Loot(0.05, dropType, Vector2f(10, 10), Vector2f(position.x + size.x / 2.0, position.y), dropTexture, gemType, 1);
-    _loots.push_back(newLoot);
+    for(int i = 0; i < 2; i++){
+        Loot newLoot = Loot(0.05, dropType, Vector2f(10, 10), Vector2f(position.x + size.x / 2.0, position.y), dropTexture, gemType, 1);
+        _loots.push_back(newLoot);
+    }
     
 }
