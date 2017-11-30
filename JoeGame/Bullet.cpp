@@ -18,6 +18,8 @@ Bullet::Bullet(double _mass, vector<int> &_type, Vector2f _size, Vector2f _posit
     damage = _damage;
     isDestroyed = false;
     isPlayer = _isPlayer;
+    if(!isPlayer)
+        type.at(1) = 0;
 }
 
 void Bullet::update(vector<Object> &objectcol, Player* playercol, vector<Enemy> &enemycol, vector<Magnet> &magnetCol, vector<Resource> &resourceCol, vector<Loot> &_loots){

@@ -30,6 +30,8 @@ void Enemy::chasePlayer(Vector2f playerpos, Vector2f speed){
         return;
     Vector2f newVelocity = Vector2f(distance.x/mag * speed.x, distance.y/mag * speed.y);
     if(isGrounded){
+        if (abs(newVelocity.x) < 1 && distance.y > 100)
+            newVelocity.x = -speed.x;
         setSelfVelocity(newVelocity);
     }
     

@@ -71,31 +71,58 @@ int main(int, char const**)
     
     Magnet lootMagnet = Magnet(1, type_NG, Vector2f(32, 32), Vector2f(), &attractorTexture, 50, -30, 0, 60);
     
-    player = new Player(0.75, type, Vector2f(50, 50), Vector2f(650, 475), &playerTexture, 100, 10, 5, &playerWeapon, &lootMagnet, 9, 60);
+    player = new Player(0.75, type, Vector2f(50, 50), Vector2f(350, 475), &playerTexture, 100, 10, 5, &playerWeapon, &lootMagnet, 9, 60);
     
     player->setSprite(*new Sprite(playerTexture,IntRect(0,0,16,16)));
     
-    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(725, 225), &wallTexture, 250));
+    //player->setRepellers(100);
+    //player->setAttractors(100);
     
-    allResources.push_back(Resource(3, type_NM, Vector2f(80, 45), Vector2f(150, 500), &repellerResourceTexture, 600, 0, 60, type, &repellerGemTexture, 2));
+    //allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(725, 225), &wallTexture, 250));
+    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(950, 50), &wallTexture, 500));
+    allSpawners.push_back(Spawner(type_NG_NM, Vector2f(10, 10), Vector2f(350, 100), &wallTexture, 500));
     
-    allResources.push_back(Resource(3, type_NM, Vector2f(80, 45), Vector2f(350, 500), &attractorResourceTexture, 600, 0, 60, type, &attractorGemTexture, 1));
+    //allResources.push_back(Resource(3, type_NM, Vector2f(80, 45), Vector2f(150, 500), &repellerResourceTexture, 600, 0, 60, type, &repellerGemTexture, 2));
+    
+    //allResources.push_back(Resource(3, type_NM, Vector2f(80, 45), Vector2f(350, 500), &attractorResourceTexture, 600, 0, 60, type, &attractorGemTexture, 1));
     
     allSpawners.at(0).activate();
+    allSpawners.at(1).activate();
     
-    allPortals.push_back(Magnet(1, type_NG_NM, Vector2f(48, 48), Vector2f(650, 475), &portalTexture, 10000000, 10, 5, 10));
+    allPortals.push_back(Magnet(1, type_NG_NM, Vector2f(48, 48), Vector2f(350, 475), &portalTexture, 10000000, 10, 5, 10));
     
     allPortals.push_back(Magnet(1, type_NG_NM, Vector2f(48, 48), Vector2f(150, 250), &portalTexture, 10000000, -10, 5, 10));
     
-    
-    
-    allObjects.push_back(Object(5, type_NG_NM, Vector2f(1000, 64), Vector2f(-100, 555), &floorTexture));
+    /*
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(1000, 64), Vector2f(-100, 150), &wallTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(256, 64), Vector2f(100, 325), &wallTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(64, 800), Vector2f(800, 0), &wallTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(64, 800), Vector2f(50, 0), &wallTexture));
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(1550, 250), Vector2f(-350, 555), &floorTexture));
+     */
     
-    allShops.push_back(Object(5, type_NM, Vector2f(32, 24), Vector2f(275, 450), &shopTexture));
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(100, 300), Vector2f(150, 300), &wallTexture));
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(100, 20), Vector2f(600, 455), &wallTexture));
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(200, 20), Vector2f(725, 355), &wallTexture));
+    
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(20, 170), Vector2f(925, 205), &wallTexture));
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(200, 20), Vector2f(925, 205), &wallTexture));
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(20, 800), Vector2f(1125, 0), &wallTexture));
+    
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(250, 20), Vector2f(825, 355), &wallTexture));
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(1000, 20), Vector2f(130, 0), &wallTexture));
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(20, 800), Vector2f(130, 0), &wallTexture));
+    
+    allResources.push_back(Resource(3, type_NM, Vector2f(80, 45), Vector2f(825, 305), &repellerResourceTexture, 600, 0, 60, type, &repellerGemTexture, 2));
+    
+    allResources.push_back(Resource(3, type_NM, Vector2f(80, 45), Vector2f(950, 355), &attractorResourceTexture, 6000, 0, 60, type, &attractorGemTexture, 1));
+    
+    allObjects.push_back(Object(5, type_NG_NM, Vector2f(1950, 250), Vector2f(-350, 555), &floorTexture));
+
+
+    
+    //allShops.push_back(Object(5, type_NM, Vector2f(32, 24), Vector2f(275, 450), &shopTexture));
+    allShops.push_back(Object(5, type_NM, Vector2f(32, 24), Vector2f(500, 450), &shopTexture));
     
     Font font;
     if (!font.loadFromFile(resourcePath() + "munro.ttf")) {
@@ -229,6 +256,7 @@ int main(int, char const**)
         sf::Event event;
         while (window.pollEvent(event))
         {
+            
             // Close window: exit
             if (event.type == sf::Event::Closed)
                 window.close();
