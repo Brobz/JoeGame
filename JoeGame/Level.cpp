@@ -176,7 +176,7 @@ void Level::update(int mouseInputs[], int keyInputs[], Vector2f mousePos, int &l
                 if(magnets.at(i).getPullingForce() < 0)
                     loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &attractorGemTexture, 1, 1));
                 else
-                    loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &repellerGemTexture, 1, 1));
+                    loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &repellerGemTexture, 2, 1));
             }
             for(int j = 0; j < MAGNET_GOLD_COST / 3.0 * magnets.at(i).getTier(); j++)
                 loots.push_back(Loot(0.05, type, Vector2f(10, 10), magnets.at(i).getPosition(), &goldTexture, 0, 1));

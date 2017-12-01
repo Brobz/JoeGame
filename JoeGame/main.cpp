@@ -113,9 +113,9 @@ int main(int, char const**)
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(1000, 20), Vector2f(130, 0), &wallTexture));
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(20, 800), Vector2f(130, 0), &wallTexture));
     
-    allResources.push_back(Resource(3, type_NM, Vector2f(80, 45), Vector2f(825, 305), &repellerResourceTexture, 600, 0, 60, type, &repellerGemTexture, 2));
+    allResources.push_back(Resource(3, type_NM, Vector2f(80, 45), Vector2f(825, 305), &repellerResourceTexture, 80, 0, 60, type, &repellerGemTexture, 2));
     
-    allResources.push_back(Resource(3, type_NM, Vector2f(80, 45), Vector2f(950, 355), &attractorResourceTexture, 6000, 0, 60, type, &attractorGemTexture, 1));
+    allResources.push_back(Resource(3, type_NM, Vector2f(80, 45), Vector2f(950, 355), &attractorResourceTexture, 800, 0, 60, type, &attractorGemTexture, 1));
     
     allObjects.push_back(Object(5, type_NG_NM, Vector2f(1950, 250), Vector2f(-350, 555), &floorTexture));
 
